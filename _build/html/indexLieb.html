@@ -1,0 +1,215 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Tight-Binding Lieb Lattice &mdash; TB  documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic|Roboto+Slab:400,700|Inconsolata:400,700&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="TB  documentation" href="index.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+          <a href="indexTB.html" class="fa fa-home"> TB</a>
+        
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="latticeTB.html">latticeTB</a></li>
+<li class="toctree-l1"><a class="reference internal" href="eigTB.html">eigTB</a></li>
+<li class="toctree-l1"><a class="reference internal" href="plotTB.html">plotTB</a></li>
+<li class="toctree-l1"><a class="reference internal" href="propagationTB.html">propagationTB</a></li>
+<li class="toctree-l1"><a class="reference internal" href="indexChain.html">Tight-Binding Chain</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="chainTB.html">chainTB</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examplesChain1.html">PT-symmetry / PT-symmetry breaking</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examplesChain2.html">Zero modes</a></li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="indexTB.html">TB</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="indexTB.html">Docs</a> &raquo;</li>
+      
+    <li>Tight-Binding Lieb Lattice</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          <a href="_sources/indexLieb.txt" rel="nofollow"> View page source</a>
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="tight-binding-lieb-lattice">
+<h1>Tight-Binding Lieb Lattice<a class="headerlink" href="#tight-binding-lieb-lattice" title="Permalink to this headline">¶</a></h1>
+<p><strong>lieb_tb</strong> is a package providing a Python implementation of a face centered square lattice within the tight-binding framework. It can be used to build up and solve tight-binding models with complex valued onsite energies and/or hoppings. As such, this package can be used to analyze the concepts of Parity-Time symmetry, Parity-Time symmetry breaking, zero-modes, and topologically protection.</p>
+<div class="toctree-wrapper compound">
+</div>
+<div class="section" id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
+<p><strong>lieb_tb</strong> is available at <a class="reference external" href="https://github.com/cpoli/lieb_tb">https://github.com/cpoli/lieb_tb</a></p>
+<p>To use <strong>lieb_tb</strong>,  you need to install the programming language python and four additional packages:</p>
+<blockquote>
+<div><ul class="simple">
+<li>python 3.x</li>
+<li>numpy</li>
+<li>scipy</li>
+<li>matplotlib</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="quick-example">
+<h2>Quick example<a class="headerlink" href="#quick-example" title="Permalink to this headline">¶</a></h2>
+<p>This example shows how to define a finite Lieb lattice (face-centered square lattice) with 9 sites along the x and y directions. The alternating hoppings having a defect in the dimerization pattern along both directions. Below is the source code and  and some plots. Here you can find more <a class="reference external" href="examples.html">examples</a>.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">lieb_tb</span> <span class="kn">import</span> <span class="o">*</span> <span class="c"># import lieb_tb model class</span>
+<span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">zeros</span>
+
+<span class="n">lieb</span> <span class="o">=</span> <span class="n">lieb_tb</span><span class="p">(</span><span class="n">sites_x</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span> <span class="n">sites_y</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span> <span class="n">t_x</span><span class="o">=</span><span class="p">[</span><span class="mf">1.5</span><span class="p">,</span> <span class="mf">1.</span><span class="p">],</span> <span class="n">t_y</span><span class="o">=</span><span class="p">[</span><span class="mf">1.5</span><span class="p">,</span> <span class="mf">1.</span><span class="p">],</span>
+               <span class="n">e_a</span><span class="o">=</span><span class="mf">0.25j</span><span class="p">,</span> <span class="n">e_b</span><span class="o">=-</span><span class="mf">0.25j</span><span class="p">,</span> <span class="n">e_c</span><span class="o">=-</span><span class="mf">0.25j</span><span class="p">)</span>
+<span class="n">lieb</span><span class="o">.</span><span class="n">set_def_dim_x</span><span class="p">([</span><span class="mi">4</span><span class="p">])</span>
+<span class="n">lieb</span><span class="o">.</span><span class="n">set_def_dim_y</span><span class="p">([</span><span class="mi">4</span><span class="p">])</span>
+<span class="n">lieb</span><span class="o">.</span><span class="n">get_lattice_hop</span><span class="p">()</span>
+<span class="n">lieb</span><span class="o">.</span><span class="n">plt_lattice</span><span class="p">(</span><span class="n">save</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">lieb</span><span class="o">.</span><span class="n">get_eig</span><span class="p">()</span>
+<span class="n">lieb</span><span class="o">.</span><span class="n">plt_spec</span><span class="p">()</span>
+<span class="n">lieb</span><span class="o">.</span><span class="n">get_states_selec</span><span class="p">()</span>
+<span class="n">lieb</span><span class="o">.</span><span class="n">plt_states_selec</span><span class="p">(</span><span class="n">save</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">psi_init</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">(</span><span class="n">lieb</span><span class="o">.</span><span class="n">sites</span><span class="p">)</span>
+<span class="n">psi_init</span><span class="p">[</span><span class="mi">4</span><span class="o">//</span><span class="mi">2</span> <span class="o">*</span> <span class="n">lieb</span><span class="o">.</span><span class="n">sites_abc_x</span><span class="o">+</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.</span>
+<span class="n">lieb</span><span class="o">.</span><span class="n">get_propagation</span><span class="p">(</span><span class="n">psi_init</span><span class="p">,</span> <span class="n">dz</span><span class="o">=.</span><span class="mi">2</span><span class="p">,</span> <span class="n">steps</span><span class="o">=</span><span class="mi">500</span><span class="p">)</span>
+<span class="n">lieb</span><span class="o">.</span><span class="n">get_animation</span><span class="p">(</span><span class="n">save</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">lieb</span><span class="o">.</span><span class="n">plt_show</span><span class="p">()</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="figs/nx9ny9_ta(1,5+0j)_tb(1+0j)_tc(1,5+0j)_td(1+0j)_ea0,25j_eb(-0-0,25j)_ec(-0-0,25j)/lattice_hop_dimDefx_4_dimDefy_4.png"><img alt="figs/nx9ny9_ta(1,5+0j)_tb(1+0j)_tc(1,5+0j)_td(1+0j)_ea0,25j_eb(-0-0,25j)_ec(-0-0,25j)/lattice_hop_dimDefx_4_dimDefy_4.png" src="figs/nx9ny9_ta(1,5+0j)_tb(1+0j)_tc(1,5+0j)_td(1+0j)_ea0,25j_eb(-0-0,25j)_ec(-0-0,25j)/lattice_hop_dimDefx_4_dimDefy_4.png" style="width: 23%;" /></a>
+<a class="reference internal image-reference" href="figs/nx9ny9_ta(1,5+0j)_tb(1+0j)_tc(1,5+0j)_td(1+0j)_ea0,25j_eb(-0-0,25j)_ec(-0-0,25j)/spec_dimDefx_4_dimDefy_4.png"><img alt="figs/nx9ny9_ta(1,5+0j)_tb(1+0j)_tc(1,5+0j)_td(1+0j)_ea0,25j_eb(-0-0,25j)_ec(-0-0,25j)/spec_dimDefx_4_dimDefy_4.png" src="figs/nx9ny9_ta(1,5+0j)_tb(1+0j)_tc(1,5+0j)_td(1+0j)_ea0,25j_eb(-0-0,25j)_ec(-0-0,25j)/spec_dimDefx_4_dimDefy_4.png" style="width: 38%;" /></a>
+<a class="reference internal image-reference" href="figs/nx9ny9_ta(1,5+0j)_tb(1+0j)_tc(1,5+0j)_td(1+0j)_ea0,25j_eb(-0-0,25j)_ec(-0-0,25j)/states_dimDefx_4_dimDefy_4.png"><img alt="figs/nx9ny9_ta(1,5+0j)_tb(1+0j)_tc(1,5+0j)_td(1+0j)_ea0,25j_eb(-0-0,25j)_ec(-0-0,25j)/states_dimDefx_4_dimDefy_4.png" src="figs/nx9ny9_ta(1,5+0j)_tb(1+0j)_tc(1,5+0j)_td(1+0j)_ea0,25j_eb(-0-0,25j)_ec(-0-0,25j)/states_dimDefx_4_dimDefy_4.png" style="width: 38%;" /></a>
+<p>The following animation shows the time evolution of the probability density. Note that all the states of the system are absorbed except the localized state centered at the crossing of the dimerization defect lines.</p>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Charles Poli.
+    </p>
+  </div>
+
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+  
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

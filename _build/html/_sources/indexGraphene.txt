@@ -1,0 +1,59 @@
+
+Strained Graphene
+=================
+
+
+**graphene_flake** is a package providing a Python implementation of graphene flakes. It can be used to build up and solve tight-binding model, analyze the pseudo Landau levels (pLLs) creation, their wavefunction support, and vortex-induced defect states.
+
+.. toctree::
+    :hidden:
+
+    aboutGraphene
+    codeGraphene
+    examplesGraphene
+
+Installation
+------------
+
+**graphene_flake** is available at https://github.com/cpoli/graphene_flake
+
+To use **graphene_flake**,  you need to install the programming language python and three additional packages:
+
+* python 3.x
+* numpy
+* scipy
+* matplotlib
+
+
+
+Quick example
+-------------
+
+This example shows how to define a hexagonal strained graphene flake with zizzag-terminated edges, `examples <examples.html>`_.
+
+.. image:: figs/lattice_N144_0,0.png
+    :width:  45%
+    :align: center
+
+.. code-block:: python
+
+    from graphene_flake import * # import graphene_flake model class
+
+    flake = tri_to_hexa_zz(sites_base=10, sites_cut=0, t_1=1., t_2=1., t_3=1.)
+    flake.plt_lattice(s=150, save=True)
+    flake.get_eig_lin_strain(strain=0., eig_vec=True, vortex=False)
+    flake.plt_spec(no_bins=41, ener_lim=[-2., 2.], plt_pola=True, save=True)
+    flake.get_states_selec(e_min=-0.005, e_max=0.005)
+    flake.plt_states_selec(coef=50000, plt_bonds=True, plt_axis=False, save=True)
+    flake.plt_show()
+
+.. image:: figs/spec_N144_0,0.png
+    :width: 55%
+
+.. image:: figs/states_N144_0,0_-0,005_0,005.png
+    :width: 40%
+
+
+.. Note::
+
+    :math:`N` sites at the base of the triangle flake lead to :math:`N` zero-modes. The zero-modes are uniquely localized on the A sublattice (represented in blue). The existence of the zero-modes are due to :math:`N` extra A sites.

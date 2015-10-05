@@ -1,0 +1,436 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Examples &mdash; TB  documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic|Roboto+Slab:400,700|Inconsolata:400,700&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="TB  documentation" href="../index.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+          <a href="../indexTB.html" class="fa fa-home"> TB</a>
+        
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../latticeTB.html">latticeTB</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../eigTB.html">eigTB</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../plotTB.html">plotTB</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../propagationTB.html">propagationTB</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../indexChain.html">Tight-Binding Chain</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chainTB.html">chainTB</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examplesChain1.html">PT-symmetry / PT-symmetry breaking</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examplesChain2.html">Zero modes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../indexChain.html#motivations">Motivations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../indexChain.html#references">References</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../indexChain.html#feedback">Feedback</a></li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../indexTB.html">TB</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../indexTB.html">Docs</a> &raquo;</li>
+      
+    <li>Examples</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          <a href="../_sources/RST/examplesLieb.txt" rel="nofollow"> View page source</a>
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="examples">
+<h1>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+</div>
+<p>This section contents examples of the face-centered square tight-binding lattice. These examples illustrate the conditions under which a zero energy exists, the shape of the zero-mode, its robustness to disorder, and how to amplify it.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Throughout these examples, the A sublattice displays a positive imaginary onsite energy while the B and C sublattices have a negative imaginary onsite energy, such that <img class="math" src="../_images/math/97db9627c4d2f54a9f19a475e792d88eed660d35.png" alt="\bar{\epsilon}_a=-\bar{\epsilon}_b=-\bar{\epsilon}_c"/>. The zero-mode, if any, is actually the only state localized uniquely on the A sublattice. By choosing such onsite energies, the zero-mode will amplified while all the other states get absorbed.</p>
+</div>
+</div>
+<div class="section" id="identical-hoppings">
+<h1>Identical hoppings<a class="headerlink" href="#identical-hoppings" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="even-number-of-sites-along-and">
+<h2>Even number of sites along <img class="math" src="../_images/math/188c175aac0a8a9c22499336711b5d7256407254.png" alt="x"/> and <img class="math" src="../_images/math/b124ff74afb0914bb434e8fb849eb56d734412f8.png" alt="y"/><a class="headerlink" href="#even-number-of-sites-along-and" title="Permalink to this headline">¶</a></h2>
+<a class="reference internal image-reference" href="RST/figs/nx8ny8_ta(2+0j)_tb(2+0j)_tc(2+0j)_td(2+0j)_ea0,5j_eb(-0-0,5j)_ec(-0-0,5j)/latticeHop.png"><img alt="RST/figs/nx8ny8_ta(2+0j)_tb(2+0j)_tc(2+0j)_td(2+0j)_ea0,5j_eb(-0-0,5j)_ec(-0-0,5j)/latticeHop.png" class="align-center" src="RST/figs/nx8ny8_ta(2+0j)_tb(2+0j)_tc(2+0j)_td(2+0j)_ea0,5j_eb(-0-0,5j)_ec(-0-0,5j)/latticeHop.png" style="width: 35%;" /></a>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">lieb_tb</span> <span class="kn">import</span> <span class="o">*</span> <span class="c"># import lieb_tb model class</span>
+
+<span class="n">lieb</span> <span class="o">=</span> <span class="n">lieb_tb</span><span class="p">(</span><span class="n">sites_x</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">sites_y</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">t_x</span><span class="o">=</span><span class="p">[</span><span class="mf">2.</span><span class="p">,</span> <span class="mf">2.</span><span class="p">],</span> <span class="n">t_y</span><span class="o">=</span><span class="p">[</span><span class="mf">2.</span><span class="p">,</span> <span class="mf">2.</span><span class="p">],</span>
+               <span class="n">e_a</span><span class="o">=</span><span class="mf">0.5j</span><span class="p">,</span> <span class="n">e_b</span><span class="o">=-</span><span class="mf">0.5j</span><span class="p">,</span> <span class="n">e_c</span><span class="o">=-</span><span class="mf">0.5j</span><span class="p">)</span>
+<span class="n">lieb</span><span class="o">.</span><span class="n">get_lattice_hop</span><span class="p">()</span>
+<span class="n">lieb</span><span class="o">.</span><span class="n">plt_lattice</span><span class="p">(</span><span class="n">save</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">lieb</span><span class="o">.</span><span class="n">get_eig</span><span class="p">()</span>
+<span class="n">lieb</span><span class="o">.</span><span class="n">plt_spec</span><span class="p">(</span><span class="n">save</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">lieb</span><span class="o">.</span><span class="n">plt_spec_pola</span><span class="p">(</span><span class="n">save</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">lieb</span><span class="o">.</span><span class="n">plt_show</span><span class="p">()</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="RST/figs/nx8ny8_ta(2+0j)_tb(2+0j)_tc(2+0j)_td(2+0j)_ea0,5j_eb(-0-0,5j)_ec(-0-0,5j)/spec.png"><img alt="RST/figs/nx8ny8_ta(2+0j)_tb(2+0j)_tc(2+0j)_td(2+0j)_ea0,5j_eb(-0-0,5j)_ec(-0-0,5j)/spec.png" src="RST/figs/nx8ny8_ta(2+0j)_tb(2+0j)_tc(2+0j)_td(2+0j)_ea0,5j_eb(-0-0,5j)_ec(-0-0,5j)/spec.png" style="width: 45%;" /></a>
+<a class="reference internal image-reference" href="RST/figs/nx8ny8_ta(2+0j)_tb(2+0j)_tc(2+0j)_td(2+0j)_ea0,5j_eb(-0-0,5j)_ec(-0-0,5j)/spec_pola.png"><img alt="RST/figs/nx8ny8_ta(2+0j)_tb(2+0j)_tc(2+0j)_td(2+0j)_ea0,5j_eb(-0-0,5j)_ec(-0-0,5j)/spec_pola.png" src="RST/figs/nx8ny8_ta(2+0j)_tb(2+0j)_tc(2+0j)_td(2+0j)_ea0,5j_eb(-0-0,5j)_ec(-0-0,5j)/spec_pola.png" style="width: 45%;" /></a>
+<p>In the case of an even number of sites along x and y, no zero-mode is encountered. Note that the spectrum is composed of one flat band and two parabolic branches.The spectrum and the polarization on the A sublattice reveal that the flat band states are not localized on the A sublattice. One can actually show that the states are equally distributed on the B and C sublattice <img class="math" src="../_images/math/3e7ca6182f013bcf143643a2bd079a9491815afc.png" alt="\langle B | B \rangle = \langle C | C \rangle = 1/2"/>. The states belonging to the parabolic branches are distributed on three sublattice <img class="math" src="../_images/math/86e9ae32705bae7994001d4b5efc63a01bd46cf4.png" alt="\langle A | A \rangle = 2\langle B | B \rangle = 2\langle C | C \rangle = 1/2"/>.</p>
+</div>
+<div class="section" id="odd-number-of-sites-along-and">
+<h2>Odd number of sites along <img class="math" src="../_images/math/188c175aac0a8a9c22499336711b5d7256407254.png" alt="x"/> and <img class="math" src="../_images/math/b124ff74afb0914bb434e8fb849eb56d734412f8.png" alt="y"/><a class="headerlink" href="#odd-number-of-sites-along-and" title="Permalink to this headline">¶</a></h2>
+<a class="reference internal image-reference" href="RST/figs/nx9ny9_ta(2+0j)_tb(2+0j)_tc(2+0j)_td(2+0j)_ea0,5j_eb(-0-0,5j)_ec(-0-0,5j)/latticeHop.png"><img alt="RST/figs/nx9ny9_ta(2+0j)_tb(2+0j)_tc(2+0j)_td(2+0j)_ea0,5j_eb(-0-0,5j)_ec(-0-0,5j)/latticeHop.png" class="align-center" src="RST/figs/nx9ny9_ta(2+0j)_tb(2+0j)_tc(2+0j)_td(2+0j)_ea0,5j_eb(-0-0,5j)_ec(-0-0,5j)/latticeHop.png" style="width: 35%;" /></a>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">lieb_tb</span> <span class="kn">import</span> <span class="o">*</span> <span class="c"># import lieb_tb model class</span>
+
+<span class="n">lieb</span> <span class="o">=</span> <span class="n">lieb_tb</span><span class="p">(</span><span class="n">sites_x</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span> <span class="n">sites_y</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span> <span class="n">t_x</span><span class="o">=</span><span class="p">[</span><span class="mf">2.</span><span class="p">,</span> <span class="mf">2.</span><span class="p">],</span> <span class="n">t_y</span><span class="o">=</span><span class="p">[</span><span class="mf">2.</span><span class="p">,</span> <span class="mf">2.</span><span class="p">],</span>
+               <span class="n">e_a</span><span class="o">=</span><span class="mf">0.5j</span><span class="p">,</span> <span class="n">e_b</span><span class="o">=-</span><span class="mf">0.5j</span><span class="p">,</span> <span class="n">e_c</span><span class="o">=-</span><span class="mf">0.5j</span><span class="p">)</span>
+<span class="n">lieb</span><span class="o">.</span><span class="n">get_lattice_hop</span><span class="p">()</span>
+<span class="n">lieb</span><span class="o">.</span><span class="n">plt_lattice</span><span class="p">(</span><span class="n">save</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">lieb</span><span class="o">.</span><span class="n">get_eig</span><span class="p">()</span>
+<span class="n">lieb</span><span class="o">.</span><span class="n">plt_spec_pola</span><span class="p">(</span><span class="n">save</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">lieb</span><span class="o">.</span><span class="n">get_states_selec</span><span class="p">()</span>
+<span class="n">lieb</span><span class="o">.</span><span class="n">plt_states_selec</span><span class="p">(</span><span class="n">save</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">lieb</span><span class="o">.</span><span class="n">plt_show</span><span class="p">()</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="RST/figs/nx9ny9_ta(2+0j)_tb(2+0j)_tc(2+0j)_td(2+0j)_ea0,5j_eb(-0-0,5j)_ec(-0-0,5j)/spec_pola.png"><img alt="RST/figs/nx9ny9_ta(2+0j)_tb(2+0j)_tc(2+0j)_td(2+0j)_ea0,5j_eb(-0-0,5j)_ec(-0-0,5j)/spec_pola.png" src="RST/figs/nx9ny9_ta(2+0j)_tb(2+0j)_tc(2+0j)_td(2+0j)_ea0,5j_eb(-0-0,5j)_ec(-0-0,5j)/spec_pola.png" style="width: 45%;" /></a>
+<a class="reference internal image-reference" href="RST/figs/nx9ny9_ta(2+0j)_tb(2+0j)_tc(2+0j)_td(2+0j)_ea0,5j_eb(-0-0,5j)_ec(-0-0,5j)/states.png"><img alt="RST/figs/nx9ny9_ta(2+0j)_tb(2+0j)_tc(2+0j)_td(2+0j)_ea0,5j_eb(-0-0,5j)_ec(-0-0,5j)/states.png" src="RST/figs/nx9ny9_ta(2+0j)_tb(2+0j)_tc(2+0j)_td(2+0j)_ea0,5j_eb(-0-0,5j)_ec(-0-0,5j)/states.png" style="width: 45%;" /></a>
+<p>Zero-mode only on A sublattice, and uniformly distributed. Zero-mode located in the flat band, note that  flat band states are on the B and C sites.</p>
+</div>
+</div>
+<div class="section" id="identical-hoppings-with-an-impurity">
+<h1>Identical hoppings with an impurity<a class="headerlink" href="#identical-hoppings-with-an-impurity" title="Permalink to this headline">¶</a></h1>
+<p>The impurity is modeled by changing two adjacent hoppings of a given site.</p>
+<div class="section" id="odd-number-of-sites-and">
+<h2>Odd number of sites <img class="math" src="../_images/math/188c175aac0a8a9c22499336711b5d7256407254.png" alt="x"/> and <img class="math" src="../_images/math/b124ff74afb0914bb434e8fb849eb56d734412f8.png" alt="y"/><a class="headerlink" href="#odd-number-of-sites-and" title="Permalink to this headline">¶</a></h2>
+<a class="reference internal image-reference" href="RST/figs/nx9ny9_ta(2+0j)_tb(2+0j)_tc(2+0j)_td(2+0j)_ea0,5j_eb(-0-0,5j)_ec(-0-0,5j)/latticeHop_hopDefx_3_4_hopDefy_3_4.png"><img alt="RST/figs/nx9ny9_ta(2+0j)_tb(2+0j)_tc(2+0j)_td(2+0j)_ea0,5j_eb(-0-0,5j)_ec(-0-0,5j)/latticeHop_hopDefx_3_4_hopDefy_3_4.png" class="align-center" src="RST/figs/nx9ny9_ta(2+0j)_tb(2+0j)_tc(2+0j)_td(2+0j)_ea0,5j_eb(-0-0,5j)_ec(-0-0,5j)/latticeHop_hopDefx_3_4_hopDefy_3_4.png" style="width: 35%;" /></a>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">lieb_tb</span> <span class="kn">import</span> <span class="o">*</span> <span class="c"># import lieb_tb model class</span>
+
+<span class="n">lieb</span> <span class="o">=</span> <span class="n">lieb_tb</span><span class="p">(</span><span class="n">sites_x</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span> <span class="n">sites_y</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span> <span class="n">t_x</span><span class="o">=</span><span class="p">[</span><span class="mf">2.</span><span class="p">,</span> <span class="mf">2.</span><span class="p">],</span> <span class="n">t_y</span><span class="o">=</span><span class="p">[</span><span class="mf">2.</span><span class="p">,</span> <span class="mf">2.</span><span class="p">],</span>
+               <span class="n">e_a</span><span class="o">=</span><span class="mf">0.5j</span><span class="p">,</span> <span class="n">e_b</span><span class="o">=-</span><span class="mf">0.5j</span><span class="p">,</span> <span class="n">e_c</span><span class="o">=-</span><span class="mf">0.5j</span><span class="p">)</span>
+<span class="n">lieb</span><span class="o">.</span><span class="n">set_def_hop_x</span><span class="p">([</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="p">[</span><span class="mf">1.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">])</span>
+<span class="n">lieb</span><span class="o">.</span><span class="n">set_def_hop_y</span><span class="p">([</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="p">[</span><span class="mf">1.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">])</span>
+<span class="n">lieb</span><span class="o">.</span><span class="n">get_lattice_hop</span><span class="p">()</span>
+<span class="n">lieb</span><span class="o">.</span><span class="n">plt_lattice</span><span class="p">(</span><span class="n">save</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">lieb</span><span class="o">.</span><span class="n">get_eig</span><span class="p">()</span>
+<span class="n">lieb</span><span class="o">.</span><span class="n">plt_spec_pola</span><span class="p">(</span><span class="n">save</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">lieb</span><span class="o">.</span><span class="n">get_states_selec</span><span class="p">()</span>
+<span class="n">lieb</span><span class="o">.</span><span class="n">plt_states_selec</span><span class="p">(</span><span class="n">save</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">lieb</span><span class="o">.</span><span class="n">plt_show</span><span class="p">()</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="RST/figs/nx9ny9_ta(2+0j)_tb(2+0j)_tc(2+0j)_td(2+0j)_ea0,5j_eb(-0-0,5j)_ec(-0-0,5j)/spec_pola_hopDefx_3_4_hopDefy_3_4.png"><img alt="RST/figs/nx9ny9_ta(2+0j)_tb(2+0j)_tc(2+0j)_td(2+0j)_ea0,5j_eb(-0-0,5j)_ec(-0-0,5j)/spec_pola_hopDefx_3_4_hopDefy_3_4.png" src="RST/figs/nx9ny9_ta(2+0j)_tb(2+0j)_tc(2+0j)_td(2+0j)_ea0,5j_eb(-0-0,5j)_ec(-0-0,5j)/spec_pola_hopDefx_3_4_hopDefy_3_4.png" style="width: 45%;" /></a>
+<a class="reference internal image-reference" href="RST/figs/nx9ny9_ta(2+0j)_tb(2+0j)_tc(2+0j)_td(2+0j)_ea0,5j_eb(-0-0,5j)_ec(-0-0,5j)/states_hopDefx_3_4_hopDefy_3_4.png"><img alt="RST/figs/nx9ny9_ta(2+0j)_tb(2+0j)_tc(2+0j)_td(2+0j)_ea0,5j_eb(-0-0,5j)_ec(-0-0,5j)/states_hopDefx_3_4_hopDefy_3_4.png" src="RST/figs/nx9ny9_ta(2+0j)_tb(2+0j)_tc(2+0j)_td(2+0j)_ea0,5j_eb(-0-0,5j)_ec(-0-0,5j)/states_hopDefx_3_4_hopDefy_3_4.png" style="width: 45%;" /></a>
+<p>The zero-mode has an maximal amplitude at the defect site.</p>
+</div>
+</div>
+<div class="section" id="alternative-hoppings">
+<h1>Alternative hoppings<a class="headerlink" href="#alternative-hoppings" title="Permalink to this headline">¶</a></h1>
+<a class="reference internal image-reference" href="RST/figs/nx9ny9_ta(2+0j)_tb(1+0j)_tc(2+0j)_td(1+0j)_ea0,5j_eb(-0-0,5j)_ec(-0-0,5j)/latticeHop.png"><img alt="RST/figs/nx9ny9_ta(2+0j)_tb(1+0j)_tc(2+0j)_td(1+0j)_ea0,5j_eb(-0-0,5j)_ec(-0-0,5j)/latticeHop.png" class="align-center" src="RST/figs/nx9ny9_ta(2+0j)_tb(1+0j)_tc(2+0j)_td(1+0j)_ea0,5j_eb(-0-0,5j)_ec(-0-0,5j)/latticeHop.png" style="width: 35%;" /></a>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">lieb_tb</span> <span class="kn">import</span> <span class="o">*</span> <span class="c"># import lieb_tb model class</span>
+
+<span class="n">lieb</span> <span class="o">=</span> <span class="n">lieb_tb</span><span class="p">(</span><span class="n">sites_x</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span> <span class="n">sites_y</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span> <span class="n">t_x</span><span class="o">=</span><span class="p">[</span><span class="mf">2.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">],</span> <span class="n">t_y</span><span class="o">=</span><span class="p">[</span><span class="mf">2.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">],</span>
+               <span class="n">e_a</span><span class="o">=</span><span class="mf">0.5j</span><span class="p">,</span> <span class="n">e_b</span><span class="o">=-</span><span class="mf">0.5j</span><span class="p">,</span> <span class="n">e_c</span><span class="o">=-</span><span class="mf">0.5j</span><span class="p">)</span>
+<span class="n">lieb</span><span class="o">.</span><span class="n">get_lattice_hop</span><span class="p">()</span>
+<span class="n">lieb</span><span class="o">.</span><span class="n">plt_lattice</span><span class="p">(</span><span class="n">save</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">lieb</span><span class="o">.</span><span class="n">get_eig</span><span class="p">()</span>
+<span class="n">lieb</span><span class="o">.</span><span class="n">plt_spec_pola</span><span class="p">(</span><span class="n">save</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">lieb</span><span class="o">.</span><span class="n">get_states_selec</span><span class="p">()</span>
+<span class="n">lieb</span><span class="o">.</span><span class="n">plt_states_selec</span><span class="p">(</span><span class="n">save</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">lieb</span><span class="o">.</span><span class="n">plt_show</span><span class="p">()</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="RST/figs/nx9ny9_ta(2+0j)_tb(1+0j)_tc(2+0j)_td(1+0j)_ea0,5j_eb(-0-0,5j)_ec(-0-0,5j)/spec_pola.png"><img alt="RST/figs/nx9ny9_ta(2+0j)_tb(1+0j)_tc(2+0j)_td(1+0j)_ea0,5j_eb(-0-0,5j)_ec(-0-0,5j)/spec_pola.png" src="RST/figs/nx9ny9_ta(2+0j)_tb(1+0j)_tc(2+0j)_td(1+0j)_ea0,5j_eb(-0-0,5j)_ec(-0-0,5j)/spec_pola.png" style="width: 45%;" /></a>
+<a class="reference internal image-reference" href="RST/figs/nx9ny9_ta(2+0j)_tb(1+0j)_tc(2+0j)_td(1+0j)_ea0,5j_eb(-0-0,5j)_ec(-0-0,5j)/states.png"><img alt="RST/figs/nx9ny9_ta(2+0j)_tb(1+0j)_tc(2+0j)_td(1+0j)_ea0,5j_eb(-0-0,5j)_ec(-0-0,5j)/states.png" src="RST/figs/nx9ny9_ta(2+0j)_tb(1+0j)_tc(2+0j)_td(1+0j)_ea0,5j_eb(-0-0,5j)_ec(-0-0,5j)/states.png" style="width: 45%;" /></a>
+<p>Zero-mode localized at the top left corner endind with a weak hoppings along <img class="math" src="../_images/math/188c175aac0a8a9c22499336711b5d7256407254.png" alt="x"/> and <img class="math" src="../_images/math/b124ff74afb0914bb434e8fb849eb56d734412f8.png" alt="y"/>.</p>
+</div>
+<div class="section" id="dimerization-defect-along">
+<h1>Dimerization defect along <img class="math" src="../_images/math/188c175aac0a8a9c22499336711b5d7256407254.png" alt="x"/><a class="headerlink" href="#dimerization-defect-along" title="Permalink to this headline">¶</a></h1>
+<a class="reference internal image-reference" href="RST/figs/nx9ny9_ta(2+0j)_tb(1+0j)_tc(2+0j)_td(1+0j)_ea0,5j_eb(-0-0,5j)_ec(-0-0,5j)/latticeHop_dimDefx_4.png"><img alt="RST/figs/nx9ny9_ta(2+0j)_tb(1+0j)_tc(2+0j)_td(1+0j)_ea0,5j_eb(-0-0,5j)_ec(-0-0,5j)/latticeHop_dimDefx_4.png" class="align-center" src="RST/figs/nx9ny9_ta(2+0j)_tb(1+0j)_tc(2+0j)_td(1+0j)_ea0,5j_eb(-0-0,5j)_ec(-0-0,5j)/latticeHop_dimDefx_4.png" style="width: 35%;" /></a>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">lieb_tb</span> <span class="kn">import</span> <span class="o">*</span> <span class="c"># import lieb_tb model class</span>
+
+<span class="n">lieb</span> <span class="o">=</span> <span class="n">lieb_tb</span><span class="p">(</span><span class="n">sites_x</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span> <span class="n">sites_y</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span> <span class="n">t_x</span><span class="o">=</span><span class="p">[</span><span class="mf">2.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">],</span> <span class="n">t_y</span><span class="o">=</span><span class="p">[</span><span class="mf">2.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">],</span>
+               <span class="n">e_a</span><span class="o">=</span><span class="mf">0.5j</span><span class="p">,</span> <span class="n">e_b</span><span class="o">=-</span><span class="mf">0.5j</span><span class="p">,</span> <span class="n">e_c</span><span class="o">=-</span><span class="mf">0.5j</span><span class="p">)</span>
+<span class="n">lieb</span><span class="o">.</span><span class="n">set_def_dim_x</span><span class="p">([</span><span class="mi">4</span><span class="p">])</span>
+<span class="n">lieb</span><span class="o">.</span><span class="n">get_lattice_hop</span><span class="p">()</span>
+<span class="n">lieb</span><span class="o">.</span><span class="n">plt_lattice</span><span class="p">(</span><span class="n">save</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">lieb</span><span class="o">.</span><span class="n">get_eig</span><span class="p">()</span>
+<span class="n">lieb</span><span class="o">.</span><span class="n">plt_spec_pola</span><span class="p">(</span><span class="n">save</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">lieb</span><span class="o">.</span><span class="n">get_states_selec</span><span class="p">()</span>
+<span class="n">lieb</span><span class="o">.</span><span class="n">plt_states_selec</span><span class="p">(</span><span class="n">save</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">lieb</span><span class="o">.</span><span class="n">plt_show</span><span class="p">()</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="RST/figs/nx9ny9_ta(2+0j)_tb(1+0j)_tc(2+0j)_td(1+0j)_ea0,5j_eb(-0-0,5j)_ec(-0-0,5j)/spec_pola_dimDefx_4.png"><img alt="RST/figs/nx9ny9_ta(2+0j)_tb(1+0j)_tc(2+0j)_td(1+0j)_ea0,5j_eb(-0-0,5j)_ec(-0-0,5j)/spec_pola_dimDefx_4.png" src="RST/figs/nx9ny9_ta(2+0j)_tb(1+0j)_tc(2+0j)_td(1+0j)_ea0,5j_eb(-0-0,5j)_ec(-0-0,5j)/spec_pola_dimDefx_4.png" style="width: 45%;" /></a>
+<a class="reference internal image-reference" href="RST/figs/nx9ny9_ta(2+0j)_tb(1+0j)_tc(2+0j)_td(1+0j)_ea0,5j_eb(-0-0,5j)_ec(-0-0,5j)/states_dimDefx_4.png"><img alt="RST/figs/nx9ny9_ta(2+0j)_tb(1+0j)_tc(2+0j)_td(1+0j)_ea0,5j_eb(-0-0,5j)_ec(-0-0,5j)/states_dimDefx_4.png" src="RST/figs/nx9ny9_ta(2+0j)_tb(1+0j)_tc(2+0j)_td(1+0j)_ea0,5j_eb(-0-0,5j)_ec(-0-0,5j)/states_dimDefx_4.png" style="width: 45%;" /></a>
+<p>Zero-mode localized in the edge with two weak adjacent hoppings along:math:<cite>x</cite> and one weak coupling and <img class="math" src="../_images/math/b124ff74afb0914bb434e8fb849eb56d734412f8.png" alt="y"/>.</p>
+</div>
+<div class="section" id="dimerization-defect-along-and">
+<h1>Dimerization defect along <img class="math" src="../_images/math/188c175aac0a8a9c22499336711b5d7256407254.png" alt="x"/> and <img class="math" src="../_images/math/b124ff74afb0914bb434e8fb849eb56d734412f8.png" alt="y"/><a class="headerlink" href="#dimerization-defect-along-and" title="Permalink to this headline">¶</a></h1>
+<a class="reference internal image-reference" href="RST/figs/nx9ny9_ta(2+0j)_tb(1+0j)_tc(2+0j)_td(1+0j)_ea0,5j_eb(-0-0,5j)_ec(-0-0,5j)/latticeHop_dimDefx_4_dimDefy_4.png"><img alt="RST/figs/nx9ny9_ta(2+0j)_tb(1+0j)_tc(2+0j)_td(1+0j)_ea0,5j_eb(-0-0,5j)_ec(-0-0,5j)/latticeHop_dimDefx_4_dimDefy_4.png" class="align-center" src="RST/figs/nx9ny9_ta(2+0j)_tb(1+0j)_tc(2+0j)_td(1+0j)_ea0,5j_eb(-0-0,5j)_ec(-0-0,5j)/latticeHop_dimDefx_4_dimDefy_4.png" style="width: 35%;" /></a>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">lieb_tb</span> <span class="kn">import</span> <span class="o">*</span> <span class="c"># import lieb_tb model class</span>
+
+<span class="c">#identical hoppings are obtained by fixing t_x = t_y.</span>
+<span class="n">lieb</span> <span class="o">=</span> <span class="n">lieb_tb</span><span class="p">(</span><span class="n">sites_x</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span> <span class="n">sites_y</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span> <span class="n">t_x</span><span class="o">=</span><span class="p">[</span><span class="mf">2.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">],</span> <span class="n">t_y</span><span class="o">=</span><span class="p">[</span><span class="mf">2.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">],</span>
+               <span class="n">e_a</span><span class="o">=</span><span class="mf">0.5j</span><span class="p">,</span> <span class="n">e_b</span><span class="o">=-</span><span class="mf">0.5j</span><span class="p">,</span> <span class="n">e_c</span><span class="o">=-</span><span class="mf">0.5j</span><span class="p">)</span>
+<span class="n">lieb</span><span class="o">.</span><span class="n">set_def_dim_x</span><span class="p">([</span><span class="mi">4</span><span class="p">])</span>
+<span class="n">lieb</span><span class="o">.</span><span class="n">set_def_dim_y</span><span class="p">([</span><span class="mi">4</span><span class="p">])</span>
+<span class="n">lieb</span><span class="o">.</span><span class="n">get_lattice_hop</span><span class="p">()</span>
+<span class="n">lieb</span><span class="o">.</span><span class="n">plt_lattice</span><span class="p">(</span><span class="n">save</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">lieb</span><span class="o">.</span><span class="n">get_eig</span><span class="p">()</span>
+<span class="n">lieb</span><span class="o">.</span><span class="n">plt_spec_pola</span><span class="p">(</span><span class="n">save</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">lieb</span><span class="o">.</span><span class="n">get_states_selec</span><span class="p">()</span>
+<span class="n">lieb</span><span class="o">.</span><span class="n">plt_states_selec</span><span class="p">(</span><span class="n">save</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">lieb</span><span class="o">.</span><span class="n">plt_show</span><span class="p">()</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="RST/figs/nx9ny9_ta(2+0j)_tb(1+0j)_tc(2+0j)_td(1+0j)_ea0,5j_eb(-0-0,5j)_ec(-0-0,5j)/spec_pola_dimDefx_4_dimDefy_4.png"><img alt="RST/figs/nx9ny9_ta(2+0j)_tb(1+0j)_tc(2+0j)_td(1+0j)_ea0,5j_eb(-0-0,5j)_ec(-0-0,5j)/spec_pola_dimDefx_4_dimDefy_4.png" src="RST/figs/nx9ny9_ta(2+0j)_tb(1+0j)_tc(2+0j)_td(1+0j)_ea0,5j_eb(-0-0,5j)_ec(-0-0,5j)/spec_pola_dimDefx_4_dimDefy_4.png" style="width: 45%;" /></a>
+<a class="reference internal image-reference" href="RST/figs/nx9ny9_ta(2+0j)_tb(1+0j)_tc(2+0j)_td(1+0j)_ea0,5j_eb(-0-0,5j)_ec(-0-0,5j)/states_dimDefx_4_dimDefy_4.png"><img alt="RST/figs/nx9ny9_ta(2+0j)_tb(1+0j)_tc(2+0j)_td(1+0j)_ea0,5j_eb(-0-0,5j)_ec(-0-0,5j)/states_dimDefx_4_dimDefy_4.png" src="RST/figs/nx9ny9_ta(2+0j)_tb(1+0j)_tc(2+0j)_td(1+0j)_ea0,5j_eb(-0-0,5j)_ec(-0-0,5j)/states_dimDefx_4_dimDefy_4.png" style="width: 45%;" /></a>
+<p>Zero-mode localized in the bulk, centered on the site with two adjacent weak hoppings along <img class="math" src="../_images/math/188c175aac0a8a9c22499336711b5d7256407254.png" alt="x"/> and two adjacent weak hoppings along <img class="math" src="../_images/math/b124ff74afb0914bb434e8fb849eb56d734412f8.png" alt="y"/>.</p>
+</div>
+<div class="section" id="diagonal-hopping">
+<h1>Diagonal hopping<a class="headerlink" href="#diagonal-hopping" title="Permalink to this headline">¶</a></h1>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">lieb_tb</span> <span class="kn">import</span> <span class="o">*</span> <span class="c"># import lieb_tb model class</span>
+
+<span class="n">lieb</span> <span class="o">=</span> <span class="n">lieb_tb</span><span class="p">(</span><span class="n">sites_x</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span> <span class="n">sites_y</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span> <span class="n">t_x</span><span class="o">=</span><span class="p">[</span><span class="mf">2.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">],</span> <span class="n">t_y</span><span class="o">=</span><span class="p">[</span><span class="mf">2.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">],</span>
+               <span class="n">e_a</span><span class="o">=</span><span class="mf">0.5j</span><span class="p">,</span> <span class="n">e_b</span><span class="o">=-</span><span class="mf">0.5j</span><span class="p">,</span> <span class="n">e_c</span><span class="o">=-</span><span class="mf">0.5j</span><span class="p">,</span> <span class="n">diag_strength</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">lieb</span><span class="o">.</span><span class="n">set_def_dim_x</span><span class="p">([</span><span class="mi">4</span><span class="p">])</span>
+<span class="n">lieb</span><span class="o">.</span><span class="n">set_def_dim_y</span><span class="p">([</span><span class="mi">4</span><span class="p">])</span>
+<span class="n">lieb</span><span class="o">.</span><span class="n">get_lattice_hop</span><span class="p">()</span>
+<span class="n">lieb</span><span class="o">.</span><span class="n">plt_lattice</span><span class="p">(</span><span class="n">save</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">lieb</span><span class="o">.</span><span class="n">get_eig</span><span class="p">()</span>
+<span class="n">lieb</span><span class="o">.</span><span class="n">plt_spec_pola</span><span class="p">(</span><span class="n">save</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">lieb</span><span class="o">.</span><span class="n">get_states_selec</span><span class="p">()</span>
+<span class="n">lieb</span><span class="o">.</span><span class="n">plt_states_selec</span><span class="p">(</span><span class="n">save</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">lieb</span><span class="o">.</span><span class="n">plt_show</span><span class="p">()</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="RST/figs/nx9ny9_ta(2+0j)_tb(1+0j)_tc(2+0j)_td(1+0j)_ea0,5j_eb(-0-0,5j)_ec(-0-0,5j)/spec_pola_dimDefx_4_dimDefy_4_diag_0,5.png"><img alt="RST/figs/nx9ny9_ta(2+0j)_tb(1+0j)_tc(2+0j)_td(1+0j)_ea0,5j_eb(-0-0,5j)_ec(-0-0,5j)/spec_pola_dimDefx_4_dimDefy_4_diag_0,5.png" src="RST/figs/nx9ny9_ta(2+0j)_tb(1+0j)_tc(2+0j)_td(1+0j)_ea0,5j_eb(-0-0,5j)_ec(-0-0,5j)/spec_pola_dimDefx_4_dimDefy_4_diag_0,5.png" style="width: 45%;" /></a>
+<a class="reference internal image-reference" href="RST/figs/nx9ny9_ta(2+0j)_tb(1+0j)_tc(2+0j)_td(1+0j)_ea0,5j_eb(-0-0,5j)_ec(-0-0,5j)/states_dimDefx_4_dimDefy_4_diag_0,5.png"><img alt="RST/figs/nx9ny9_ta(2+0j)_tb(1+0j)_tc(2+0j)_td(1+0j)_ea0,5j_eb(-0-0,5j)_ec(-0-0,5j)/states_dimDefx_4_dimDefy_4_diag_0,5.png" src="RST/figs/nx9ny9_ta(2+0j)_tb(1+0j)_tc(2+0j)_td(1+0j)_ea0,5j_eb(-0-0,5j)_ec(-0-0,5j)/states_dimDefx_4_dimDefy_4_diag_0,5.png" style="width: 45%;" /></a>
+<p>In presence of intracell diagonal hopping, the flat band is destroyed but the zero-mode remains.</p>
+</div>
+<div class="section" id="hopping-disorder">
+<h1>Hopping disorder<a class="headerlink" href="#hopping-disorder" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="generic-disorder">
+<h2>Generic disorder<a class="headerlink" href="#generic-disorder" title="Permalink to this headline">¶</a></h2>
+<a class="reference internal image-reference" href="RST/figs/nx9ny9_ta(2+0j)_tb(1+0j)_tc(2+0j)_td(1+0j)_ea0,5j_eb(-0-0,5j)_ec(-0-0,5j)/latticeHop_dimDefx_4_dimDefy_4_dis_gen_x0,4_y0,4.png"><img alt="RST/figs/nx9ny9_ta(2+0j)_tb(1+0j)_tc(2+0j)_td(1+0j)_ea0,5j_eb(-0-0,5j)_ec(-0-0,5j)/latticeHop_dimDefx_4_dimDefy_4_dis_gen_x0,4_y0,4.png" class="align-center" src="RST/figs/nx9ny9_ta(2+0j)_tb(1+0j)_tc(2+0j)_td(1+0j)_ea0,5j_eb(-0-0,5j)_ec(-0-0,5j)/latticeHop_dimDefx_4_dimDefy_4_dis_gen_x0,4_y0,4.png" style="width: 35%;" /></a>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">lieb_tb</span> <span class="kn">import</span> <span class="o">*</span> <span class="c"># import lieb_tb model class</span>
+
+<span class="n">lieb</span> <span class="o">=</span> <span class="n">lieb_tb</span><span class="p">(</span><span class="n">sites_x</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span> <span class="n">sites_y</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span> <span class="n">t_x</span><span class="o">=</span><span class="p">[</span><span class="mf">2.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">],</span> <span class="n">t_y</span><span class="o">=</span><span class="p">[</span><span class="mf">2.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">],</span>
+               <span class="n">e_a</span><span class="o">=</span><span class="mf">0.5j</span><span class="p">,</span> <span class="n">e_b</span><span class="o">=-</span><span class="mf">0.5j</span><span class="p">,</span> <span class="n">e_c</span><span class="o">=-</span><span class="mf">0.5j</span><span class="p">)</span>
+<span class="n">lieb</span><span class="o">.</span><span class="n">set_def_dim_x</span><span class="p">([</span><span class="mi">4</span><span class="p">])</span>
+<span class="n">lieb</span><span class="o">.</span><span class="n">set_def_dim_y</span><span class="p">([</span><span class="mi">4</span><span class="p">])</span>
+<span class="n">lieb</span><span class="o">.</span><span class="n">get_lattice_hop</span><span class="p">(</span><span class="s">&#39;gen&#39;</span><span class="p">,</span> <span class="n">strength_x</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span> <span class="n">strength_y</span><span class="o">=</span><span class="mf">0.4</span><span class="p">)</span>
+<span class="n">lieb</span><span class="o">.</span><span class="n">plt_lattice</span><span class="p">(</span><span class="n">save</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">lieb</span><span class="o">.</span><span class="n">get_eig</span><span class="p">()</span>
+<span class="n">lieb</span><span class="o">.</span><span class="n">plt_spec_pola</span><span class="p">(</span><span class="n">save</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">lieb</span><span class="o">.</span><span class="n">get_states_selec</span><span class="p">()</span>
+<span class="n">lieb</span><span class="o">.</span><span class="n">plt_states_selec</span><span class="p">(</span><span class="n">save</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">lieb</span><span class="o">.</span><span class="n">plt_show</span><span class="p">()</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="RST/figs/nx9ny9_ta(2+0j)_tb(1+0j)_tc(2+0j)_td(1+0j)_ea0,5j_eb(-0-0,5j)_ec(-0-0,5j)/spec_pola_dimDefx_4_dimDefy_4_dis_gen_x0,4_y0,4.png"><img alt="RST/figs/nx9ny9_ta(2+0j)_tb(1+0j)_tc(2+0j)_td(1+0j)_ea0,5j_eb(-0-0,5j)_ec(-0-0,5j)/spec_pola_dimDefx_4_dimDefy_4_dis_gen_x0,4_y0,4.png" src="RST/figs/nx9ny9_ta(2+0j)_tb(1+0j)_tc(2+0j)_td(1+0j)_ea0,5j_eb(-0-0,5j)_ec(-0-0,5j)/spec_pola_dimDefx_4_dimDefy_4_dis_gen_x0,4_y0,4.png" style="width: 45%;" /></a>
+<a class="reference internal image-reference" href="RST/figs/nx9ny9_ta(2+0j)_tb(1+0j)_tc(2+0j)_td(1+0j)_ea0,5j_eb(-0-0,5j)_ec(-0-0,5j)/states_dimDefx_4_dimDefy_4_dis_gen_x0,4_y0,4.png"><img alt="RST/figs/nx9ny9_ta(2+0j)_tb(1+0j)_tc(2+0j)_td(1+0j)_ea0,5j_eb(-0-0,5j)_ec(-0-0,5j)/states_dimDefx_4_dimDefy_4_dis_gen_x0,4_y0,4.png" src="RST/figs/nx9ny9_ta(2+0j)_tb(1+0j)_tc(2+0j)_td(1+0j)_ea0,5j_eb(-0-0,5j)_ec(-0-0,5j)/states_dimDefx_4_dimDefy_4_dis_gen_x0,4_y0,4.png" style="width: 45%;" /></a>
+<p>In the presence of generic disorder, the localized state remains strongly localized on the A sublattice (<img class="math" src="../_images/math/1d344ac5689ed1f6ca668e666d4e2e5fa95bb644.png" alt="\langle A| A \rangle \geq 0.95"/>), and becomes slightly localized on the B and C sublattice. Note that, even though the real part of the eigenenergy remains zero, its imaginary part is now non zero.</p>
+</div>
+<div class="section" id="preserving-the-zero-mode">
+<h2>preserving the zero-mode<a class="headerlink" href="#preserving-the-zero-mode" title="Permalink to this headline">¶</a></h2>
+<a class="reference internal image-reference" href="RST/figs/nx9ny9_ta(2+0j)_tb(1+0j)_tc(2+0j)_td(1+0j)_ea0,5j_eb(-0-0,5j)_ec(-0-0,5j)/latticeHop_dimDefx_4_dimDefy_4_dis_octo_x0,4_y0,4.png"><img alt="RST/figs/nx9ny9_ta(2+0j)_tb(1+0j)_tc(2+0j)_td(1+0j)_ea0,5j_eb(-0-0,5j)_ec(-0-0,5j)/latticeHop_dimDefx_4_dimDefy_4_dis_octo_x0,4_y0,4.png" class="align-center" src="RST/figs/nx9ny9_ta(2+0j)_tb(1+0j)_tc(2+0j)_td(1+0j)_ea0,5j_eb(-0-0,5j)_ec(-0-0,5j)/latticeHop_dimDefx_4_dimDefy_4_dis_octo_x0,4_y0,4.png" style="width: 35%;" /></a>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">lieb_tb</span> <span class="kn">import</span> <span class="o">*</span> <span class="c"># import lieb_tb model class</span>
+
+<span class="c">#identical hoppings are obtained by fixing t_x = t_y.</span>
+<span class="n">lieb</span> <span class="o">=</span> <span class="n">lieb_tb</span><span class="p">(</span><span class="n">sites_x</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span> <span class="n">sites_y</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span> <span class="n">t_x</span><span class="o">=</span><span class="p">[</span><span class="mf">2.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">],</span> <span class="n">t_y</span><span class="o">=</span><span class="p">[</span><span class="mf">2.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">],</span>
+               <span class="n">e_a</span><span class="o">=</span><span class="mf">0.5j</span><span class="p">,</span> <span class="n">e_b</span><span class="o">=-</span><span class="mf">0.5j</span><span class="p">,</span> <span class="n">e_c</span><span class="o">=-</span><span class="mf">0.5j</span><span class="p">)</span>
+<span class="n">lieb</span><span class="o">.</span><span class="n">set_def_dim_x</span><span class="p">([</span><span class="mi">4</span><span class="p">])</span>
+<span class="n">lieb</span><span class="o">.</span><span class="n">set_def_dim_y</span><span class="p">([</span><span class="mi">4</span><span class="p">])</span>
+<span class="n">lieb</span><span class="o">.</span><span class="n">get_lattice_hop</span><span class="p">(</span><span class="s">&#39;octo&#39;</span><span class="p">,</span> <span class="n">strength_x</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span> <span class="n">strength_y</span><span class="o">=</span><span class="mf">0.4</span><span class="p">)</span>
+<span class="n">lieb</span><span class="o">.</span><span class="n">plt_lattice</span><span class="p">(</span><span class="n">save</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">lieb</span><span class="o">.</span><span class="n">get_eig</span><span class="p">()</span>
+<span class="n">lieb</span><span class="o">.</span><span class="n">plt_spec_pola</span><span class="p">(</span><span class="n">save</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">lieb</span><span class="o">.</span><span class="n">get_states_selec</span><span class="p">()</span>
+<span class="n">lieb</span><span class="o">.</span><span class="n">plt_states_selec</span><span class="p">(</span><span class="n">save</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">lieb</span><span class="o">.</span><span class="n">plt_show</span><span class="p">()</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="RST/figs/nx9ny9_ta(2+0j)_tb(1+0j)_tc(2+0j)_td(1+0j)_ea0,5j_eb(-0-0,5j)_ec(-0-0,5j)/spec_pola_dimDefx_4_dimDefy_4_dis_octo_x0,4_y0,4.png"><img alt="RST/figs/nx9ny9_ta(2+0j)_tb(1+0j)_tc(2+0j)_td(1+0j)_ea0,5j_eb(-0-0,5j)_ec(-0-0,5j)/spec_pola_dimDefx_4_dimDefy_4_dis_octo_x0,4_y0,4.png" src="RST/figs/nx9ny9_ta(2+0j)_tb(1+0j)_tc(2+0j)_td(1+0j)_ea0,5j_eb(-0-0,5j)_ec(-0-0,5j)/spec_pola_dimDefx_4_dimDefy_4_dis_octo_x0,4_y0,4.png" style="width: 45%;" /></a>
+<a class="reference internal image-reference" href="RST/figs/nx9ny9_ta(2+0j)_tb(1+0j)_tc(2+0j)_td(1+0j)_ea0,5j_eb(-0-0,5j)_ec(-0-0,5j)/states_dimDefx_4_dimDefy_4_dis_octo_x0,4_y0,4.png"><img alt="RST/figs/nx9ny9_ta(2+0j)_tb(1+0j)_tc(2+0j)_td(1+0j)_ea0,5j_eb(-0-0,5j)_ec(-0-0,5j)/states_dimDefx_4_dimDefy_4_dis_octo_x0,4_y0,4.png" src="RST/figs/nx9ny9_ta(2+0j)_tb(1+0j)_tc(2+0j)_td(1+0j)_ea0,5j_eb(-0-0,5j)_ec(-0-0,5j)/states_dimDefx_4_dimDefy_4_dis_octo_x0,4_y0,4.png" style="width: 45%;" /></a>
+<p>The zero-mode is robust to a particular type of disorder.</p>
+</div>
+</div>
+<div class="section" id="adiabatic-pumping">
+<h1>Adiabatic pumping<a class="headerlink" href="#adiabatic-pumping" title="Permalink to this headline">¶</a></h1>
+<p>Change hoppings continuously to obtain the three different configurations:</p>
+<a class="reference internal image-reference" href="RST/figs/nx15ny15_ta(1,5+0j)_tb(1+0j)_tc(1,5+0j)_td(1+0j)_ea0,5j_eb(-0-0,5j)_ec(-0-0,5j)/lattice_hop_dimDefx_2_dimDefy_2.png"><img alt="RST/figs/nx15ny15_ta(1,5+0j)_tb(1+0j)_tc(1,5+0j)_td(1+0j)_ea0,5j_eb(-0-0,5j)_ec(-0-0,5j)/lattice_hop_dimDefx_2_dimDefy_2.png" src="RST/figs/nx15ny15_ta(1,5+0j)_tb(1+0j)_tc(1,5+0j)_td(1+0j)_ea0,5j_eb(-0-0,5j)_ec(-0-0,5j)/lattice_hop_dimDefx_2_dimDefy_2.png" style="width: 33%;" /></a>
+<a class="reference internal image-reference" href="RST/figs/nx15ny15_ta(1,5+0j)_tb(1+0j)_tc(1,5+0j)_td(1+0j)_ea0,5j_eb(-0-0,5j)_ec(-0-0,5j)/lattice_hop_dimDefx_12_dimDefy_2.png"><img alt="RST/figs/nx15ny15_ta(1,5+0j)_tb(1+0j)_tc(1,5+0j)_td(1+0j)_ea0,5j_eb(-0-0,5j)_ec(-0-0,5j)/lattice_hop_dimDefx_12_dimDefy_2.png" src="RST/figs/nx15ny15_ta(1,5+0j)_tb(1+0j)_tc(1,5+0j)_td(1+0j)_ea0,5j_eb(-0-0,5j)_ec(-0-0,5j)/lattice_hop_dimDefx_12_dimDefy_2.png" style="width: 33%;" /></a>
+<a class="reference internal image-reference" href="RST/figs/nx15ny15_ta(1,5+0j)_tb(1+0j)_tc(1,5+0j)_td(1+0j)_ea0,5j_eb(-0-0,5j)_ec(-0-0,5j)/lattice_hop_dimDefx_12_dimDefy_12.png"><img alt="RST/figs/nx15ny15_ta(1,5+0j)_tb(1+0j)_tc(1,5+0j)_td(1+0j)_ea0,5j_eb(-0-0,5j)_ec(-0-0,5j)/lattice_hop_dimDefx_12_dimDefy_12.png" src="RST/figs/nx15ny15_ta(1,5+0j)_tb(1+0j)_tc(1,5+0j)_td(1+0j)_ea0,5j_eb(-0-0,5j)_ec(-0-0,5j)/lattice_hop_dimDefx_12_dimDefy_12.png" style="width: 33%;" /></a>
+<dl class="docutils">
+<dt>From left to right:</dt>
+<dd><ul class="first last simple">
+<li>Initial configuration: zero mode localized at the bottom left of the lattice.</li>
+<li>Second configuration: localized state will move at the bottom right of the lattice.</li>
+<li>Thrird configuration: localized state will move at the top right of the lattice.</li>
+<li>Last configuration: localized state will go back to its initial position.</li>
+</ul>
+</dd>
+</dl>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">lieb_tb</span> <span class="kn">import</span> <span class="o">*</span> <span class="c"># import lieb_tb model class</span>
+<span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">zeros</span>
+
+
+<span class="n">lieb</span> <span class="o">=</span> <span class="n">lieb_tb</span><span class="p">(</span><span class="n">sites_x</span> <span class="o">=</span> <span class="mi">15</span><span class="p">,</span> <span class="n">sites_y</span> <span class="o">=</span> <span class="mi">15</span><span class="p">,</span> <span class="n">t_x</span><span class="o">=</span><span class="p">[</span><span class="mf">1.5</span><span class="p">,</span> <span class="mf">1.</span><span class="p">],</span> <span class="n">t_y</span><span class="o">=</span><span class="p">[</span><span class="mf">1.5</span><span class="p">,</span> <span class="mf">1.</span><span class="p">],</span> <span class="n">e_a</span><span class="o">=</span><span class="mf">0.5j</span><span class="p">,</span> <span class="n">e_b</span><span class="o">=-.</span><span class="mi">5j</span><span class="p">,</span> <span class="n">e_c</span><span class="o">=-.</span><span class="mi">5j</span><span class="p">)</span>
+<span class="n">lieb</span><span class="o">.</span><span class="n">set_def_dim_x</span><span class="p">([</span><span class="mi">12</span><span class="p">])</span>
+<span class="n">lieb</span><span class="o">.</span><span class="n">set_def_dim_y</span><span class="p">([</span><span class="mi">2</span><span class="p">])</span>
+<span class="n">lieb</span><span class="o">.</span><span class="n">get_lattice_hop</span><span class="p">()</span>
+<span class="n">hop_x_1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">lieb</span><span class="o">.</span><span class="n">lattice_hop_x</span><span class="p">)</span>
+<span class="n">hop_y_1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">lieb</span><span class="o">.</span><span class="n">lattice_hop_y</span><span class="p">)</span>
+<span class="n">lieb</span><span class="o">.</span><span class="n">plt_lattice</span><span class="p">(</span><span class="n">s</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">save</span><span class="o">=</span><span class="bp">True</span><span class="p">))</span>
+<span class="n">lieb</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+
+<span class="n">lieb</span><span class="o">.</span><span class="n">set_def_dim_x</span><span class="p">([</span><span class="mi">12</span><span class="p">])</span>
+<span class="n">lieb</span><span class="o">.</span><span class="n">set_def_dim_y</span><span class="p">([</span><span class="mi">12</span><span class="p">])</span>
+<span class="n">lieb</span><span class="o">.</span><span class="n">get_lattice_hop</span><span class="p">()</span>
+<span class="n">hop_x_2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">lieb</span><span class="o">.</span><span class="n">lattice_hop_x</span><span class="p">)</span>
+<span class="n">hop_y_2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">lieb</span><span class="o">.</span><span class="n">lattice_hop_y</span><span class="p">)</span>
+<span class="n">lieb</span><span class="o">.</span><span class="n">plt_lattice</span><span class="p">(</span><span class="n">s</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">save</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">lieb</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+
+<span class="n">lieb</span><span class="o">.</span><span class="n">set_def_dim_x</span><span class="p">([</span><span class="mi">2</span><span class="p">])</span>
+<span class="n">lieb</span><span class="o">.</span><span class="n">set_def_dim_y</span><span class="p">([</span><span class="mi">2</span><span class="p">])</span>
+<span class="n">lieb</span><span class="o">.</span><span class="n">get_lattice_hop</span><span class="p">()</span>
+<span class="n">hop_x_3</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">lieb</span><span class="o">.</span><span class="n">lattice_hop_x</span><span class="p">)</span>
+<span class="n">hop_y_3</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">lieb</span><span class="o">.</span><span class="n">lattice_hop_y</span><span class="p">)</span>
+<span class="n">lieb</span><span class="o">.</span><span class="n">plt_lattice</span><span class="p">(</span><span class="n">s</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">save</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+<span class="n">psi_init</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">(</span><span class="n">lieb</span><span class="o">.</span><span class="n">sites</span><span class="p">)</span><span class="o">/</span><span class="n">lieb</span><span class="o">.</span><span class="n">sites</span>
+<span class="n">psi_init</span><span class="p">[</span><span class="mi">2</span><span class="o">//</span><span class="mi">2</span> <span class="o">*</span> <span class="n">lieb</span><span class="o">.</span><span class="n">sites_abc_x</span><span class="o">+</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.</span>
+<span class="n">lieb</span><span class="o">.</span><span class="n">get_pumping</span><span class="p">(</span><span class="n">psi_init</span><span class="p">,</span> <span class="p">[</span><span class="n">hop_x_1</span><span class="p">,</span> <span class="n">hop_x_1</span> <span class="p">,</span> <span class="n">hop_x_2</span> <span class="p">,</span> <span class="n">hop_x_2</span><span class="p">,</span> <span class="n">hop_x_3</span><span class="p">],</span> <span class="p">[</span><span class="n">hop_y_1</span><span class="p">,</span> <span class="n">hop_y_1</span> <span class="p">,</span> <span class="n">hop_y_2</span><span class="p">,</span>  <span class="n">hop_y_2</span><span class="p">,</span> <span class="n">hop_y_3</span><span class="p">],</span>  <span class="n">dz</span> <span class="o">=.</span><span class="mi">5</span><span class="p">,</span> <span class="n">steps_pump</span><span class="o">=</span><span class="mi">40</span><span class="p">)</span>
+
+<span class="n">lieb</span><span class="o">.</span><span class="n">get_animation</span><span class="p">(</span><span class="n">save</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">&#39;adiabatic_pump&#39;</span><span class="p">)</span>
+<span class="n">lieb</span><span class="o">.</span><span class="n">plt_show</span><span class="p">()</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="RST/figs/nx15ny15_ta(1,5+0j)_tb(1+0j)_tc(1,5+0j)_td(1+0j)_ea0,5j_eb(-0-1,5j)_ec(-0-1,5j)/states_dimDefx_7_dimDefy_7.png"><img alt="RST/figs/nx15ny15_ta(1,5+0j)_tb(1+0j)_tc(1,5+0j)_td(1+0j)_ea0,5j_eb(-0-1,5j)_ec(-0-1,5j)/states_dimDefx_7_dimDefy_7.png" class="align-center" src="RST/figs/nx15ny15_ta(1,5+0j)_tb(1+0j)_tc(1,5+0j)_td(1+0j)_ea0,5j_eb(-0-1,5j)_ec(-0-1,5j)/states_dimDefx_7_dimDefy_7.png" style="width: 65%;" /></a>
+</div>
+
+
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Charles Poli.
+    </p>
+  </div>
+
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+  
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

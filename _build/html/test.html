@@ -1,0 +1,498 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>PT-symmetry / PT-symmetry breaking &mdash; TB  documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic|Roboto+Slab:400,700|Inconsolata:400,700&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="TB  documentation" href="index.html"/>
+        <link rel="prev" title="Zero modes" href="examplesChain2.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+          <a href="indexTB.html" class="fa fa-home"> TB</a>
+        
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="latticeTB.html">latticeTB</a></li>
+<li class="toctree-l1"><a class="reference internal" href="eigTB.html">eigTB</a></li>
+<li class="toctree-l1"><a class="reference internal" href="plotTB.html">plotTB</a></li>
+<li class="toctree-l1"><a class="reference internal" href="propagationTB.html">propagationTB</a></li>
+<li class="toctree-l1"><a class="reference internal" href="indexChain.html">Tight-Binding Chain</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="chainTB.html">chainTB</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examplesChain1.html">PT-symmetry / PT-symmetry breaking</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examplesChain2.html">Zero modes</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">PT-symmetry / PT-symmetry breaking</a><ul class="simple">
+</ul>
+</li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="indexTB.html">TB</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="indexTB.html">Docs</a> &raquo;</li>
+      
+    <li>PT-symmetry / PT-symmetry breaking</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          <a href="_sources/test.txt" rel="nofollow"> View page source</a>
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="pt-symmetry-pt-symmetry-breaking">
+<h1>PT-symmetry / PT-symmetry breaking<a class="headerlink" href="#pt-symmetry-pt-symmetry-breaking" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+</div>
+<p>These examples illustrate the PT-symmetry and the PT-symmetry breaking.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Throughout the examples, the hoppings <img class="math" src="_images/math/53b763c927ef520c6e01283c3baff0e86a71994d.png" alt="t_{ab}=t_a"/> and <img class="math" src="_images/math/d3f74a03abcd1092803af76efbd7da0dce9de6f1.png" alt="t_{ba}=t_b"/> are real and the onsite energies are purely imaginary with <img class="math" src="_images/math/6c200b753946a4fa2f1c381afe97c7fc2365bf09.png" alt="\epsilon_a=i\gamma"/> and <img class="math" src="_images/math/e020903287a14602e32af71da86031e55f3ca69d.png" alt="\epsilon_b=-i\gamma"/>. Then, the A sites are amplified (positive imaginary part) and the B sites are absorbed (negative imaginary part).</p>
+</div>
+<div class="section" id="dimer">
+<h2>Dimer<a class="headerlink" href="#dimer" title="Permalink to this headline">¶</a></h2>
+<a class="reference internal image-reference" href="_images/lattice_t(1+0j).png"><img alt="_images/lattice_t(1+0j).png" class="align-center" src="_images/lattice_t(1+0j).png" style="width: 100%; height: 80px;" /></a>
+<p>The Hamiltian reads</p>
+<div class="math">
+<p><img src="_images/math/b533cf483ec6d325d3f2c6fb4c9798e3bcd807f6.png" alt="\left( \begin{array}{cc}
+i\gamma &amp; t \\
+t &amp; i\gamma \end{array} \right)"/></p>
+</div><div class="section" id="hermitian-case">
+<h3>Hermitian case<a class="headerlink" href="#hermitian-case" title="Permalink to this headline">¶</a></h3>
+<p>In the case <img class="math" src="_images/math/6d5791a916c9071c52f072e77f1f9359be4f9894.png" alt="\gamma=0"/>, the Hamiltonian is real symmetric, the eigenenergies are real and given by: <img class="math" src="_images/math/2bc306b989b9c88468315deca27077e5df097c0d.png" alt="E_\pm=\pm t"/>.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">chainTB</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="c"># lattice</span>
+<span class="n">tags</span> <span class="o">=</span> <span class="p">[</span><span class="n">b</span><span class="s">&#39;a&#39;</span><span class="p">,</span> <span class="n">b</span><span class="s">&#39;b&#39;</span><span class="p">]</span>
+<span class="n">ri</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]]</span>
+<span class="n">pv</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">]]</span>
+<span class="n">n</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">ta</span> <span class="o">=</span> <span class="mf">1.</span>
+<span class="n">chain_tb</span> <span class="o">=</span> <span class="n">latticeTB</span><span class="p">(</span><span class="n">tags</span><span class="o">=</span><span class="n">tags</span><span class="p">,</span> <span class="n">ri</span><span class="o">=</span><span class="n">ri</span><span class="p">,</span> <span class="n">pv</span><span class="o">=</span><span class="n">pv</span><span class="p">)</span>
+<span class="n">chain_tb</span><span class="o">.</span><span class="n">get_lattice</span><span class="p">(</span><span class="n">nx</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">ny</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="c"># solve eigenvalue problem</span>
+<span class="n">eig_chain</span> <span class="o">=</span> <span class="n">eigChain</span><span class="p">(</span><span class="n">lat</span><span class="o">=</span><span class="n">chain_tb</span><span class="p">)</span>
+<span class="n">eig_chain</span><span class="o">.</span><span class="n">set_hop</span><span class="p">(</span><span class="n">ta</span><span class="o">=</span><span class="n">ta</span><span class="p">)</span>
+<span class="n">eig_chain</span><span class="o">.</span><span class="n">get_ham</span><span class="p">()</span>
+<span class="n">eig_chain</span><span class="o">.</span><span class="n">get_eig</span><span class="p">()</span>
+<span class="c"># plots</span>
+<span class="n">plot_chain</span> <span class="o">=</span> <span class="n">plotTB</span><span class="p">(</span><span class="n">sys</span><span class="o">=</span><span class="n">eig_chain</span><span class="p">)</span>
+<span class="n">lattice</span>  <span class="o">=</span> <span class="n">plot_chain</span><span class="o">.</span><span class="n">plt_lattice</span><span class="p">(</span><span class="n">plt_label</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">ms</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">fs</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">fig_spec</span> <span class="o">=</span> <span class="n">plot_chain</span><span class="o">.</span><span class="n">plt_spec</span><span class="p">(</span><span class="n">ms</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">pola_tag</span><span class="o">=</span><span class="n">b</span><span class="s">&#39;a&#39;</span><span class="p">)</span>
+<span class="c">#propagation</span>
+<span class="n">prop_chain</span> <span class="o">=</span> <span class="n">propagationTB</span><span class="p">(</span><span class="n">coor</span><span class="o">=</span><span class="n">eig_chain</span><span class="o">.</span><span class="n">coor</span><span class="p">,</span> <span class="n">steps</span><span class="o">=</span><span class="mi">1400</span><span class="p">,</span> <span class="n">dz</span><span class="o">=</span><span class="mf">0.02</span><span class="p">)</span>
+<span class="n">psi_init</span> <span class="o">=</span>  <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+<span class="n">prop_chain</span><span class="o">.</span><span class="n">get_prop</span><span class="p">(</span><span class="n">ham</span><span class="o">=</span><span class="n">eig_chain</span><span class="o">.</span><span class="n">ham</span><span class="p">,</span> <span class="n">psi_init</span><span class="o">=</span><span class="n">psi_init</span><span class="p">,</span> <span class="n">norm</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">fig_prop</span> <span class="o">=</span> <span class="n">prop_chain</span><span class="o">.</span><span class="n">plt_prop1d</span><span class="p">()</span>
+<span class="n">fig_prop_dimer</span> <span class="o">=</span> <span class="n">prop_chain</span><span class="o">.</span><span class="n">plt_prop_dimer</span><span class="p">()</span>
+<span class="c"># save figures</span>
+<span class="n">save_chain</span> <span class="o">=</span> <span class="n">saveFigTB</span><span class="p">(</span><span class="n">sys</span><span class="o">=</span><span class="n">eig_chain</span><span class="p">,</span> <span class="n">hop_tags</span><span class="o">=</span><span class="p">[</span><span class="s">&#39;t&#39;</span><span class="p">],</span> <span class="n">hop</span><span class="o">=</span><span class="p">[</span><span class="n">ta</span><span class="p">],</span> <span class="n">dir_name</span><span class="o">=</span><span class="s">&#39;chain&#39;</span><span class="p">,</span> <span class="n">ext</span><span class="o">=</span><span class="s">&#39;png&#39;</span><span class="p">)</span>
+<span class="n">save_chain</span><span class="o">.</span><span class="n">save_fig</span><span class="p">(</span><span class="n">fig_spec</span><span class="p">,</span> <span class="s">&#39;spec&#39;</span><span class="p">)</span>
+<span class="n">save_chain</span><span class="o">.</span><span class="n">save_fig</span><span class="p">(</span><span class="n">fig_prop_dimer</span><span class="p">,</span> <span class="s">&#39;prop_dimer&#39;</span><span class="p">)</span>
+<span class="n">save_chain</span><span class="o">.</span><span class="n">save_fig</span><span class="p">(</span><span class="n">fig_prop</span><span class="p">,</span> <span class="s">&#39;prop&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="_images/spec_t(1+0j)_ea0,8j_eb-0,8j.png"><img alt="_images/spec_t(1+0j)_ea0,8j_eb-0,8j.png" class="align-center" src="_images/spec_t(1+0j)_ea0,8j_eb-0,8j.png" style="width: 55%;" /></a>
+<a class="reference internal image-reference" href="_images/prop_dimer_t(1+0j)_ea0,8j_eb-0,8j.png"><img alt="_images/prop_dimer_t(1+0j)_ea0,8j_eb-0,8j.png" src="_images/prop_dimer_t(1+0j)_ea0,8j_eb-0,8j.png" style="width: 45%;" /></a>
+<a class="reference internal image-reference" href="_images/prop_t(1+0j)_ea0,8j_eb-0,8j.png"><img alt="_images/prop_t(1+0j)_ea0,8j_eb-0,8j.png" src="_images/prop_t(1+0j)_ea0,8j_eb-0,8j.png" style="width: 45%;" /></a>
+</div>
+<div class="section" id="non-hermitian-case">
+<h3>Non-Hermitian case<a class="headerlink" href="#non-hermitian-case" title="Permalink to this headline">¶</a></h3>
+<p>In the case <img class="math" src="_images/math/8008efc684a5843dadcdc45187a1ff2fd40203a7.png" alt="\gamma\neq0"/>, the Hamiltonian is complex non-Hermitian,
+and display the space-time reflection symmetry. The eigenenergies are given by: <img class="math" src="_images/math/c138cc2b1cde4c598d390e7103a37003484c8fd0.png" alt="E_\pm=\pm \sqrt{t^2-|\gamma|^2}"/>. As the result, the energies are real if <img class="math" src="_images/math/5781f81f5ed58e7be94e060aaac64e93e47f5578.png" alt="t&gt;\gamma"/>, degenerated if <img class="math" src="_images/math/826a9d113cb6ac97fd649aa618a641ff03d3782a.png" alt="t=\gamma"/>, and complex if <img class="math" src="_images/math/765668542a1fea96732e2182b892f72b100a6cb7.png" alt="t&lt;\gamma"/>.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This example shows that a non-Hermitian matrix can have a real spectrum.</p>
+</div>
+<p>If <img class="math" src="_images/math/5781f81f5ed58e7be94e060aaac64e93e47f5578.png" alt="t&gt;\gamma"/> the eigenenergies are real, if <img class="math" src="_images/math/765668542a1fea96732e2182b892f72b100a6cb7.png" alt="t&lt;\gamma"/> they are complex, the PT-symmetry is broken. <img class="math" src="_images/math/0ebb67342b546ca42a1c634b1ef03c893c4cdedb.png" alt="\gamma"/> represents the PT-symmetry breaking point. In the following, we will consider each case separately.</p>
+<div class="section" id="pt-symmetry">
+<h4>PT-symmetry<a class="headerlink" href="#pt-symmetry" title="Permalink to this headline">¶</a></h4>
+<p>Below the PT-symmetry breaking point, the eigenenergies are real: <img class="math" src="_images/math/c138cc2b1cde4c598d390e7103a37003484c8fd0.png" alt="E_\pm=\pm \sqrt{t^2-|\gamma|^2}"/>.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">chainTB</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="c"># lattice</span>
+<span class="n">tags</span> <span class="o">=</span> <span class="p">[</span><span class="n">b</span><span class="s">&#39;a&#39;</span><span class="p">,</span> <span class="n">b</span><span class="s">&#39;b&#39;</span><span class="p">]</span>
+<span class="n">ri</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]]</span>
+<span class="n">pv</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">]]</span>
+<span class="n">n</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">ta</span> <span class="o">=</span> <span class="mf">1.</span>
+<span class="n">on</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.8j</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.8j</span><span class="p">]</span>
+<span class="n">chain_tb</span> <span class="o">=</span> <span class="n">latticeTB</span><span class="p">(</span><span class="n">tags</span><span class="o">=</span><span class="n">tags</span><span class="p">,</span> <span class="n">ri</span><span class="o">=</span><span class="n">ri</span><span class="p">,</span> <span class="n">pv</span><span class="o">=</span><span class="n">pv</span><span class="p">)</span>
+<span class="n">chain_tb</span><span class="o">.</span><span class="n">get_lattice</span><span class="p">(</span><span class="n">nx</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">ny</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">fig_latttice</span> <span class="o">=</span> <span class="n">chain_tb</span><span class="o">.</span><span class="n">plt_lattice</span><span class="p">(</span><span class="n">plt_label</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">ms</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">fs</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="c"># solve eigenvalue problem</span>
+<span class="n">eig_chain</span> <span class="o">=</span> <span class="n">eigChain</span><span class="p">(</span><span class="n">lat</span><span class="o">=</span><span class="n">chain_tb</span><span class="p">)</span>
+<span class="n">eig_chain</span><span class="o">.</span><span class="n">set_onsite</span><span class="p">(</span><span class="n">on</span><span class="o">=</span><span class="n">on</span><span class="p">)</span>
+<span class="n">eig_chain</span><span class="o">.</span><span class="n">set_hop</span><span class="p">(</span><span class="n">ta</span><span class="o">=</span><span class="n">ta</span><span class="p">)</span>
+<span class="n">eig_chain</span><span class="o">.</span><span class="n">get_ham</span><span class="p">()</span>
+<span class="n">eig_chain</span><span class="o">.</span><span class="n">get_eig</span><span class="p">()</span>
+<span class="c"># plots</span>
+<span class="n">plot_chain</span> <span class="o">=</span> <span class="n">plotTB</span><span class="p">(</span><span class="n">sys</span><span class="o">=</span><span class="n">eig_chain</span><span class="p">)</span>
+<span class="n">fig_spec</span> <span class="o">=</span> <span class="n">plot_chain</span><span class="o">.</span><span class="n">plt_spec</span><span class="p">(</span><span class="n">ms</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">pola_tag</span><span class="o">=</span><span class="n">b</span><span class="s">&#39;a&#39;</span><span class="p">)</span>
+<span class="c">#propagation</span>
+<span class="n">prop_chain</span> <span class="o">=</span> <span class="n">propagationTB</span><span class="p">(</span><span class="n">coor</span><span class="o">=</span><span class="n">eig_chain</span><span class="o">.</span><span class="n">coor</span><span class="p">,</span> <span class="n">steps</span><span class="o">=</span><span class="mi">1400</span><span class="p">,</span> <span class="n">dz</span><span class="o">=</span><span class="mf">0.02</span><span class="p">)</span>
+<span class="n">psi_init</span> <span class="o">=</span>  <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+<span class="n">prop_chain</span><span class="o">.</span><span class="n">get_prop</span><span class="p">(</span><span class="n">ham</span><span class="o">=</span><span class="n">eig_chain</span><span class="o">.</span><span class="n">ham</span><span class="p">,</span> <span class="n">psi_init</span><span class="o">=</span><span class="n">psi_init</span><span class="p">,</span> <span class="n">norm</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">fig_prop</span> <span class="o">=</span> <span class="n">prop_chain</span><span class="o">.</span><span class="n">plt_prop1d</span><span class="p">()</span>
+<span class="n">fig_prop_dimer</span> <span class="o">=</span> <span class="n">prop_chain</span><span class="o">.</span><span class="n">plt_prop_dimer</span><span class="p">()</span>
+<span class="c"># save figures</span>
+<span class="n">save_chain</span> <span class="o">=</span> <span class="n">saveFigTB</span><span class="p">(</span><span class="n">sys</span><span class="o">=</span><span class="n">eig_chain</span><span class="p">,</span> <span class="n">hop_tags</span><span class="o">=</span><span class="p">[</span><span class="s">&#39;t&#39;</span><span class="p">],</span> <span class="n">hop</span><span class="o">=</span><span class="p">[</span><span class="n">ta</span><span class="p">],</span> <span class="n">dir_name</span><span class="o">=</span><span class="s">&#39;chain&#39;</span><span class="p">,</span> <span class="n">ext</span><span class="o">=</span><span class="s">&#39;png&#39;</span><span class="p">)</span>
+<span class="n">save_chain</span><span class="o">.</span><span class="n">save_fig</span><span class="p">(</span><span class="n">fig_latttice</span><span class="p">,</span> <span class="s">&#39;lattice&#39;</span><span class="p">)</span>
+<span class="n">save_chain</span><span class="o">.</span><span class="n">save_fig</span><span class="p">(</span><span class="n">fig_spec</span><span class="p">,</span> <span class="s">&#39;spec&#39;</span><span class="p">)</span>
+<span class="n">save_chain</span><span class="o">.</span><span class="n">save_fig</span><span class="p">(</span><span class="n">fig_prop_dimer</span><span class="p">,</span> <span class="s">&#39;prop_dimer&#39;</span><span class="p">)</span>
+<span class="n">save_chain</span><span class="o">.</span><span class="n">save_fig</span><span class="p">(</span><span class="n">fig_prop</span><span class="p">,</span> <span class="s">&#39;prop&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="_images/spec_t(1+0j)_ea0,8j_eb-0,8j.png"><img alt="_images/spec_t(1+0j)_ea0,8j_eb-0,8j.png" class="align-center" src="_images/spec_t(1+0j)_ea0,8j_eb-0,8j.png" style="width: 55%;" /></a>
+<a class="reference internal image-reference" href="_images/prop_dimer_t(1+0j)_ea0,8j_eb-0,8j.png"><img alt="_images/prop_dimer_t(1+0j)_ea0,8j_eb-0,8j.png" src="_images/prop_dimer_t(1+0j)_ea0,8j_eb-0,8j.png" style="width: 45%;" /></a>
+<a class="reference internal image-reference" href="_images/prop_t(1+0j)_ea0,8j_eb-0,8j.png"><img alt="_images/prop_t(1+0j)_ea0,8j_eb-0,8j.png" src="_images/prop_t(1+0j)_ea0,8j_eb-0,8j.png" style="width: 45%;" /></a>
+</div>
+<div class="section" id="breaking-point">
+<h4>breaking point<a class="headerlink" href="#breaking-point" title="Permalink to this headline">¶</a></h4>
+<p>At the breaking point, <img class="math" src="_images/math/ef0cb4b466f676e04f858d544beca1d706499b55.png" alt="\gamma=t"/>, the eigenenergies coincide: <img class="math" src="_images/math/3dcd8ce9d361eae7b2333fc456c9faf0f1c190a3.png" alt="E_\pm=0"/>.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">chainTB</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="c"># lattice</span>
+<span class="n">tags</span> <span class="o">=</span> <span class="p">[</span><span class="n">b</span><span class="s">&#39;a&#39;</span><span class="p">,</span> <span class="n">b</span><span class="s">&#39;b&#39;</span><span class="p">]</span>
+<span class="n">ri</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]]</span>
+<span class="n">pv</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">]]</span>
+<span class="n">n</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">ta</span> <span class="o">=</span> <span class="mf">1.</span>
+<span class="n">on</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1j</span><span class="p">,</span> <span class="o">-</span><span class="mi">1j</span><span class="p">]</span>
+<span class="n">chain_tb</span> <span class="o">=</span> <span class="n">latticeTB</span><span class="p">(</span><span class="n">tags</span><span class="o">=</span><span class="n">tags</span><span class="p">,</span> <span class="n">ri</span><span class="o">=</span><span class="n">ri</span><span class="p">,</span> <span class="n">pv</span><span class="o">=</span><span class="n">pv</span><span class="p">)</span>
+<span class="n">chain_tb</span><span class="o">.</span><span class="n">get_lattice</span><span class="p">(</span><span class="n">nx</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">ny</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">chain_tb</span><span class="o">.</span><span class="n">plt_lattice</span><span class="p">(</span><span class="n">plt_label</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">ms</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">fs</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="c"># solve eigenvalue problem</span>
+<span class="n">eig_chain</span> <span class="o">=</span> <span class="n">eigChain</span><span class="p">(</span><span class="n">lat</span><span class="o">=</span><span class="n">chain_tb</span><span class="p">)</span>
+<span class="n">eig_chain</span><span class="o">.</span><span class="n">set_onsite</span><span class="p">(</span><span class="n">on</span><span class="o">=</span><span class="n">on</span><span class="p">)</span>
+<span class="n">eig_chain</span><span class="o">.</span><span class="n">set_hop</span><span class="p">(</span><span class="n">ta</span><span class="o">=</span><span class="n">ta</span><span class="p">)</span>
+<span class="n">eig_chain</span><span class="o">.</span><span class="n">get_ham</span><span class="p">()</span>
+<span class="n">eig_chain</span><span class="o">.</span><span class="n">get_eig</span><span class="p">()</span>
+<span class="c"># plots</span>
+<span class="n">plot_chain</span> <span class="o">=</span> <span class="n">plotTB</span><span class="p">(</span><span class="n">sys</span><span class="o">=</span><span class="n">eig_chain</span><span class="p">)</span>
+<span class="n">fig_spec</span> <span class="o">=</span> <span class="n">plot_chain</span><span class="o">.</span><span class="n">plt_spec</span><span class="p">(</span><span class="n">ms</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">pola_tag</span><span class="o">=</span><span class="n">b</span><span class="s">&#39;a&#39;</span><span class="p">)</span>
+<span class="c">#propagation</span>
+<span class="n">prop_chain</span> <span class="o">=</span> <span class="n">propagationTB</span><span class="p">(</span><span class="n">coor</span><span class="o">=</span><span class="n">eig_chain</span><span class="o">.</span><span class="n">coor</span><span class="p">,</span> <span class="n">steps</span><span class="o">=</span><span class="mi">1400</span><span class="p">,</span> <span class="n">dz</span><span class="o">=</span><span class="mf">0.02</span><span class="p">)</span>
+<span class="n">psi_init</span> <span class="o">=</span>  <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+<span class="n">prop_chain</span><span class="o">.</span><span class="n">get_prop</span><span class="p">(</span><span class="n">ham</span><span class="o">=</span><span class="n">eig_chain</span><span class="o">.</span><span class="n">ham</span><span class="p">,</span> <span class="n">psi_init</span><span class="o">=</span><span class="n">psi_init</span><span class="p">,</span> <span class="n">norm</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">fig_prop</span> <span class="o">=</span> <span class="n">prop_chain</span><span class="o">.</span><span class="n">plt_prop1d</span><span class="p">()</span>
+<span class="n">fig_prop_dimer</span> <span class="o">=</span> <span class="n">prop_chain</span><span class="o">.</span><span class="n">plt_prop_dimer</span><span class="p">()</span>
+<span class="c"># save figures</span>
+<span class="n">save_chain</span> <span class="o">=</span> <span class="n">saveFigTB</span><span class="p">(</span><span class="n">sys</span><span class="o">=</span><span class="n">eig_chain</span><span class="p">,</span> <span class="n">hop_tags</span><span class="o">=</span><span class="p">[</span><span class="s">&#39;t&#39;</span><span class="p">],</span> <span class="n">hop</span><span class="o">=</span><span class="p">[</span><span class="n">ta</span><span class="p">],</span> <span class="n">dir_name</span><span class="o">=</span><span class="s">&#39;chain&#39;</span><span class="p">,</span> <span class="n">ext</span><span class="o">=</span><span class="s">&#39;png&#39;</span><span class="p">)</span>
+<span class="n">save_chain</span><span class="o">.</span><span class="n">save_fig</span><span class="p">(</span><span class="n">fig_spec</span><span class="p">,</span> <span class="s">&#39;spec&#39;</span><span class="p">)</span>
+<span class="n">save_chain</span><span class="o">.</span><span class="n">save_fig</span><span class="p">(</span><span class="n">fig_prop_dimer</span><span class="p">,</span> <span class="s">&#39;prop_dimer&#39;</span><span class="p">)</span>
+<span class="n">save_chain</span><span class="o">.</span><span class="n">save_fig</span><span class="p">(</span><span class="n">fig_prop</span><span class="p">,</span> <span class="s">&#39;prop&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="_images/spec_t(1+0j)_ea1j_eb-1j.png"><img alt="_images/spec_t(1+0j)_ea1j_eb-1j.png" class="align-center" src="_images/spec_t(1+0j)_ea1j_eb-1j.png" style="width: 55%;" /></a>
+<a class="reference internal image-reference" href="_images/prop_dimer_t(1+0j)_ea1j_eb-1j.png"><img alt="_images/prop_dimer_t(1+0j)_ea1j_eb-1j.png" src="_images/prop_dimer_t(1+0j)_ea1j_eb-1j.png" style="width: 45%;" /></a>
+<a class="reference internal image-reference" href="_images/prop_t(1+0j)_ea1j_eb-1j.png"><img alt="_images/prop_t(1+0j)_ea1j_eb-1j.png" src="_images/prop_t(1+0j)_ea1j_eb-1j.png" style="width: 45%;" /></a>
+</div>
+<div class="section" id="broken-pt-symmetry">
+<h4>broken PT-symmetry<a class="headerlink" href="#broken-pt-symmetry" title="Permalink to this headline">¶</a></h4>
+<p>Above the PT-symmetry breaking point, <img class="math" src="_images/math/3fcc08ab0dfe3453109470550a64e0ea861aa9cb.png" alt="\gamma&gt;t"/>, the eigenenergies are complex: <img class="math" src="_images/math/803519788330abf7446c9b5f98ae17c2b4fa58f4.png" alt="E_\pm= \pm i \sqrt{\gamma^2-t^2}"/>.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">chainTB</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="c"># lattice</span>
+<span class="n">tags</span> <span class="o">=</span> <span class="p">[</span><span class="n">b</span><span class="s">&#39;a&#39;</span><span class="p">,</span> <span class="n">b</span><span class="s">&#39;b&#39;</span><span class="p">]</span>
+<span class="n">ri</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]]</span>
+<span class="n">pv</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">]]</span>
+<span class="n">n</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">ta</span> <span class="o">=</span> <span class="mf">1.</span>
+<span class="n">on</span> <span class="o">=</span> <span class="p">[</span><span class="mf">1.2j</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.2j</span><span class="p">]</span>
+<span class="n">chain_tb</span> <span class="o">=</span> <span class="n">latticeTB</span><span class="p">(</span><span class="n">tags</span><span class="o">=</span><span class="n">tags</span><span class="p">,</span> <span class="n">ri</span><span class="o">=</span><span class="n">ri</span><span class="p">,</span> <span class="n">pv</span><span class="o">=</span><span class="n">pv</span><span class="p">)</span>
+<span class="n">chain_tb</span><span class="o">.</span><span class="n">get_lattice</span><span class="p">(</span><span class="n">nx</span><span class="o">=</span><span class="n">n</span><span class="p">,</span> <span class="n">ny</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">chain_tb</span><span class="o">.</span><span class="n">plt_lattice</span><span class="p">(</span><span class="n">plt_label</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">ms</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">fs</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="c"># solve eigenvalue problem</span>
+<span class="n">eig_chain</span> <span class="o">=</span> <span class="n">eigChain</span><span class="p">(</span><span class="n">lat</span><span class="o">=</span><span class="n">chain_tb</span><span class="p">)</span>
+<span class="n">eig_chain</span><span class="o">.</span><span class="n">set_onsite</span><span class="p">(</span><span class="n">on</span><span class="o">=</span><span class="n">on</span><span class="p">)</span>
+<span class="n">eig_chain</span><span class="o">.</span><span class="n">set_hop</span><span class="p">(</span><span class="n">ta</span><span class="o">=</span><span class="n">ta</span><span class="p">)</span>
+<span class="n">eig_chain</span><span class="o">.</span><span class="n">get_ham</span><span class="p">()</span>
+<span class="n">eig_chain</span><span class="o">.</span><span class="n">get_eig</span><span class="p">()</span>
+<span class="c"># plots</span>
+<span class="n">plot_chain</span> <span class="o">=</span> <span class="n">plotTB</span><span class="p">(</span><span class="n">sys</span><span class="o">=</span><span class="n">eig_chain</span><span class="p">)</span>
+<span class="n">fig_spec</span> <span class="o">=</span> <span class="n">plot_chain</span><span class="o">.</span><span class="n">plt_spec</span><span class="p">(</span><span class="n">ms</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">pola_tag</span><span class="o">=</span><span class="n">b</span><span class="s">&#39;a&#39;</span><span class="p">)</span>
+<span class="c">#propagation</span>
+<span class="n">prop_chain</span> <span class="o">=</span> <span class="n">propagationTB</span><span class="p">(</span><span class="n">coor</span><span class="o">=</span><span class="n">eig_chain</span><span class="o">.</span><span class="n">coor</span><span class="p">,</span> <span class="n">steps</span><span class="o">=</span><span class="mi">1400</span><span class="p">,</span> <span class="n">dz</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span>
+<span class="n">psi_init</span> <span class="o">=</span>  <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+<span class="n">prop_chain</span><span class="o">.</span><span class="n">get_prop</span><span class="p">(</span><span class="n">ham</span><span class="o">=</span><span class="n">eig_chain</span><span class="o">.</span><span class="n">ham</span><span class="p">,</span> <span class="n">psi_init</span><span class="o">=</span><span class="n">psi_init</span><span class="p">,</span> <span class="n">norm</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">fig_prop_0</span> <span class="o">=</span> <span class="n">prop_chain</span><span class="o">.</span><span class="n">plt_prop1d</span><span class="p">()</span>
+<span class="n">fig_prop_dimer_0</span> <span class="o">=</span> <span class="n">prop_chain</span><span class="o">.</span><span class="n">plt_prop_dimer</span><span class="p">()</span>
+<span class="n">psi_init</span> <span class="o">=</span>  <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="n">prop_chain</span><span class="o">.</span><span class="n">get_prop</span><span class="p">(</span><span class="n">ham</span><span class="o">=</span><span class="n">eig_chain</span><span class="o">.</span><span class="n">ham</span><span class="p">,</span> <span class="n">psi_init</span><span class="o">=</span><span class="n">psi_init</span><span class="p">,</span> <span class="n">norm</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">fig_prop_1</span> <span class="o">=</span> <span class="n">prop_chain</span><span class="o">.</span><span class="n">plt_prop1d</span><span class="p">()</span>
+<span class="n">fig_prop_dimer_1</span> <span class="o">=</span> <span class="n">prop_chain</span><span class="o">.</span><span class="n">plt_prop_dimer</span><span class="p">()</span>
+<span class="c"># save figures</span>
+<span class="n">save_chain</span> <span class="o">=</span> <span class="n">saveFigTB</span><span class="p">(</span><span class="n">sys</span><span class="o">=</span><span class="n">eig_chain</span><span class="p">,</span> <span class="n">hop_tags</span><span class="o">=</span><span class="p">[</span><span class="s">&#39;t&#39;</span><span class="p">],</span> <span class="n">hop</span><span class="o">=</span><span class="p">[</span><span class="n">ta</span><span class="p">],</span> <span class="n">dir_name</span><span class="o">=</span><span class="s">&#39;chain&#39;</span><span class="p">,</span> <span class="n">ext</span><span class="o">=</span><span class="s">&#39;png&#39;</span><span class="p">)</span>
+<span class="n">save_chain</span><span class="o">.</span><span class="n">save_fig</span><span class="p">(</span><span class="n">fig_spec</span><span class="p">,</span> <span class="s">&#39;spec&#39;</span><span class="p">)</span>
+<span class="n">save_chain</span><span class="o">.</span><span class="n">save_fig</span><span class="p">(</span><span class="n">fig_prop_dimer_0</span><span class="p">,</span> <span class="s">&#39;prop_dimer_0&#39;</span><span class="p">)</span>
+<span class="n">save_chain</span><span class="o">.</span><span class="n">save_fig</span><span class="p">(</span><span class="n">fig_prop_dimer_1</span><span class="p">,</span> <span class="s">&#39;prop_dimer_1&#39;</span><span class="p">)</span>
+<span class="n">save_chain</span><span class="o">.</span><span class="n">save_fig</span><span class="p">(</span><span class="n">fig_prop_0</span><span class="p">,</span> <span class="s">&#39;prop_0&#39;</span><span class="p">)</span>
+<span class="n">save_chain</span><span class="o">.</span><span class="n">save_fig</span><span class="p">(</span><span class="n">fig_prop_1</span><span class="p">,</span> <span class="s">&#39;prop_1&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="_images/spec_t(1+0j)_ea1,2j_eb-1,2j.png"><img alt="_images/spec_t(1+0j)_ea1,2j_eb-1,2j.png" class="align-center" src="_images/spec_t(1+0j)_ea1,2j_eb-1,2j.png" style="width: 55%;" /></a>
+<a class="reference internal image-reference" href="_images/prop_dimer_0_t(1+0j)_ea1,2j_eb-1,2j.png"><img alt="_images/prop_dimer_0_t(1+0j)_ea1,2j_eb-1,2j.png" src="_images/prop_dimer_0_t(1+0j)_ea1,2j_eb-1,2j.png" style="width: 45%;" /></a>
+<a class="reference internal image-reference" href="_images/prop_dimer_1_t(1+0j)_ea1,2j_eb-1,2j.png"><img alt="_images/prop_dimer_1_t(1+0j)_ea1,2j_eb-1,2j.png" src="_images/prop_dimer_1_t(1+0j)_ea1,2j_eb-1,2j.png" style="width: 45%;" /></a>
+<a class="reference internal image-reference" href="_images/prop_0_t(1+0j)_ea1,2j_eb-1,2j.png"><img alt="_images/prop_0_t(1+0j)_ea1,2j_eb-1,2j.png" src="_images/prop_0_t(1+0j)_ea1,2j_eb-1,2j.png" style="width: 45%;" /></a>
+<a class="reference internal image-reference" href="_images/prop_1_t(1+0j)_ea1,2j_eb-1,2j.png"><img alt="_images/prop_1_t(1+0j)_ea1,2j_eb-1,2j.png" src="_images/prop_1_t(1+0j)_ea1,2j_eb-1,2j.png" style="width: 45%;" /></a>
+</div>
+</div>
+</div>
+<div class="section" id="dimer-chain">
+<h2>Dimer chain<a class="headerlink" href="#dimer-chain" title="Permalink to this headline">¶</a></h2>
+<p>The chain is composed of <img class="math" src="_images/math/413f8a8e40062a9090d9d50b88bc7b551b314c26.png" alt="n"/> dimers <em>i.e.</em> <img class="math" src="_images/math/413f8a8e40062a9090d9d50b88bc7b551b314c26.png" alt="n"/> sites A and <img class="math" src="_images/math/413f8a8e40062a9090d9d50b88bc7b551b314c26.png" alt="n"/> sites B. The chain starts with a A site and ends with a B site.</p>
+<a class="reference internal image-reference" href="_images/lattice_t(1+0j)1.png"><img alt="_images/lattice_t(1+0j)1.png" class="align-center" src="_images/lattice_t(1+0j)1.png" style="width: 100%; height: 80px;" /></a>
+<div class="section" id="id1">
+<h3>Hermitian case<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># lattice</span>
+<span class="n">tags</span> <span class="o">=</span> <span class="p">[</span><span class="n">b</span><span class="s">&#39;a&#39;</span><span class="p">,</span> <span class="n">b</span><span class="s">&#39;b&#39;</span><span class="p">]</span>
+<span class="n">ri</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]]</span>
+<span class="n">pv</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">]]</span>
+<span class="n">n</span> <span class="o">=</span> <span class="mi">20</span>
+<span class="n">ta</span> <span class="o">=</span> <span class="mf">1.</span>
+<span class="n">chain_tb</span> <span class="o">=</span> <span class="n">latticeTB</span><span class="p">(</span><span class="n">tags</span><span class="o">=</span><span class="n">tags</span><span class="p">,</span> <span class="n">ri</span><span class="o">=</span><span class="n">ri</span><span class="p">,</span> <span class="n">pv</span><span class="o">=</span><span class="n">pv</span><span class="p">)</span>
+<span class="n">chain_tb</span><span class="o">.</span><span class="n">get_lattice</span><span class="p">(</span><span class="n">nx</span><span class="o">=</span><span class="n">n</span><span class="p">,</span> <span class="n">ny</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">fig_lattice</span> <span class="o">=</span> <span class="n">chain_tb</span><span class="o">.</span><span class="n">plt_lattice</span><span class="p">(</span><span class="n">plt_label</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">ms</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">fs</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mf">2.8</span><span class="p">))</span>
+<span class="c"># solve eigenvalue problem</span>
+<span class="n">eig_chain</span> <span class="o">=</span> <span class="n">eigChain</span><span class="p">(</span><span class="n">lat</span><span class="o">=</span><span class="n">chain_tb</span><span class="p">)</span>
+<span class="n">eig_chain</span><span class="o">.</span><span class="n">set_hop</span><span class="p">(</span><span class="n">ta</span><span class="o">=</span><span class="n">ta</span><span class="p">)</span>
+<span class="n">eig_chain</span><span class="o">.</span><span class="n">get_ham</span><span class="p">()</span>
+<span class="n">eig_chain</span><span class="o">.</span><span class="n">get_eig</span><span class="p">()</span>
+<span class="c"># plots</span>
+<span class="n">plot_chain</span> <span class="o">=</span> <span class="n">plotTB</span><span class="p">(</span><span class="n">sys</span><span class="o">=</span><span class="n">eig_chain</span><span class="p">)</span>
+<span class="n">fig_spec</span> <span class="o">=</span> <span class="n">plot_chain</span><span class="o">.</span><span class="n">plt_spec</span><span class="p">(</span><span class="n">ms</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">pola_tag</span><span class="o">=</span><span class="n">b</span><span class="s">&#39;a&#39;</span><span class="p">)</span>
+<span class="c">#propagation</span>
+<span class="n">prop_chain</span> <span class="o">=</span> <span class="n">propagationTB</span><span class="p">(</span><span class="n">coor</span><span class="o">=</span><span class="n">eig_chain</span><span class="o">.</span><span class="n">coor</span><span class="p">,</span> <span class="n">steps</span><span class="o">=</span><span class="mi">1400</span><span class="p">,</span> <span class="n">dz</span><span class="o">=</span><span class="mf">0.05</span><span class="p">)</span>
+<span class="n">psi_init</span> <span class="o">=</span>  <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">eig_chain</span><span class="o">.</span><span class="n">sites</span><span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">eig_chain</span><span class="o">.</span><span class="n">sites</span><span class="p">)</span>
+<span class="n">prop_chain</span><span class="o">.</span><span class="n">get_prop</span><span class="p">(</span><span class="n">ham</span><span class="o">=</span><span class="n">eig_chain</span><span class="o">.</span><span class="n">ham</span><span class="p">,</span> <span class="n">psi_init</span><span class="o">=</span><span class="n">psi_init</span><span class="p">,</span> <span class="n">norm</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">fig_prop</span> <span class="o">=</span> <span class="n">prop_chain</span><span class="o">.</span><span class="n">plt_prop1d</span><span class="p">()</span>
+<span class="c"># save figures</span>
+<span class="n">save_chain</span> <span class="o">=</span> <span class="n">saveFigTB</span><span class="p">(</span><span class="n">sys</span><span class="o">=</span><span class="n">eig_chain</span><span class="p">,</span> <span class="n">hop_tags</span><span class="o">=</span><span class="p">[</span><span class="s">&#39;t&#39;</span><span class="p">],</span> <span class="n">hop</span><span class="o">=</span><span class="p">[</span><span class="n">ta</span><span class="p">],</span> <span class="n">dir_name</span><span class="o">=</span><span class="s">&#39;chain&#39;</span><span class="p">,</span> <span class="n">ext</span><span class="o">=</span><span class="s">&#39;png&#39;</span><span class="p">)</span>
+<span class="n">save_chain</span><span class="o">.</span><span class="n">save_fig</span><span class="p">(</span><span class="n">fig_lattice</span><span class="p">,</span> <span class="s">&#39;lattice&#39;</span><span class="p">)</span>
+<span class="n">save_chain</span><span class="o">.</span><span class="n">save_fig</span><span class="p">(</span><span class="n">fig_spec</span><span class="p">,</span> <span class="s">&#39;spec&#39;</span><span class="p">)</span>
+<span class="n">save_chain</span><span class="o">.</span><span class="n">save_fig</span><span class="p">(</span><span class="n">fig_prop</span><span class="p">,</span> <span class="s">&#39;prop&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="_images/spec_t(1+0j)_ea0j_eb0j.png"><img alt="_images/spec_t(1+0j)_ea0j_eb0j.png" src="_images/spec_t(1+0j)_ea0j_eb0j.png" style="width: 45%;" /></a>
+<a class="reference internal image-reference" href="_images/prop_t(1+0j)_ea0j_eb0j.png"><img alt="_images/prop_t(1+0j)_ea0j_eb0j.png" src="_images/prop_t(1+0j)_ea0j_eb0j.png" style="width: 45%;" /></a>
+</div>
+<div class="section" id="id2">
+<h3>Non-Hermitian case<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id3">
+<h4>PT-symmetry<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">chainTB</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="c"># lattice</span>
+<span class="n">tags</span> <span class="o">=</span> <span class="p">[</span><span class="n">b</span><span class="s">&#39;a&#39;</span><span class="p">,</span> <span class="n">b</span><span class="s">&#39;b&#39;</span><span class="p">]</span>
+<span class="n">ri</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]]</span>
+<span class="n">pv</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">]]</span>
+<span class="n">n</span> <span class="o">=</span> <span class="mi">20</span>
+<span class="n">ta</span> <span class="o">=</span> <span class="mf">1.</span>
+<span class="n">on</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.1j</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.1j</span><span class="p">]</span>
+<span class="n">chain_tb</span> <span class="o">=</span> <span class="n">latticeTB</span><span class="p">(</span><span class="n">tags</span><span class="o">=</span><span class="n">tags</span><span class="p">,</span> <span class="n">ri</span><span class="o">=</span><span class="n">ri</span><span class="p">,</span> <span class="n">pv</span><span class="o">=</span><span class="n">pv</span><span class="p">)</span>
+<span class="n">chain_tb</span><span class="o">.</span><span class="n">get_lattice</span><span class="p">(</span><span class="n">nx</span><span class="o">=</span><span class="n">n</span><span class="p">,</span> <span class="n">ny</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">chain_tb</span><span class="o">.</span><span class="n">plt_lattice</span><span class="p">(</span><span class="n">plt_label</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">ms</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">fs</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="c"># solve eigenvalue problem</span>
+<span class="n">eig_chain</span> <span class="o">=</span> <span class="n">eigChain</span><span class="p">(</span><span class="n">lat</span><span class="o">=</span><span class="n">chain_tb</span><span class="p">)</span>
+<span class="n">eig_chain</span><span class="o">.</span><span class="n">set_onsite</span><span class="p">(</span><span class="n">on</span><span class="o">=</span><span class="n">on</span><span class="p">)</span>
+<span class="n">eig_chain</span><span class="o">.</span><span class="n">set_hop</span><span class="p">(</span><span class="n">ta</span><span class="o">=</span><span class="n">ta</span><span class="p">)</span>
+<span class="n">eig_chain</span><span class="o">.</span><span class="n">get_ham</span><span class="p">()</span>
+<span class="n">eig_chain</span><span class="o">.</span><span class="n">get_eig</span><span class="p">()</span>
+<span class="c"># plots</span>
+<span class="n">plot_chain</span> <span class="o">=</span> <span class="n">plotTB</span><span class="p">(</span><span class="n">sys</span><span class="o">=</span><span class="n">eig_chain</span><span class="p">)</span>
+<span class="n">fig_spec</span> <span class="o">=</span> <span class="n">plot_chain</span><span class="o">.</span><span class="n">plt_spec</span><span class="p">(</span><span class="n">ms</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">pola_tag</span><span class="o">=</span><span class="n">b</span><span class="s">&#39;a&#39;</span><span class="p">)</span>
+<span class="c">#propagation</span>
+<span class="n">prop_chain</span> <span class="o">=</span> <span class="n">propagationTB</span><span class="p">(</span><span class="n">coor</span><span class="o">=</span><span class="n">eig_chain</span><span class="o">.</span><span class="n">coor</span><span class="p">,</span> <span class="n">steps</span><span class="o">=</span><span class="mi">1400</span><span class="p">,</span> <span class="n">dz</span><span class="o">=</span><span class="mf">0.05</span><span class="p">)</span>
+<span class="n">psi_init</span> <span class="o">=</span>  <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">eig_chain</span><span class="o">.</span><span class="n">sites</span><span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">eig_chain</span><span class="o">.</span><span class="n">sites</span><span class="p">)</span>
+<span class="n">prop_chain</span><span class="o">.</span><span class="n">get_prop</span><span class="p">(</span><span class="n">ham</span><span class="o">=</span><span class="n">eig_chain</span><span class="o">.</span><span class="n">ham</span><span class="p">,</span> <span class="n">psi_init</span><span class="o">=</span><span class="n">psi_init</span><span class="p">,</span> <span class="n">norm</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">fig_prop</span> <span class="o">=</span> <span class="n">prop_chain</span><span class="o">.</span><span class="n">plt_prop1d</span><span class="p">()</span>
+<span class="c"># save figures</span>
+<span class="n">save_chain</span> <span class="o">=</span> <span class="n">saveFigTB</span><span class="p">(</span><span class="n">sys</span><span class="o">=</span><span class="n">eig_chain</span><span class="p">,</span> <span class="n">hop_tags</span><span class="o">=</span><span class="p">[</span><span class="s">&#39;t&#39;</span><span class="p">],</span> <span class="n">hop</span><span class="o">=</span><span class="p">[</span><span class="n">ta</span><span class="p">],</span> <span class="n">dir_name</span><span class="o">=</span><span class="s">&#39;chain&#39;</span><span class="p">,</span> <span class="n">ext</span><span class="o">=</span><span class="s">&#39;png&#39;</span><span class="p">)</span>
+<span class="n">save_chain</span><span class="o">.</span><span class="n">save_fig</span><span class="p">(</span><span class="n">fig_spec</span><span class="p">,</span> <span class="s">&#39;spec&#39;</span><span class="p">)</span>
+<span class="n">save_chain</span><span class="o">.</span><span class="n">save_fig</span><span class="p">(</span><span class="n">fig_prop</span><span class="p">,</span> <span class="s">&#39;prop&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="_images/spec_t(1+0j)_ea0,1j_eb-0,1j.png"><img alt="_images/spec_t(1+0j)_ea0,1j_eb-0,1j.png" src="_images/spec_t(1+0j)_ea0,1j_eb-0,1j.png" style="width: 45%;" /></a>
+<a class="reference internal image-reference" href="_images/prop_t(1+0j)_ea0,1j_eb-0,1j.png"><img alt="_images/prop_t(1+0j)_ea0,1j_eb-0,1j.png" src="_images/prop_t(1+0j)_ea0,1j_eb-0,1j.png" style="width: 45%;" /></a>
+</div>
+<div class="section" id="id4">
+<h4>broken PT-symmetry<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">chainTB</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="n">tags</span> <span class="o">=</span> <span class="p">[</span><span class="n">b</span><span class="s">&#39;a&#39;</span><span class="p">,</span> <span class="n">b</span><span class="s">&#39;b&#39;</span><span class="p">]</span>
+<span class="n">ri</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]]</span>
+<span class="n">pv</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">]]</span>
+<span class="n">n</span> <span class="o">=</span> <span class="mi">20</span>
+<span class="n">ta</span> <span class="o">=</span> <span class="mf">1.</span>
+<span class="n">on</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.2j</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.2j</span><span class="p">]</span>
+<span class="n">chain_tb</span> <span class="o">=</span> <span class="n">latticeTB</span><span class="p">(</span><span class="n">tags</span><span class="o">=</span><span class="n">tags</span><span class="p">,</span> <span class="n">ri</span><span class="o">=</span><span class="n">ri</span><span class="p">,</span> <span class="n">pv</span><span class="o">=</span><span class="n">pv</span><span class="p">)</span>
+<span class="n">chain_tb</span><span class="o">.</span><span class="n">get_lattice</span><span class="p">(</span><span class="n">nx</span><span class="o">=</span><span class="n">n</span><span class="p">,</span> <span class="n">ny</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">chain_tb</span><span class="o">.</span><span class="n">plt_lattice</span><span class="p">(</span><span class="n">plt_label</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">ms</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">fs</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="c"># solve eigenvalue problem</span>
+<span class="n">eig_chain</span> <span class="o">=</span> <span class="n">eigChain</span><span class="p">(</span><span class="n">lat</span><span class="o">=</span><span class="n">chain_tb</span><span class="p">)</span>
+<span class="n">eig_chain</span><span class="o">.</span><span class="n">set_onsite</span><span class="p">(</span><span class="n">on</span><span class="o">=</span><span class="n">on</span><span class="p">)</span>
+<span class="n">eig_chain</span><span class="o">.</span><span class="n">set_hop</span><span class="p">(</span><span class="n">ta</span><span class="o">=</span><span class="n">ta</span><span class="p">)</span>
+<span class="n">eig_chain</span><span class="o">.</span><span class="n">get_ham</span><span class="p">()</span>
+<span class="n">eig_chain</span><span class="o">.</span><span class="n">get_eig</span><span class="p">()</span>
+<span class="n">state_a</span> <span class="o">=</span> <span class="n">eig_chain</span><span class="o">.</span><span class="n">get_state_pola</span><span class="p">(</span><span class="n">b</span><span class="s">&#39;a&#39;</span><span class="p">)</span>
+<span class="n">state_b</span> <span class="o">=</span> <span class="n">eig_chain</span><span class="o">.</span><span class="n">get_state_pola</span><span class="p">(</span><span class="n">b</span><span class="s">&#39;b&#39;</span><span class="p">)</span>
+<span class="c"># plots</span>
+<span class="n">plot_chain</span> <span class="o">=</span> <span class="n">plotTB</span><span class="p">(</span><span class="n">sys</span><span class="o">=</span><span class="n">eig_chain</span><span class="p">)</span>
+<span class="n">fig_spec</span> <span class="o">=</span> <span class="n">plot_chain</span><span class="o">.</span><span class="n">plt_spec</span><span class="p">(</span><span class="n">ms</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">pola_tag</span><span class="o">=</span><span class="n">b</span><span class="s">&#39;a&#39;</span><span class="p">)</span>
+<span class="n">fig_state_a</span> <span class="o">=</span> <span class="n">plot_chain</span><span class="o">.</span><span class="n">plt_intensity1d</span><span class="p">(</span><span class="n">state_a</span><span class="p">,</span> <span class="n">ms</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">fig_state_b</span> <span class="o">=</span> <span class="n">plot_chain</span><span class="o">.</span><span class="n">plt_intensity1d</span><span class="p">(</span><span class="n">state_b</span><span class="p">,</span> <span class="n">ms</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="c">#propagation</span>
+<span class="n">prop_chain</span> <span class="o">=</span> <span class="n">propagationTB</span><span class="p">(</span><span class="n">coor</span><span class="o">=</span><span class="n">eig_chain</span><span class="o">.</span><span class="n">coor</span><span class="p">,</span> <span class="n">steps</span><span class="o">=</span><span class="mi">1400</span><span class="p">,</span> <span class="n">dz</span><span class="o">=</span><span class="mf">0.05</span><span class="p">)</span>
+<span class="n">psi_init</span> <span class="o">=</span>  <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">eig_chain</span><span class="o">.</span><span class="n">sites</span><span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">eig_chain</span><span class="o">.</span><span class="n">sites</span><span class="p">)</span>
+<span class="n">prop_chain</span><span class="o">.</span><span class="n">get_prop</span><span class="p">(</span><span class="n">ham</span><span class="o">=</span><span class="n">eig_chain</span><span class="o">.</span><span class="n">ham</span><span class="p">,</span> <span class="n">psi_init</span><span class="o">=</span><span class="n">psi_init</span><span class="p">,</span> <span class="n">norm</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">fig_prop</span> <span class="o">=</span> <span class="n">prop_chain</span><span class="o">.</span><span class="n">plt_prop1d</span><span class="p">()</span>
+<span class="c"># save figures</span>
+<span class="n">save_chain</span> <span class="o">=</span> <span class="n">saveFigTB</span><span class="p">(</span><span class="n">sys</span><span class="o">=</span><span class="n">eig_chain</span><span class="p">,</span> <span class="n">hop_tags</span><span class="o">=</span><span class="p">[</span><span class="s">&#39;t&#39;</span><span class="p">],</span> <span class="n">hop</span><span class="o">=</span><span class="p">[</span><span class="n">ta</span><span class="p">],</span> <span class="n">dir_name</span><span class="o">=</span><span class="s">&#39;chain&#39;</span><span class="p">,</span> <span class="n">ext</span><span class="o">=</span><span class="s">&#39;png&#39;</span><span class="p">)</span>
+<span class="n">save_chain</span><span class="o">.</span><span class="n">save_fig</span><span class="p">(</span><span class="n">fig_spec</span><span class="p">,</span> <span class="s">&#39;spec&#39;</span><span class="p">)</span>
+<span class="n">save_chain</span><span class="o">.</span><span class="n">save_fig</span><span class="p">(</span><span class="n">fig_state_a</span><span class="p">,</span> <span class="s">&#39;state_a&#39;</span><span class="p">)</span>
+<span class="n">save_chain</span><span class="o">.</span><span class="n">save_fig</span><span class="p">(</span><span class="n">fig_state_b</span><span class="p">,</span> <span class="s">&#39;state_b&#39;</span><span class="p">)</span>
+<span class="n">save_chain</span><span class="o">.</span><span class="n">save_fig</span><span class="p">(</span><span class="n">fig_prop</span><span class="p">,</span> <span class="s">&#39;prop&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="_images/spec_t(1+0j)_ea0,2j_eb-0,2j.png"><img alt="_images/spec_t(1+0j)_ea0,2j_eb-0,2j.png" class="align-center" src="_images/spec_t(1+0j)_ea0,2j_eb-0,2j.png" style="width: 55%;" /></a>
+<a class="reference internal image-reference" href="_images/state_a_t(1+0j)_ea0,2j_eb-0,2j.png"><img alt="_images/state_a_t(1+0j)_ea0,2j_eb-0,2j.png" src="_images/state_a_t(1+0j)_ea0,2j_eb-0,2j.png" style="width: 45%;" /></a>
+<a class="reference internal image-reference" href="_images/state_b_t(1+0j)_ea0,2j_eb-0,2j.png"><img alt="_images/state_b_t(1+0j)_ea0,2j_eb-0,2j.png" src="_images/state_b_t(1+0j)_ea0,2j_eb-0,2j.png" style="width: 45%;" /></a>
+<a class="reference internal image-reference" href="_images/prop_t(1+0j)_ea0,2j_eb-0,2j.png"><img alt="_images/prop_t(1+0j)_ea0,2j_eb-0,2j.png" class="align-center" src="_images/prop_t(1+0j)_ea0,2j_eb-0,2j.png" style="width: 65%;" /></a>
+<p>The state with  <img class="math" src="_images/math/5671f5b3e746e97cb4d4799a375f8eccfa134c79.png" alt="\langle A|A \rangle&gt;1/2"/> is amplified.</p>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="examplesChain2.html" class="btn btn-neutral" title="Zero modes"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Charles Poli.
+    </p>
+  </div>
+
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+  
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

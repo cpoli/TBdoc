@@ -1,0 +1,712 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>lieb_tb &mdash; TB  documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic|Roboto+Slab:400,700|Inconsolata:400,700&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="TB  documentation" href="../index.html"/>
+        <link rel="up" title="Module code" href="index.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+          <a href="../indexTB.html" class="fa fa-home"> TB</a>
+        
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../latticeTB.html">latticeTB</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../eigTB.html">eigTB</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../plotTB.html">plotTB</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../propagationTB.html">propagationTB</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../indexChain.html">Tight-Binding Chain</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chainTB.html">chainTB</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examplesChain1.html">PT-symmetry</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examplesChain2.html">Zero modes</a></li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../indexTB.html">TB</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../indexTB.html">Docs</a> &raquo;</li>
+      
+          <li><a href="index.html">Module code</a> &raquo;</li>
+      
+    <li>lieb_tb</li>
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <h1>Source code for lieb_tb</h1><div class="highlight"><pre>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">sys</span><span class="o">,</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">scipy.optimize</span> <span class="kn">import</span> <span class="n">fsolve</span>
+<span class="kn">import</span> <span class="nn">numpy.random</span> <span class="kn">as</span> <span class="nn">rand</span>
+<span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">cos</span><span class="p">,</span> <span class="n">sin</span><span class="p">,</span> <span class="n">sqrt</span><span class="p">,</span> <span class="n">pi</span>
+<span class="kn">from</span> <span class="nn">cmath</span> <span class="kn">import</span> <span class="n">exp</span> <span class="k">as</span> <span class="n">cexp</span>  
+<span class="kn">from</span> <span class="nn">mpl_toolkits.mplot3d</span> <span class="kn">import</span> <span class="n">axes3d</span>
+<span class="kn">from</span> <span class="nn">matplotlib.legend_handler</span> <span class="kn">import</span> <span class="n">HandlerLine2D</span>
+<span class="kn">from</span> <span class="nn">latticeTB</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">plotTB</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">eigTB</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">propagationTB</span> <span class="kn">import</span> <span class="o">*</span>
+
+<div class="viewcode-block" id="eigLieb"><a class="viewcode-back" href="../lieb_tb.html#lieb_tb.eigLieb">[docs]</a><span class="k">class</span> <span class="nc">eigLieb</span><span class="p">(</span><span class="n">eigTB</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Child of the class **eigTB**. Dedicated to the Lieb lattice. </span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">coor</span><span class="p">,</span> <span class="n">tags</span><span class="p">):</span>
+        <span class="n">eigTB</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">coor</span><span class="p">,</span> <span class="n">tags</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">alpha</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c"># disorder strength</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">c</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c"># next nearest hoppings strength </span>
+
+<div class="viewcode-block" id="eigLieb.set_hop_uni"><a class="viewcode-back" href="../lieb_tb.html#lieb_tb.eigLieb.set_hop_uni">[docs]</a>    <span class="k">def</span> <span class="nf">set_hop_uni</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="mf">0.</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Get the nearest hoppings of the Lieb lattice and set their values to :math:`t`</span>
+<span class="sd">        and, get the next nearest hoppings (diagonal hoppings)</span>
+<span class="sd">        and set their values to :math:`c t`.</span>
+
+<span class="sd">        :param t: Nearest hopping value.</span>
+<span class="sd">        :param c: Next nearest hopping strength.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">c</span> <span class="o">=</span> <span class="n">c</span>
+        <span class="n">dif_x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">coor</span><span class="p">[</span><span class="s">&#39;x&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">coor</span><span class="p">[</span><span class="s">&#39;x&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sites</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">dif_y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">coor</span><span class="p">[</span><span class="s">&#39;y&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">coor</span><span class="p">[</span><span class="s">&#39;y&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sites</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">dis</span> <span class="o">=</span> <span class="n">dif_x</span> <span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">dif_y</span> <span class="o">**</span><span class="mi">2</span>
+        <span class="n">ind</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argwhere</span><span class="p">(</span><span class="n">dis</span> <span class="o">==</span> <span class="mf">1.</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">hop</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">ind</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]),</span> <span class="p">{</span><span class="s">&#39;names&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s">&#39;i&#39;</span><span class="p">,</span> <span class="s">&#39;j&#39;</span><span class="p">,</span> <span class="s">&#39;t&#39;</span><span class="p">],</span> 
+                                                              <span class="s">&#39;formats&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s">&#39;u4&#39;</span><span class="p">,</span> <span class="s">&#39;u4&#39;</span><span class="p">,</span> <span class="s">&#39;c16&#39;</span><span class="p">]})</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">hop</span><span class="p">[</span><span class="s">&#39;i&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ind</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">hop</span><span class="p">[</span><span class="s">&#39;j&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ind</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">hop</span><span class="p">[</span><span class="s">&#39;t&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">t</span>
+        <span class="n">ind_nn</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argwhere</span><span class="p">(</span><span class="n">dis</span> <span class="o">==</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="n">hop_nn</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">ind_nn</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]),</span> <span class="p">{</span><span class="s">&#39;names&#39;</span><span class="p">:[</span><span class="s">&#39;i&#39;</span><span class="p">,</span> <span class="s">&#39;j&#39;</span><span class="p">,</span> <span class="s">&#39;t&#39;</span><span class="p">],</span>
+                                                                   <span class="s">&#39;formats&#39;</span><span class="p">:[</span><span class="s">&#39;u4&#39;</span><span class="p">,</span> <span class="s">&#39;u4&#39;</span><span class="p">,</span> <span class="s">&#39;c16&#39;</span><span class="p">]})</span>
+        <span class="n">hop_nn</span><span class="p">[</span><span class="s">&#39;i&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ind_nn</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span>
+        <span class="n">hop_nn</span><span class="p">[</span><span class="s">&#39;j&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ind_nn</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span>
+        <span class="n">hop_nn</span><span class="p">[</span><span class="s">&#39;t&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">c</span> <span class="o">*</span> <span class="n">t</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">hop</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">hop</span><span class="p">,</span> <span class="n">hop_nn</span><span class="p">])</span>
+</div>
+<div class="viewcode-block" id="eigLieb.set_hop_alt"><a class="viewcode-back" href="../lieb_tb.html#lieb_tb.eigLieb.set_hop_alt">[docs]</a>    <span class="k">def</span> <span class="nf">set_hop_alt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ta</span><span class="p">,</span> <span class="n">tb</span><span class="p">,</span> <span class="n">tc</span><span class="p">,</span> <span class="n">td</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="mf">0.</span><span class="p">):</span>
+        <span class="sd">r&#39;&#39;&#39;</span>
+<span class="sd">        Get the nearest hoppings of the Lieb lattice with alternating hoppings</span>
+<span class="sd">        and, the next nearest hoppings. As the  next nearest hoppings are </span>
+<span class="sd">        diagonal hoppings, the value of the diagonal between :math:`t_1` </span>
+<span class="sd">        and :math:`t_2` is given by :math:`c\sqrt{t_1^2+t_2^2}`.</span>
+
+<span class="sd">        :param ta: Value of the math:`t_{ab}` hoppings.</span>
+<span class="sd">        :param tb: Value of the math:`t_{ba}` hoppings.</span>
+<span class="sd">        :param tc: Value of the math:`t_{ac}` hoppings.</span>
+<span class="sd">        :param td: Value of the math:`t_{ca}` hoppings.</span>
+<span class="sd">        :param c: Default value 0, strength of the diagonal hoppings.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">dif_x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">coor</span><span class="p">[</span><span class="s">&#39;x&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">coor</span><span class="p">[</span><span class="s">&#39;x&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sites</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">dif_y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">coor</span><span class="p">[</span><span class="s">&#39;y&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">coor</span><span class="p">[</span><span class="s">&#39;y&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sites</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">ind_x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argwhere</span><span class="p">((</span><span class="n">dif_x</span><span class="o">==</span><span class="mi">1</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">dif_y</span><span class="o">==</span><span class="mi">0</span><span class="p">))</span>
+        <span class="n">hop_x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">ind_x</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]),</span> <span class="p">{</span><span class="s">&#39;names&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s">&#39;i&#39;</span><span class="p">,</span> <span class="s">&#39;j&#39;</span><span class="p">,</span> <span class="s">&#39;t&#39;</span><span class="p">,</span> <span class="s">&#39;tag&#39;</span><span class="p">],</span> 
+                                                              <span class="s">&#39;formats&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s">&#39;u4&#39;</span><span class="p">,</span> <span class="s">&#39;u4&#39;</span><span class="p">,</span> <span class="s">&#39;c16&#39;</span><span class="p">,</span> <span class="s">&#39;S2&#39;</span><span class="p">]})</span>
+        <span class="n">hop_x</span><span class="p">[</span><span class="s">&#39;i&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ind_x</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span>
+        <span class="n">hop_x</span><span class="p">[</span><span class="s">&#39;j&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ind_x</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span>
+        <span class="n">hop_x</span><span class="p">[</span><span class="s">&#39;tag&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">coor</span><span class="p">[</span><span class="n">ind_x</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]][</span><span class="s">&#39;tag&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">b</span><span class="s">&#39;a&#39;</span><span class="p">,</span> <span class="s">&#39;ab&#39;</span><span class="p">,</span> <span class="s">&#39;ba&#39;</span><span class="p">)</span>
+        <span class="n">hop_x</span><span class="p">[</span><span class="s">&#39;t&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">hop_x</span><span class="p">[</span><span class="s">&#39;tag&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">b</span><span class="s">&#39;ab&#39;</span><span class="p">,</span> <span class="n">ta</span><span class="p">,</span> <span class="n">tb</span><span class="p">)</span>
+        <span class="n">ind_y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argwhere</span><span class="p">((</span><span class="n">dif_x</span><span class="o">==</span><span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">dif_y</span><span class="o">==</span><span class="mi">1</span><span class="p">))</span>
+        <span class="n">hop_y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">ind_y</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]),</span> <span class="p">{</span><span class="s">&#39;names&#39;</span><span class="p">:[</span><span class="s">&#39;i&#39;</span><span class="p">,</span> <span class="s">&#39;j&#39;</span><span class="p">,</span> <span class="s">&#39;t&#39;</span><span class="p">,</span> <span class="s">&#39;tag&#39;</span><span class="p">],</span> 
+                                                              <span class="s">&#39;formats&#39;</span><span class="p">:[</span><span class="s">&#39;u4&#39;</span><span class="p">,</span> <span class="s">&#39;u4&#39;</span><span class="p">,</span> <span class="s">&#39;c16&#39;</span><span class="p">,</span> <span class="s">&#39;S2&#39;</span><span class="p">]})</span>
+        <span class="n">hop_y</span><span class="p">[</span><span class="s">&#39;i&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ind_y</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span>
+        <span class="n">hop_y</span><span class="p">[</span><span class="s">&#39;j&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ind_y</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span>
+        <span class="n">hop_y</span><span class="p">[</span><span class="s">&#39;tag&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">coor</span><span class="p">[</span><span class="n">ind_y</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]][</span><span class="s">&#39;tag&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">b</span><span class="s">&#39;a&#39;</span><span class="p">,</span> <span class="s">&#39;ac&#39;</span><span class="p">,</span> <span class="s">&#39;ca&#39;</span><span class="p">)</span>
+        <span class="n">hop_y</span><span class="p">[</span><span class="s">&#39;t&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">hop_y</span><span class="p">[</span><span class="s">&#39;tag&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">b</span><span class="s">&#39;ac&#39;</span><span class="p">,</span> <span class="n">tc</span><span class="p">,</span> <span class="n">td</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">hop</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">hop_x</span><span class="p">,</span> <span class="n">hop_y</span><span class="p">])</span>
+        <span class="c">#if c != 0:</span>
+        <span class="c">#    hop_nn = self.set_hop_alt_nn(c)</span>
+         <span class="c">#   self.hop = np.concatenate([self.hop, hop_nn])</span>
+</div>
+<div class="viewcode-block" id="eigLieb.set_hop_alt_nn"><a class="viewcode-back" href="../lieb_tb.html#lieb_tb.eigLieb.set_hop_alt_nn">[docs]</a>    <span class="k">def</span> <span class="nf">set_hop_alt_nn</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">c</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Get the next nearest hoppings if the Lieb lattice has alternating hoppings. </span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">&quot;VLUYIVV&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">c</span> <span class="o">=</span> <span class="n">c</span>
+        <span class="n">dif_x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">coor</span><span class="p">[</span><span class="s">&#39;x&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">coor</span><span class="p">[</span><span class="s">&#39;x&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sites</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">dif_y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">coor</span><span class="p">[</span><span class="s">&#39;y&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">coor</span><span class="p">[</span><span class="s">&#39;y&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sites</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">ind</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argwhere</span><span class="p">((</span><span class="n">dif_x</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">dif_y</span> <span class="o">==</span> <span class="mi">1</span><span class="p">))</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">ind</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">])</span>
+        <span class="n">ind_b</span> <span class="o">=</span> <span class="n">ind</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">coor</span><span class="p">[</span><span class="s">&#39;tag&#39;</span><span class="p">][</span><span class="n">ind</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]]</span> <span class="o">==</span> <span class="n">b</span><span class="s">&#39;b&#39;</span><span class="p">]</span>
+        <span class="n">ind_c</span> <span class="o">=</span> <span class="n">ind</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">coor</span><span class="p">[</span><span class="s">&#39;tag&#39;</span><span class="p">][</span><span class="n">ind</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]]</span> <span class="o">==</span> <span class="n">b</span><span class="s">&#39;c&#39;</span><span class="p">]</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">&#39;ind_b&#39;</span><span class="p">,</span> <span class="n">ind_b</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">&#39;ind_c&#39;</span><span class="p">,</span> <span class="n">ind_c</span><span class="p">)</span>
+        <span class="n">hop_nn</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">n</span><span class="p">,</span> <span class="p">{</span><span class="s">&#39;names&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s">&#39;i&#39;</span><span class="p">,</span> <span class="s">&#39;j&#39;</span><span class="p">,</span> <span class="s">&#39;t&#39;</span><span class="p">,</span> <span class="s">&#39;tag&#39;</span><span class="p">],</span>
+                                      <span class="s">&#39;formats&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s">&#39;u4&#39;</span><span class="p">,</span> <span class="s">&#39;u4&#39;</span><span class="p">,</span> <span class="s">&#39;c16&#39;</span><span class="p">,</span> <span class="s">&#39;S2&#39;</span><span class="p">]})</span>
+<span class="c">#        hop_pp = np.zeros(n, {&#39;names&#39;: [&#39;i&#39;, &#39;j&#39;, &#39;t&#39;, &#39;tag&#39;],</span>
+<span class="c">#                                     &#39;formats&#39;: [&#39;u4&#39;, &#39;u4&#39;, &#39;c16&#39;, &#39;S2&#39;]})</span>
+        <span class="n">hop_nn</span><span class="p">[</span><span class="s">&#39;i&#39;</span><span class="p">][:</span><span class="n">n</span><span class="p">]</span> <span class="o">=</span> <span class="n">ind</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span>
+        <span class="n">hop_nn</span><span class="p">[</span><span class="s">&#39;j&#39;</span><span class="p">][:</span><span class="n">n</span><span class="p">]</span> <span class="o">=</span> <span class="n">ind</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">ind_b</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="n">ind_b</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]):</span>
+            <span class="n">td</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">hop</span><span class="p">[</span><span class="s">&#39;t&#39;</span><span class="p">][(</span><span class="bp">self</span><span class="o">.</span><span class="n">hop</span><span class="p">[</span><span class="s">&#39;i&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">hop</span><span class="p">[</span><span class="s">&#39;j&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">i</span><span class="p">)]</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span>
+		     		  <span class="bp">self</span><span class="o">.</span><span class="n">hop</span><span class="p">[</span><span class="s">&#39;t&#39;</span><span class="p">][(</span><span class="bp">self</span><span class="o">.</span><span class="n">hop</span><span class="p">[</span><span class="s">&#39;i&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">hop</span><span class="p">[</span><span class="s">&#39;j&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">j</span><span class="p">)]</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+            <span class="n">hop_nn</span><span class="p">[</span><span class="s">&#39;t&#39;</span><span class="p">][(</span><span class="n">hop_nn</span><span class="p">[</span><span class="s">&#39;i&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">i</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">hop_nn</span><span class="p">[</span><span class="s">&#39;j&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">j</span><span class="p">)]</span>  <span class="o">=</span> <span class="n">c</span><span class="o">*</span><span class="n">td</span>
+            <span class="n">hop_nn</span><span class="p">[</span><span class="s">&#39;tag&#39;</span><span class="p">][(</span><span class="n">hop_nn</span><span class="p">[</span><span class="s">&#39;i&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">i</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">hop_nn</span><span class="p">[</span><span class="s">&#39;j&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">j</span><span class="p">)]</span>  <span class="o">=</span> <span class="n">b</span><span class="s">&#39;-+&#39;</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">ind_c</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="n">ind_c</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]):</span>
+            <span class="n">td</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">hop</span><span class="p">[</span><span class="s">&#39;t&#39;</span><span class="p">][(</span><span class="bp">self</span><span class="o">.</span><span class="n">hop</span><span class="p">[</span><span class="s">&#39;i&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">i</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">hop</span><span class="p">[</span><span class="s">&#39;j&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">)]</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span>
+                      <span class="bp">self</span><span class="o">.</span><span class="n">hop</span><span class="p">[</span><span class="s">&#39;t&#39;</span><span class="p">][(</span><span class="bp">self</span><span class="o">.</span><span class="n">hop</span><span class="p">[</span><span class="s">&#39;i&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">j</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">hop</span><span class="p">[</span><span class="s">&#39;j&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">)]</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+            <span class="n">hop_nn</span><span class="p">[</span><span class="s">&#39;t&#39;</span><span class="p">][(</span><span class="n">hop_nn</span><span class="p">[</span><span class="s">&#39;i&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">i</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">hop_nn</span><span class="p">[</span><span class="s">&#39;j&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">j</span><span class="p">)]</span>  <span class="o">=</span> <span class="n">c</span><span class="o">*</span><span class="n">td</span>
+            <span class="n">hop_nn</span><span class="p">[</span><span class="s">&#39;tag&#39;</span><span class="p">][(</span><span class="n">hop_nn</span><span class="p">[</span><span class="s">&#39;i&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">i</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">hop_nn</span><span class="p">[</span><span class="s">&#39;j&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">j</span><span class="p">)]</span>  <span class="o">=</span> <span class="n">b</span><span class="s">&#39;+-&#39;</span>
+        <span class="n">ind</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argwhere</span><span class="p">((</span><span class="n">dif_x</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">dif_y</span> <span class="o">==</span> <span class="mi">1</span><span class="p">))</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">ind</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">])</span>
+        <span class="n">ind_b</span> <span class="o">=</span> <span class="n">ind</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">coor</span><span class="p">[</span><span class="s">&#39;tag&#39;</span><span class="p">][</span><span class="n">ind</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]]</span> <span class="o">==</span> <span class="n">b</span><span class="s">&#39;b&#39;</span><span class="p">]</span>
+        <span class="n">ind_c</span> <span class="o">=</span> <span class="n">ind</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">coor</span><span class="p">[</span><span class="s">&#39;tag&#39;</span><span class="p">][</span><span class="n">ind</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]]</span> <span class="o">==</span> <span class="n">b</span><span class="s">&#39;c&#39;</span><span class="p">]</span>
+        <span class="n">ind_ord</span> <span class="o">=</span> <span class="n">ind</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">coor</span><span class="p">[</span><span class="s">&#39;tag&#39;</span><span class="p">][</span><span class="n">ind</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]]</span> <span class="o">==</span> <span class="n">b</span><span class="s">&#39;b&#39;</span><span class="p">]</span>
+        <span class="n">hop_nn</span><span class="p">[</span><span class="s">&#39;i&#39;</span><span class="p">][</span><span class="n">n</span><span class="p">:]</span> <span class="o">=</span> <span class="n">ind</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span>
+        <span class="n">hop_nn</span><span class="p">[</span><span class="s">&#39;j&#39;</span><span class="p">][</span><span class="n">n</span><span class="p">:]</span> <span class="o">=</span> <span class="n">ind</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">ind_b</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="n">ind_b</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]):</span>
+            <span class="n">td</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">hop</span><span class="p">[</span><span class="s">&#39;t&#39;</span><span class="p">][(</span><span class="bp">self</span><span class="o">.</span><span class="n">hop</span><span class="p">[</span><span class="s">&#39;i&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">i</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">hop</span><span class="p">[</span><span class="s">&#39;j&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)]</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span>
+                      <span class="bp">self</span><span class="o">.</span><span class="n">hop</span><span class="p">[</span><span class="s">&#39;t&#39;</span><span class="p">][(</span><span class="bp">self</span><span class="o">.</span><span class="n">hop</span><span class="p">[</span><span class="s">&#39;i&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">hop</span><span class="p">[</span><span class="s">&#39;j&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">j</span><span class="p">)]</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+            <span class="n">hop_nn</span><span class="p">[</span><span class="s">&#39;t&#39;</span><span class="p">][(</span><span class="n">hop_nn</span><span class="p">[</span><span class="s">&#39;i&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">i</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">hop_nn</span><span class="p">[</span><span class="s">&#39;j&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">j</span><span class="p">)]</span>  <span class="o">=</span> <span class="n">c</span> <span class="o">*</span> <span class="n">td</span>
+            <span class="n">hop_nn</span><span class="p">[</span><span class="s">&#39;tag&#39;</span><span class="p">][(</span><span class="n">hop_nn</span><span class="p">[</span><span class="s">&#39;i&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">i</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">hop_nn</span><span class="p">[</span><span class="s">&#39;j&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">j</span><span class="p">)]</span>  <span class="o">=</span> <span class="n">b</span><span class="s">&#39;++&#39;</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">ind_c</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="n">ind_c</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]):</span>
+            <span class="n">td</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">hop</span><span class="p">[</span><span class="s">&#39;t&#39;</span><span class="p">][(</span><span class="bp">self</span><span class="o">.</span><span class="n">hop</span><span class="p">[</span><span class="s">&#39;i&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">hop</span><span class="p">[</span><span class="s">&#39;j&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">j</span><span class="p">)]</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span>
+                      <span class="bp">self</span><span class="o">.</span><span class="n">hop</span><span class="p">[</span><span class="s">&#39;t&#39;</span><span class="p">][(</span><span class="bp">self</span><span class="o">.</span><span class="n">hop</span><span class="p">[</span><span class="s">&#39;i&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">i</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">hop</span><span class="p">[</span><span class="s">&#39;j&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="p">)]</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+            <span class="n">hop_nn</span><span class="p">[</span><span class="s">&#39;t&#39;</span><span class="p">][(</span><span class="n">hop_nn</span><span class="p">[</span><span class="s">&#39;i&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">i</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">hop_nn</span><span class="p">[</span><span class="s">&#39;j&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">j</span><span class="p">)]</span>  <span class="o">=</span> <span class="n">c</span> <span class="o">*</span> <span class="n">td</span>
+            <span class="n">hop_nn</span><span class="p">[</span><span class="s">&#39;tag&#39;</span><span class="p">][(</span><span class="n">hop_nn</span><span class="p">[</span><span class="s">&#39;i&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">i</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">hop_nn</span><span class="p">[</span><span class="s">&#39;j&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">j</span><span class="p">)]</span>  <span class="o">=</span> <span class="n">b</span><span class="s">&#39;--&#39;</span>
+        <span class="c">#hop_nn = np.concatenate([hop_nn, hop])</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">hop_nn</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">hop</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">hop</span><span class="p">,</span> <span class="n">hop_nn</span><span class="p">])</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        for i, j in zip(ind_ord[:,0], ind_ord[:,1]):</span>
+<span class="sd">            print(i, j)</span>
+<span class="sd">            print(i-1, i)</span>
+<span class="sd">            print(i-1, j)</span>
+<span class="sd">            td = np.sqrt(self.hop[&#39;t&#39;][(self.hop[&#39;i&#39;] == i-1) &amp; (self.hop[&#39;j&#39;] == i)] ** 2 +</span>
+<span class="sd">                      self.hop[&#39;t&#39;][(self.hop[&#39;i&#39;] == i-1) &amp; (self.hop[&#39;j&#39;] == j)] ** 2)</span>
+<span class="sd">            print(i, j)</span>
+<span class="sd">            hop[&#39;t&#39;][(hop[&#39;i&#39;] == i) &amp; (hop[&#39;j&#39;] == j)]  = c*td</span>
+<span class="sd">            print(hop[&#39;i&#39;][hop[&#39;i&#39;] == i])</span>
+<span class="sd">            print(hop[&#39;j&#39;][hop[&#39;j&#39;] == j])</span>
+<span class="sd">            # &amp; (hop[&#39;j&#39;] == j)])</span>
+<span class="sd">            hop_nn = np.concatenate([hop_nn, hop])</span>
+<span class="sd">            #print(&#39;1&#39;, hop)</span>
+<span class="sd">            #ind = np.argwhere((dif_x == 1) &amp; (dif_y == 1))</span>
+<span class="sd">            #ind_ord = ind[self.coor[&#39;tag&#39;][ind[:, 0]] == b&#39;b&#39;]</span>
+<span class="sd">            #hop[&#39;i&#39;] = ind_ord[:, 0]</span>
+<span class="sd">            #hop[&#39;j&#39;] = ind_ord[:, 1]</span>
+<span class="sd">            </span>
+<span class="sd">            hop_nn = np.concatenate([hop_nn, hop])</span>
+<span class="sd">        </span>
+<span class="sd">        for i, j in zip(ind_ord[:,0], ind_ord[:,1]):</span>
+<span class="sd">            td = np.sqrt(self.hop[&#39;t&#39;][(self.hop[&#39;i&#39;] == i) &amp; (self.hop[&#39;j&#39;] == i+1)] ** 2 +</span>
+<span class="sd">                                self.hop[&#39;t&#39;][(self.hop[&#39;i&#39;] == i+1) &amp; (self.hop[&#39;j&#39;] == j)] ** 2)</span>
+<span class="sd">            hop[&#39;t&#39;][(hop[&#39;i&#39;] == i) &amp; (hop[&#39;j&#39;] == j)]  = c*td		</span>
+<span class="sd">            hop_nn = np.concatenate([hop_nn, hop])</span>
+<span class="sd">            ind = np.argwhere((dif_x == 1) &amp; (dif_y == -1))</span>
+<span class="sd">            ind_ord = ind[self.coor[&#39;tag&#39;][ind[:, 0]] == b&#39;b&#39;]</span>
+<span class="sd">            hop[&#39;i&#39;] = ind_ord[:, 0]</span>
+<span class="sd">            hop[&#39;j&#39;] = ind_ord[:, 1]</span>
+<span class="sd">            print(&#39;2&#39;, hop)</span>
+<span class="sd">            hop_nn = np.concatenate([hop_nn, hop])</span>
+<span class="sd">        for i, j in zip(ind_ord[:,0], ind_ord[:,1]):</span>
+<span class="sd">            td = np.sqrt(self.hop[&#39;t&#39;][(self.hop[&#39;i&#39;] == i) &amp; (self.hop[&#39;j&#39;] == i+1)] ** 2+</span>
+<span class="sd">		       self.hop[&#39;t&#39;][(self.hop[&#39;i&#39;] == j) &amp; (self.hop[&#39;j&#39;] == i+1)] ** 2)</span>
+<span class="sd">            hop[&#39;t&#39;][(hop[&#39;i&#39;] == i) &amp; (hop[&#39;j&#39;] == j)]  = c*td</span>
+<span class="sd">            hop_nn = np.concatenate([hop_nn, hop])</span>
+<span class="sd">            ind = np.argwhere((dif_x == -1) &amp; (dif_y == -1))</span>
+<span class="sd">            ind_ord = ind[self.coor[&#39;tag&#39;][ind[:, 0]] == b&#39;b&#39;]</span>
+<span class="sd">            hop[&#39;i&#39;] = ind_ord[:, 0]</span>
+<span class="sd">            hop[&#39;j&#39;] = ind_ord[:, 1]</span>
+<span class="sd">            print(&#39;3&#39;, hop)</span>
+<span class="sd">            hop_nn = np.concatenate([hop_nn, hop])</span>
+<span class="sd">        for i, j in zip(ind_ord[:,0], ind_ord[:,1]):</span>
+<span class="sd">            td = np.sqrt(self.hop[&#39;t&#39;][(self.hop[&#39;i&#39;] == i-1) &amp; (self.hop[&#39;j&#39;] == i)] ** 2 +</span>
+<span class="sd">		       self.hop[&#39;t&#39;][(self.hop[&#39;i&#39;] == j) &amp; (self.hop[&#39;j&#39;] == i-1)] ** 2)</span>
+<span class="sd">            hop[&#39;t&#39;][(hop[&#39;i&#39;] == i) &amp; (hop[&#39;j&#39;] == j)]  = c*td</span>
+<span class="sd">            hop_nn = np.concatenate([hop_nn, hop])</span>
+<span class="sd">            print(&#39;4&#39;, hop)</span>
+<span class="sd">            #print(hop_nn)</span>
+<span class="sd">            self.hop = np.concatenate([self.hop, hop_nn])</span>
+<span class="sd">        &#39;&#39;&#39;</span></div>
+<div class="viewcode-block" id="eigLieb.set_dim_defect"><a class="viewcode-back" href="../lieb_tb.html#lieb_tb.eigLieb.set_dim_defect">[docs]</a>    <span class="k">def</span> <span class="nf">set_dim_defect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dim_x</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">dim_y</span><span class="o">=-</span><span class="mi">1</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Set dimerization defects along :math:`x` and/or :math:`y`.</span>
+
+<span class="sd">        :param dim_x: Default value -1 (no defect). Dimerization along :math:`x` site index.</span>
+<span class="sd">        :param dim_x: Default value -1 (no defect). Dimerization along :math:`y` site index.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">ta</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">hop</span><span class="p">[</span><span class="s">&#39;t&#39;</span><span class="p">][</span><span class="bp">self</span><span class="o">.</span><span class="n">hop</span><span class="p">[</span><span class="s">&#39;tag&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">b</span><span class="s">&#39;ab&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">tb</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">hop</span><span class="p">[</span><span class="s">&#39;t&#39;</span><span class="p">][</span><span class="bp">self</span><span class="o">.</span><span class="n">hop</span><span class="p">[</span><span class="s">&#39;tag&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">b</span><span class="s">&#39;ba&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">tc</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">hop</span><span class="p">[</span><span class="s">&#39;t&#39;</span><span class="p">][</span><span class="bp">self</span><span class="o">.</span><span class="n">hop</span><span class="p">[</span><span class="s">&#39;tag&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">b</span><span class="s">&#39;ac&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">td</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">hop</span><span class="p">[</span><span class="s">&#39;t&#39;</span><span class="p">][</span><span class="bp">self</span><span class="o">.</span><span class="n">hop</span><span class="p">[</span><span class="s">&#39;tag&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">b</span><span class="s">&#39;ca&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">dim_x</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">hop</span><span class="p">[</span><span class="s">&#39;t&#39;</span><span class="p">][(</span><span class="bp">self</span><span class="o">.</span><span class="n">hop</span><span class="p">[</span><span class="s">&#39;tag&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">b</span><span class="s">&#39;ab&#39;</span><span class="p">)</span> <span class="o">&amp;</span> 
+		      <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">coor</span><span class="p">[</span><span class="s">&#39;x&#39;</span><span class="p">][</span><span class="bp">self</span><span class="o">.</span><span class="n">hop</span><span class="p">[</span><span class="s">&#39;i&#39;</span><span class="p">]]</span> <span class="o">&gt;=</span> <span class="n">dim_x</span><span class="p">)]</span> <span class="o">=</span> <span class="n">tb</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">hop</span><span class="p">[</span><span class="s">&#39;t&#39;</span><span class="p">][(</span><span class="bp">self</span><span class="o">.</span><span class="n">hop</span><span class="p">[</span><span class="s">&#39;tag&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">b</span><span class="s">&#39;ba&#39;</span><span class="p">)</span> <span class="o">&amp;</span> 
+		      <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">coor</span><span class="p">[</span><span class="s">&#39;x&#39;</span><span class="p">][</span><span class="bp">self</span><span class="o">.</span><span class="n">hop</span><span class="p">[</span><span class="s">&#39;i&#39;</span><span class="p">]]</span>  <span class="o">&gt;=</span> <span class="n">dim_x</span><span class="p">)]</span> <span class="o">=</span> <span class="n">ta</span>
+        <span class="k">if</span> <span class="n">dim_y</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">hop</span><span class="p">[</span><span class="s">&#39;t&#39;</span><span class="p">][(</span><span class="bp">self</span><span class="o">.</span><span class="n">hop</span><span class="p">[</span><span class="s">&#39;tag&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">b</span><span class="s">&#39;ac&#39;</span><span class="p">)</span> <span class="o">&amp;</span> 
+		      <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">coor</span><span class="p">[</span><span class="s">&#39;y&#39;</span><span class="p">][</span><span class="bp">self</span><span class="o">.</span><span class="n">hop</span><span class="p">[</span><span class="s">&#39;i&#39;</span><span class="p">]]</span> <span class="o">&gt;=</span> <span class="n">dim_y</span><span class="p">)]</span> <span class="o">=</span> <span class="n">td</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">hop</span><span class="p">[</span><span class="s">&#39;t&#39;</span><span class="p">][(</span><span class="bp">self</span><span class="o">.</span><span class="n">hop</span><span class="p">[</span><span class="s">&#39;tag&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">b</span><span class="s">&#39;ca&#39;</span><span class="p">)</span> <span class="o">&amp;</span>
+		      <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">coor</span><span class="p">[</span><span class="s">&#39;y&#39;</span><span class="p">][</span><span class="bp">self</span><span class="o">.</span><span class="n">hop</span><span class="p">[</span><span class="s">&#39;i&#39;</span><span class="p">]]</span>  <span class="o">&gt;=</span> <span class="n">dim_y</span><span class="p">)]</span> <span class="o">=</span> <span class="n">tc</span>
+</div>
+<div class="viewcode-block" id="eigLieb.disorder_uniform"><a class="viewcode-back" href="../lieb_tb.html#lieb_tb.eigLieb.disorder_uniform">[docs]</a>    <span class="k">def</span> <span class="nf">disorder_uniform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nx</span><span class="p">,</span> <span class="n">ny</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Set a disorder uniform along math:`y` for math:`t_{ab}`  and math:`t_{ba}`,  </span>
+<span class="sd">        and uniform along math:`x` for math:`t_{ac}`  and math:`t_{ca}`.</span>
+
+<span class="sd">        :param alpha: Default value 0. Stength of the disorder.</span>
+
+<span class="sd">        .. note::</span>
+
+<span class="sd">	This disorder preserves the zero mode.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">alpha</span> <span class="o">=</span> <span class="n">alpha</span>
+        <span class="n">rand_x</span> <span class="o">=</span> <span class="p">(</span><span class="mf">1.</span><span class="o">+</span><span class="n">alpha</span><span class="o">*</span><span class="n">rand</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mf">1.</span><span class="p">,</span> <span class="n">nx</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+        <span class="n">rand_y</span> <span class="o">=</span> <span class="p">(</span><span class="mf">1.</span><span class="o">+</span><span class="n">alpha</span><span class="o">*</span><span class="n">rand</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mf">1.</span><span class="p">,</span> <span class="n">ny</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+        <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">ny</span><span class="p">,</span> <span class="mi">2</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">hop</span><span class="p">[</span><span class="s">&#39;t&#39;</span><span class="p">][((</span><span class="bp">self</span><span class="o">.</span><span class="n">hop</span><span class="p">[</span><span class="s">&#39;tag&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">b</span><span class="s">&#39;ab&#39;</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">hop</span><span class="p">[</span><span class="s">&#39;tag&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">b</span><span class="s">&#39;ba&#39;</span><span class="p">))</span> <span class="o">&amp;</span>
+		       <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">coor</span><span class="p">[</span><span class="s">&#39;y&#39;</span><span class="p">][</span><span class="bp">self</span><span class="o">.</span><span class="n">hop</span><span class="p">[</span><span class="s">&#39;i&#39;</span><span class="p">]]</span> <span class="o">==</span> <span class="n">y</span><span class="p">)]</span> <span class="o">*=</span> <span class="n">rand_x</span>
+        <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">nx</span><span class="p">,</span> <span class="mi">2</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">hop</span><span class="p">[</span><span class="s">&#39;t&#39;</span><span class="p">][((</span><span class="bp">self</span><span class="o">.</span><span class="n">hop</span><span class="p">[</span><span class="s">&#39;tag&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">b</span><span class="s">&#39;ac&#39;</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">hop</span><span class="p">[</span><span class="s">&#39;tag&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">b</span><span class="s">&#39;ca&#39;</span><span class="p">))</span> <span class="o">&amp;</span>
+		       <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">coor</span><span class="p">[</span><span class="s">&#39;x&#39;</span><span class="p">][</span><span class="bp">self</span><span class="o">.</span><span class="n">hop</span><span class="p">[</span><span class="s">&#39;i&#39;</span><span class="p">]]</span> <span class="o">==</span> <span class="n">x</span><span class="p">)]</span> <span class="o">*=</span> <span class="n">rand_y</span>
+</div>
+<div class="viewcode-block" id="eigLieb.disorder_pair"><a class="viewcode-back" href="../lieb_tb.html#lieb_tb.eigLieb.disorder_pair">[docs]</a>    <span class="k">def</span> <span class="nf">disorder_pair</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nx</span><span class="p">,</span> <span class="n">ny</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Set a non uniform disorder.</span>
+
+<span class="sd">        :param alpha: Default value 0. Stength of the disorder.</span>
+
+<span class="sd">        .. note::</span>
+
+<span class="sd">	This disorder preserves the zero mode.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">alpha</span> <span class="o">=</span> <span class="n">alpha</span>
+        <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">ny</span><span class="p">,</span> <span class="mi">2</span><span class="p">):</span>
+            <span class="n">rand_x</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">alpha</span><span class="o">*</span><span class="n">rand</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mf">1.</span><span class="p">,</span> <span class="n">nx</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+            <span class="n">rand_x</span><span class="p">[</span><span class="mi">1</span><span class="p">::</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">rand_x</span><span class="p">[</span><span class="mi">0</span><span class="p">::</span><span class="mi">2</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">hop</span><span class="p">[</span><span class="s">&#39;t&#39;</span><span class="p">][((</span><span class="bp">self</span><span class="o">.</span><span class="n">hop</span><span class="p">[</span><span class="s">&#39;tag&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">b</span><span class="s">&#39;ab&#39;</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">hop</span><span class="p">[</span><span class="s">&#39;tag&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">b</span><span class="s">&#39;ba&#39;</span><span class="p">))</span> <span class="o">&amp;</span> 
+		       <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">coor</span><span class="p">[</span><span class="s">&#39;y&#39;</span><span class="p">][</span><span class="bp">self</span><span class="o">.</span><span class="n">hop</span><span class="p">[</span><span class="s">&#39;i&#39;</span><span class="p">]]</span> <span class="o">==</span> <span class="n">y</span><span class="p">)]</span> <span class="o">*=</span> <span class="n">rand_x</span>
+        <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">nx</span><span class="p">,</span> <span class="mi">2</span><span class="p">):</span>
+            <span class="n">rand_y</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">alpha</span><span class="o">*</span><span class="n">rand</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mf">1.</span><span class="p">,</span> <span class="n">ny</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+            <span class="n">rand_y</span><span class="p">[</span><span class="mi">1</span><span class="p">::</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">rand_y</span><span class="p">[</span><span class="mi">0</span><span class="p">::</span><span class="mi">2</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">hop</span><span class="p">[</span><span class="s">&#39;t&#39;</span><span class="p">][((</span><span class="bp">self</span><span class="o">.</span><span class="n">hop</span><span class="p">[</span><span class="s">&#39;tag&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">b</span><span class="s">&#39;ac&#39;</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">hop</span><span class="p">[</span><span class="s">&#39;tag&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">b</span><span class="s">&#39;ca&#39;</span><span class="p">))</span> <span class="o">&amp;</span>
+		       <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">coor</span><span class="p">[</span><span class="s">&#39;x&#39;</span><span class="p">][</span><span class="bp">self</span><span class="o">.</span><span class="n">hop</span><span class="p">[</span><span class="s">&#39;i&#39;</span><span class="p">]]</span> <span class="o">==</span> <span class="n">x</span><span class="p">)]</span> <span class="o">*=</span> <span class="n">rand_y</span>
+</div>
+<div class="viewcode-block" id="eigLieb.disorder_plaquette"><a class="viewcode-back" href="../lieb_tb.html#lieb_tb.eigLieb.disorder_plaquette">[docs]</a>    <span class="k">def</span> <span class="nf">disorder_plaquette</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nx</span><span class="p">,</span> <span class="n">ny</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Set a non uniform disorder.</span>
+
+<span class="sd">        :param alpha: Default value 0. Stength of the disorder.</span>
+
+<span class="sd">        .. note::</span>
+
+<span class="sd">	This disorder preserves the zero mode.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">alpha</span> <span class="o">=</span> <span class="n">alpha</span>
+        <span class="n">lx</span><span class="p">,</span> <span class="n">ly</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">hop</span><span class="p">[</span><span class="s">&#39;t&#39;</span><span class="p">]</span> <span class="o">*=</span> <span class="mi">1</span><span class="o">+</span> <span class="n">alpha</span> <span class="o">*</span> <span class="n">rand</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mf">1.</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">hop</span><span class="p">[</span><span class="s">&#39;tag&#39;</span><span class="p">]))</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="ow">in</span> <span class="p">[(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">((</span><span class="n">nx</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">//</span><span class="mi">2</span><span class="p">)</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">((</span><span class="n">ny</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">//</span><span class="mi">2</span><span class="p">)]:</span> 
+            <span class="n">hop_p</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">hop</span><span class="p">[(</span><span class="bp">self</span><span class="o">.</span><span class="n">coor</span><span class="p">[</span><span class="s">&#39;x&#39;</span><span class="p">][</span><span class="bp">self</span><span class="o">.</span><span class="n">hop</span><span class="p">[</span><span class="s">&#39;i&#39;</span><span class="p">]]</span><span class="o">&gt;</span><span class="n">i</span><span class="o">*</span><span class="n">lx</span><span class="o">-</span><span class="mf">0.1</span><span class="p">)</span> <span class="o">&amp;</span>
+			    <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">coor</span><span class="p">[</span><span class="s">&#39;x&#39;</span><span class="p">][</span><span class="bp">self</span><span class="o">.</span><span class="n">hop</span><span class="p">[</span><span class="s">&#39;i&#39;</span><span class="p">]]</span><span class="o">&lt;</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">lx</span><span class="o">+</span><span class="mf">0.1</span><span class="p">)</span> <span class="o">&amp;</span>
+			    <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">coor</span><span class="p">[</span><span class="s">&#39;y&#39;</span><span class="p">][</span><span class="bp">self</span><span class="o">.</span><span class="n">hop</span><span class="p">[</span><span class="s">&#39;i&#39;</span><span class="p">]]</span><span class="o">&gt;</span><span class="n">j</span><span class="o">*</span><span class="n">ly</span><span class="o">-</span><span class="mf">0.1</span><span class="p">)</span> <span class="o">&amp;</span>
+			    <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">coor</span><span class="p">[</span><span class="s">&#39;y&#39;</span><span class="p">][</span><span class="bp">self</span><span class="o">.</span><span class="n">hop</span><span class="p">[</span><span class="s">&#39;i&#39;</span><span class="p">]]</span><span class="o">&lt;</span><span class="p">(</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">ly</span><span class="o">+</span><span class="mf">0.1</span><span class="p">)</span> <span class="o">&amp;</span>
+			    <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">coor</span><span class="p">[</span><span class="s">&#39;x&#39;</span><span class="p">][</span><span class="bp">self</span><span class="o">.</span><span class="n">hop</span><span class="p">[</span><span class="s">&#39;j&#39;</span><span class="p">]]</span><span class="o">&gt;</span><span class="n">i</span><span class="o">*</span><span class="n">lx</span><span class="o">-</span><span class="mf">0.1</span><span class="p">)</span> <span class="o">&amp;</span>
+		                <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">coor</span><span class="p">[</span><span class="s">&#39;x&#39;</span><span class="p">][</span><span class="bp">self</span><span class="o">.</span><span class="n">hop</span><span class="p">[</span><span class="s">&#39;j&#39;</span><span class="p">]]</span><span class="o">&lt;</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">lx</span><span class="o">+</span><span class="mf">0.1</span><span class="p">)</span> <span class="o">&amp;</span>
+			    <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">coor</span><span class="p">[</span><span class="s">&#39;y&#39;</span><span class="p">][</span><span class="bp">self</span><span class="o">.</span><span class="n">hop</span><span class="p">[</span><span class="s">&#39;j&#39;</span><span class="p">]]</span><span class="o">&gt;</span><span class="n">j</span><span class="o">*</span><span class="n">ly</span><span class="o">-</span><span class="mf">0.1</span><span class="p">)</span> <span class="o">&amp;</span>
+			    <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">coor</span><span class="p">[</span><span class="s">&#39;y&#39;</span><span class="p">][</span><span class="bp">self</span><span class="o">.</span><span class="n">hop</span><span class="p">[</span><span class="s">&#39;j&#39;</span><span class="p">]]</span><span class="o">&lt;</span><span class="p">(</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">ly</span><span class="o">+</span><span class="mf">0.1</span><span class="p">)]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">hop</span><span class="p">[</span><span class="s">&#39;t&#39;</span><span class="p">][(</span><span class="bp">self</span><span class="o">.</span><span class="n">hop</span><span class="p">[</span><span class="s">&#39;i&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">hop_p</span><span class="p">[</span><span class="s">&#39;i&#39;</span><span class="p">][</span><span class="mi">7</span><span class="p">])</span> <span class="o">&amp;</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">hop</span><span class="p">[</span><span class="s">&#39;j&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">hop_p</span><span class="p">[</span><span class="s">&#39;j&#39;</span><span class="p">][</span><span class="mi">7</span><span class="p">])]</span> <span class="o">=</span> \
+		       <span class="n">hop_p</span><span class="p">[</span><span class="s">&#39;t&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">hop_p</span><span class="p">[</span><span class="s">&#39;t&#39;</span><span class="p">][</span><span class="mi">3</span><span class="p">]</span><span class="o">*</span><span class="n">hop_p</span><span class="p">[</span><span class="s">&#39;t&#39;</span><span class="p">][</span><span class="mi">5</span><span class="p">]</span><span class="o">*</span><span class="n">hop_p</span><span class="p">[</span><span class="s">&#39;t&#39;</span><span class="p">][</span><span class="mi">6</span><span class="p">]</span> <span class="o">/</span> \
+		       <span class="p">(</span><span class="n">hop_p</span><span class="p">[</span><span class="s">&#39;t&#39;</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="n">hop_p</span><span class="p">[</span><span class="s">&#39;t&#39;</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span><span class="o">*</span><span class="n">hop_p</span><span class="p">[</span><span class="s">&#39;t&#39;</span><span class="p">][</span><span class="mi">4</span><span class="p">])</span>
+</div>
+<div class="viewcode-block" id="eigLieb.magnetic_field"><a class="viewcode-back" href="../lieb_tb.html#lieb_tb.eigLieb.magnetic_field">[docs]</a>    <span class="k">def</span> <span class="nf">magnetic_field</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nx</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Add Pierls phases to the hoppings.</span>
+
+<span class="sd">        :param nx: Number of sites along math:`x`. (Input of the class **latticeTB**)</span>
+
+<span class="sd">        .. note::</span>
+
+<span class="sd">        This disorder preserves the zero mode.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">nx</span><span class="p">,</span> <span class="mi">2</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">hop</span><span class="p">[</span><span class="s">&#39;t&#39;</span><span class="p">][((</span><span class="bp">self</span><span class="o">.</span><span class="n">hop</span><span class="p">[</span><span class="s">&#39;tag&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">b</span><span class="s">&#39;ac&#39;</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">hop</span><span class="p">[</span><span class="s">&#39;tag&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">b</span><span class="s">&#39;ca&#39;</span><span class="p">))</span> 
+                            <span class="o">&amp;</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">coor</span><span class="p">[</span><span class="s">&#39;x&#39;</span><span class="p">][</span><span class="bp">self</span><span class="o">.</span><span class="n">hop</span><span class="p">[</span><span class="s">&#39;i&#39;</span><span class="p">]]</span> <span class="o">==</span> <span class="n">x</span><span class="p">)]</span> <span class="o">*=</span> \
+		          <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="mi">1j</span> <span class="o">*</span> <span class="n">pi</span> <span class="o">*</span> <span class="n">flux</span> <span class="o">*</span> <span class="n">x</span><span class="o">//</span><span class="mi">2</span><span class="p">)</span>
+
+</div></div>
+<div class="viewcode-block" id="plotLieb"><a class="viewcode-back" href="../lieb_tb.html#lieb_tb.plotLieb">[docs]</a><span class="k">class</span> <span class="nc">plotLieb</span><span class="p">(</span><span class="n">plotTB</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Plot the output of the class **latticeTB** and the class **eigTB**.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">coor</span><span class="p">,</span> <span class="n">tags</span><span class="p">):</span>
+        <span class="n">plotTB</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">coor</span><span class="p">,</span> <span class="n">tags</span><span class="p">)</span>
+
+<div class="viewcode-block" id="plotLieb.plt_lieb_hop"><a class="viewcode-back" href="../lieb_tb.html#lieb_tb.plotLieb.plt_lieb_hop">[docs]</a>    <span class="k">def</span> <span class="nf">plt_lieb_hop</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">hop</span><span class="p">,</span> <span class="n">nx</span><span class="p">,</span> <span class="n">ny</span><span class="p">,</span> <span class="n">ms</span><span class="o">=</span><span class="mi">20</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Plot the coordinates of  the Lieb lattice sites in hoppings space.</span>
+
+<span class="sd">        :param hop: Hoppings.</span>
+<span class="sd">        :param nx: Number of sites along :math:`x`.</span>
+<span class="sd">        :param ny: Number of sites along :math:`y`.	</span>
+<span class="sd">        :param ms: Default value 20. Markersize.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">lx</span><span class="p">,</span> <span class="n">ly</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span>
+        <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_aspect</span><span class="p">(</span><span class="s">&#39;equal&#39;</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s">&#39;off&#39;</span><span class="p">)</span>
+        <span class="n">coor_hop</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">coor</span><span class="p">)</span>
+        <span class="c"># coordinates at the bottom </span>
+        <span class="n">coor_hop</span><span class="p">[</span><span class="s">&#39;x&#39;</span><span class="p">][</span><span class="mi">1</span><span class="p">:</span> <span class="n">nx</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="n">hop</span><span class="p">[</span><span class="s">&#39;t&#39;</span><span class="p">][:</span> <span class="n">nx</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">real</span><span class="p">)</span>
+        <span class="c"># coordinates at the left </span>
+        <span class="n">ty</span> <span class="o">=</span> <span class="n">hop</span><span class="p">[</span><span class="s">&#39;t&#39;</span><span class="p">][((</span><span class="n">hop</span><span class="p">[</span><span class="s">&#39;tag&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">b</span><span class="s">&#39;ac&#39;</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">hop</span><span class="p">[</span><span class="s">&#39;tag&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">b</span><span class="s">&#39;ca&#39;</span><span class="p">))</span> <span class="o">&amp;</span> \
+		  <span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">coor</span><span class="p">[</span><span class="s">&#39;x&#39;</span><span class="p">][</span><span class="n">hop</span><span class="p">[</span><span class="s">&#39;i&#39;</span><span class="p">]]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">coor</span><span class="p">[</span><span class="s">&#39;x&#39;</span><span class="p">][</span><span class="n">hop</span><span class="p">[</span><span class="s">&#39;j&#39;</span><span class="p">]]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">))]</span><span class="o">.</span><span class="n">real</span>
+        <span class="n">coor_hop</span><span class="p">[</span><span class="s">&#39;y&#39;</span><span class="p">][(</span><span class="bp">self</span><span class="o">.</span><span class="n">coor</span><span class="p">[</span><span class="s">&#39;x&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">coor</span><span class="p">[</span><span class="s">&#39;y&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="n">ty</span><span class="p">)</span>
+        <span class="c"># loop over each plaquette</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="ow">in</span> <span class="p">[(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nx</span><span class="o">//</span><span class="mi">2</span><span class="p">)</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">ny</span><span class="o">//</span><span class="mi">2</span><span class="p">)]:</span> 
+            <span class="n">ind_r</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">coor</span><span class="p">[</span><span class="s">&#39;x&#39;</span><span class="p">]</span><span class="o">&gt;</span><span class="n">i</span><span class="o">*</span><span class="n">lx</span><span class="o">-</span><span class="mf">0.1</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">coor</span><span class="p">[</span><span class="s">&#39;x&#39;</span><span class="p">]</span><span class="o">&lt;</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">lx</span><span class="o">+</span><span class="mf">0.1</span><span class="p">)</span> <span class="o">&amp;</span>
+                                        <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">coor</span><span class="p">[</span><span class="s">&#39;y&#39;</span><span class="p">]</span><span class="o">&gt;</span><span class="n">j</span><span class="o">*</span><span class="n">ly</span><span class="o">-</span><span class="mf">0.1</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">coor</span><span class="p">[</span><span class="s">&#39;y&#39;</span><span class="p">]</span><span class="o">&lt;</span><span class="p">(</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">ly</span><span class="o">+</span><span class="mf">0.1</span><span class="p">))</span>
+            <span class="n">ind_r</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ravel</span><span class="p">(</span><span class="n">ind_r</span><span class="p">)</span>
+            <span class="n">cond_h</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">coor</span><span class="p">[</span><span class="s">&#39;x&#39;</span><span class="p">][</span><span class="n">hop</span><span class="p">[</span><span class="s">&#39;i&#39;</span><span class="p">]]</span><span class="o">&gt;</span><span class="n">i</span><span class="o">*</span><span class="n">lx</span><span class="o">-</span><span class="mf">0.1</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">coor</span><span class="p">[</span><span class="s">&#39;x&#39;</span><span class="p">][</span><span class="n">hop</span><span class="p">[</span><span class="s">&#39;i&#39;</span><span class="p">]]</span><span class="o">&lt;</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">lx</span><span class="o">+</span><span class="mf">0.1</span><span class="p">)</span> <span class="o">&amp;</span> \
+		    <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">coor</span><span class="p">[</span><span class="s">&#39;y&#39;</span><span class="p">][</span><span class="n">hop</span><span class="p">[</span><span class="s">&#39;i&#39;</span><span class="p">]]</span><span class="o">&gt;</span><span class="n">j</span><span class="o">*</span><span class="n">ly</span><span class="o">-</span><span class="mf">0.1</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">coor</span><span class="p">[</span><span class="s">&#39;y&#39;</span><span class="p">][</span><span class="n">hop</span><span class="p">[</span><span class="s">&#39;i&#39;</span><span class="p">]]</span><span class="o">&lt;</span><span class="p">(</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">ly</span><span class="o">+</span><span class="mf">0.1</span><span class="p">)</span> <span class="o">&amp;</span> \
+		    <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">coor</span><span class="p">[</span><span class="s">&#39;x&#39;</span><span class="p">][</span><span class="n">hop</span><span class="p">[</span><span class="s">&#39;j&#39;</span><span class="p">]]</span><span class="o">&gt;</span><span class="n">i</span><span class="o">*</span><span class="n">lx</span><span class="o">-</span><span class="mf">0.1</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">coor</span><span class="p">[</span><span class="s">&#39;x&#39;</span><span class="p">][</span><span class="n">hop</span><span class="p">[</span><span class="s">&#39;j&#39;</span><span class="p">]]</span><span class="o">&lt;</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">lx</span><span class="o">+</span><span class="mf">0.1</span><span class="p">)</span> <span class="o">&amp;</span> \
+		    <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">coor</span><span class="p">[</span><span class="s">&#39;y&#39;</span><span class="p">][</span><span class="n">hop</span><span class="p">[</span><span class="s">&#39;j&#39;</span><span class="p">]]</span><span class="o">&gt;</span><span class="n">j</span><span class="o">*</span><span class="n">ly</span><span class="o">-</span><span class="mf">0.1</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">coor</span><span class="p">[</span><span class="s">&#39;y&#39;</span><span class="p">][</span><span class="n">hop</span><span class="p">[</span><span class="s">&#39;j&#39;</span><span class="p">]]</span><span class="o">&lt;</span><span class="p">(</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">ly</span><span class="o">+</span><span class="mf">0.1</span><span class="p">)</span>
+            <span class="n">hop_p</span> <span class="o">=</span> <span class="n">hop</span><span class="p">[</span><span class="s">&#39;t&#39;</span><span class="p">][</span><span class="n">cond_h</span><span class="p">]</span><span class="o">.</span><span class="n">real</span>
+            <span class="n">tx0</span><span class="p">,</span> <span class="n">tx1</span><span class="p">,</span> <span class="n">tx2</span><span class="p">,</span> <span class="n">tx3</span> <span class="o">=</span> <span class="n">hop_p</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">hop_p</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">hop_p</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">hop_p</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+            <span class="n">ty0</span><span class="p">,</span> <span class="n">ty2</span><span class="p">,</span> <span class="n">ty1</span><span class="p">,</span> <span class="n">ty3</span> <span class="o">=</span> <span class="n">hop_p</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span> <span class="n">hop_p</span><span class="p">[</span><span class="mi">5</span><span class="p">],</span> <span class="n">hop_p</span><span class="p">[</span><span class="mi">6</span><span class="p">],</span> <span class="n">hop_p</span><span class="p">[</span><span class="mi">7</span><span class="p">]</span> 
+
+            <span class="n">p</span> <span class="o">=</span> <span class="p">(</span><span class="n">coor_hop</span><span class="p">[</span><span class="s">&#39;x&#39;</span><span class="p">][</span><span class="n">ind_r</span><span class="p">[</span><span class="mi">5</span><span class="p">]],</span> <span class="n">coor_hop</span><span class="p">[</span><span class="s">&#39;y&#39;</span><span class="p">][</span><span class="n">ind_r</span><span class="p">[</span><span class="mi">5</span><span class="p">]],</span>
+                   <span class="n">coor_hop</span><span class="p">[</span><span class="s">&#39;x&#39;</span><span class="p">][</span><span class="n">ind_r</span><span class="p">[</span><span class="mi">2</span><span class="p">]],</span> <span class="n">coor_hop</span><span class="p">[</span><span class="s">&#39;y&#39;</span><span class="p">][</span><span class="n">ind_r</span><span class="p">[</span><span class="mi">2</span><span class="p">]],</span> <span class="n">tx2</span><span class="o">+</span><span class="n">tx3</span><span class="p">,</span> <span class="n">ty2</span><span class="o">+</span><span class="n">ty3</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="n">p</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span><span class="o">+</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">p</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">p</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="o">+</span><span class="n">p</span><span class="p">[</span><span class="mi">5</span><span class="p">]:</span>
+                <span class="k">print</span><span class="p">(</span><span class="s">&#39;</span><span class="se">\n\n</span><span class="s">WARNING WARNING WARNING&#39;</span><span class="p">)</span>
+                <span class="k">print</span><span class="p">(</span><span class="s">&#39;Lattice construction in hopping space is not possible.&#39;</span><span class="p">)</span>
+                <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s">&#39;</span><span class="se">\n\n</span><span class="s">Run again or decrease the strength &#39;</span>
+				<span class="s">&#39;of the disorder.</span><span class="se">\n\n</span><span class="s">&#39;</span><span class="p">)</span>
+            <span class="n">ang_x</span><span class="p">,</span> <span class="n">ang_y</span> <span class="o">=</span> <span class="n">fsolve</span><span class="p">(</span><span class="n">equations</span><span class="p">,</span> <span class="p">(</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.5</span><span class="o">*</span><span class="n">pi</span><span class="p">),</span> <span class="p">(</span><span class="n">p</span><span class="p">,))</span>
+            <span class="n">coor_hop</span><span class="p">[</span><span class="s">&#39;x&#39;</span><span class="p">][</span><span class="n">ind_r</span><span class="p">[</span><span class="mi">4</span><span class="p">]]</span> <span class="o">=</span> <span class="n">coor_hop</span><span class="p">[</span><span class="s">&#39;x&#39;</span><span class="p">][</span><span class="n">ind_r</span><span class="p">[</span><span class="mi">2</span><span class="p">]]</span> <span class="o">+</span> <span class="n">ty2</span><span class="o">*</span><span class="n">cos</span><span class="p">(</span><span class="n">ang_y</span><span class="p">)</span>
+            <span class="n">coor_hop</span><span class="p">[</span><span class="s">&#39;y&#39;</span><span class="p">][</span><span class="n">ind_r</span><span class="p">[</span><span class="mi">4</span><span class="p">]]</span> <span class="o">=</span> <span class="n">coor_hop</span><span class="p">[</span><span class="s">&#39;y&#39;</span><span class="p">][</span><span class="n">ind_r</span><span class="p">[</span><span class="mi">2</span><span class="p">]]</span> <span class="o">+</span> <span class="n">ty2</span><span class="o">*</span><span class="n">sin</span><span class="p">(</span><span class="n">ang_y</span><span class="p">)</span>
+            <span class="n">coor_hop</span><span class="p">[</span><span class="s">&#39;x&#39;</span><span class="p">][</span><span class="n">ind_r</span><span class="p">[</span><span class="mi">6</span><span class="p">]]</span> <span class="o">=</span> <span class="n">coor_hop</span><span class="p">[</span><span class="s">&#39;x&#39;</span><span class="p">][</span><span class="n">ind_r</span><span class="p">[</span><span class="mi">5</span><span class="p">]]</span> <span class="o">+</span> <span class="n">tx2</span><span class="o">*</span><span class="n">cos</span><span class="p">(</span><span class="n">ang_x</span><span class="p">)</span>
+            <span class="n">coor_hop</span><span class="p">[</span><span class="s">&#39;y&#39;</span><span class="p">][</span><span class="n">ind_r</span><span class="p">[</span><span class="mi">6</span><span class="p">]]</span> <span class="o">=</span> <span class="n">coor_hop</span><span class="p">[</span><span class="s">&#39;y&#39;</span><span class="p">][</span><span class="n">ind_r</span><span class="p">[</span><span class="mi">5</span><span class="p">]]</span> <span class="o">+</span> <span class="n">tx2</span><span class="o">*</span><span class="n">sin</span><span class="p">(</span><span class="n">ang_x</span><span class="p">)</span> 
+            <span class="n">coor_hop</span><span class="p">[</span><span class="s">&#39;x&#39;</span><span class="p">][</span><span class="n">ind_r</span><span class="p">[</span><span class="mi">7</span><span class="p">]]</span> <span class="o">=</span> <span class="n">coor_hop</span><span class="p">[</span><span class="s">&#39;x&#39;</span><span class="p">][</span><span class="n">ind_r</span><span class="p">[</span><span class="mi">4</span><span class="p">]]</span> <span class="o">+</span> <span class="n">ty3</span><span class="o">*</span><span class="n">cos</span><span class="p">(</span><span class="n">ang_y</span><span class="p">)</span> 
+            <span class="n">coor_hop</span><span class="p">[</span><span class="s">&#39;y&#39;</span><span class="p">][</span><span class="n">ind_r</span><span class="p">[</span><span class="mi">7</span><span class="p">]]</span> <span class="o">=</span> <span class="n">coor_hop</span><span class="p">[</span><span class="s">&#39;y&#39;</span><span class="p">][</span><span class="n">ind_r</span><span class="p">[</span><span class="mi">4</span><span class="p">]]</span> <span class="o">+</span> <span class="n">ty3</span><span class="o">*</span><span class="n">sin</span><span class="p">(</span><span class="n">ang_y</span><span class="p">)</span>
+        <span class="c"># plot bonds</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">hop</span><span class="p">)):</span> 
+            <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">coor_hop</span><span class="p">[</span><span class="s">&#39;x&#39;</span><span class="p">][</span><span class="n">hop</span><span class="p">[</span><span class="s">&#39;i&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]],</span> <span class="n">coor_hop</span><span class="p">[</span><span class="s">&#39;x&#39;</span><span class="p">][</span><span class="n">hop</span><span class="p">[</span><span class="s">&#39;j&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]]],</span>
+                        <span class="p">[</span><span class="n">coor_hop</span><span class="p">[</span><span class="s">&#39;y&#39;</span><span class="p">][</span><span class="n">hop</span><span class="p">[</span><span class="s">&#39;i&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]],</span> <span class="n">coor_hop</span><span class="p">[</span><span class="s">&#39;y&#39;</span><span class="p">][</span><span class="n">hop</span><span class="p">[</span><span class="s">&#39;j&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]]],</span>
+                 	<span class="s">&#39;k&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="c"># plot sites</span>
+        <span class="k">for</span> <span class="n">t</span><span class="p">,</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tags</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">colors</span><span class="p">):</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">coor_hop</span><span class="p">[</span><span class="s">&#39;x&#39;</span><span class="p">][</span><span class="n">coor_hop</span><span class="p">[</span><span class="s">&#39;tag&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">t</span><span class="p">],</span>
+		<span class="n">coor_hop</span><span class="p">[</span><span class="s">&#39;y&#39;</span><span class="p">][</span><span class="n">coor_hop</span><span class="p">[</span><span class="s">&#39;tag&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">t</span><span class="p">],</span>
+		<span class="s">&#39;o&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">c</span><span class="p">,</span> <span class="n">ms</span><span class="o">=</span><span class="n">ms</span><span class="p">,</span> <span class="n">markeredgecolor</span><span class="o">=</span><span class="s">&#39;none&#39;</span><span class="p">)</span>
+        <span class="n">xlim</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">coor_hop</span><span class="p">[</span><span class="s">&#39;x&#39;</span><span class="p">])</span><span class="o">-</span><span class="mf">1.5</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">coor_hop</span><span class="p">[</span><span class="s">&#39;x&#39;</span><span class="p">])</span><span class="o">+</span><span class="mf">1.5</span><span class="p">]</span>
+        <span class="n">ylim</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">coor_hop</span><span class="p">[</span><span class="s">&#39;y&#39;</span><span class="p">])</span><span class="o">-</span><span class="mf">1.5</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">coor_hop</span><span class="p">[</span><span class="s">&#39;y&#39;</span><span class="p">])</span><span class="o">+</span><span class="mf">1.5</span><span class="p">]</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_aspect</span><span class="p">(</span><span class="s">&#39;equal&#39;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="n">xlim</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="n">ylim</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">fig</span>
+</div>
+<div class="viewcode-block" id="plotLieb.plt_dispersion"><a class="viewcode-back" href="../lieb_tb.html#lieb_tb.plotLieb.plt_dispersion">[docs]</a>    <span class="k">def</span> <span class="nf">plt_dispersion</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ta</span><span class="p">,</span> <span class="n">tb</span><span class="p">,</span> <span class="n">tc</span><span class="p">,</span> <span class="n">td</span><span class="p">,</span> <span class="n">fs</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="mf">0.</span><span class="p">,</span> <span class="n">N</span><span class="o">=</span><span class="mi">100</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Plot the relation dispersion of the Lieb lattice.</span>
+
+<span class="sd">        :param ta: Hoppings.</span>
+<span class="sd">        :param nx: Number of sites along :math:`x`.</span>
+<span class="sd">        :param ny: Number of sites along :math:`y`.	</span>
+<span class="sd">        :param ms: Default value 20. Markersize.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+        <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">gca</span><span class="p">(</span><span class="n">projection</span><span class="o">=</span><span class="s">&#39;3d&#39;</span><span class="p">)</span>
+        <span class="n">Ek</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">N</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+        <span class="n">kx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">pi</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span>
+        <span class="n">ky</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">pi</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">c</span><span class="p">:</span>
+            <span class="n">kx</span> <span class="p">,</span> <span class="n">ky</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">kx</span> <span class="p">,</span> <span class="n">ky</span><span class="p">)</span>
+            <span class="n">f</span> <span class="o">=</span> <span class="n">ta</span> <span class="o">+</span> <span class="n">tb</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mi">1j</span> <span class="o">*</span> <span class="n">kx</span><span class="p">)</span>
+            <span class="n">g</span> <span class="o">=</span> <span class="n">tc</span> <span class="o">+</span> <span class="n">td</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mi">1j</span> <span class="o">*</span> <span class="n">ky</span><span class="p">)</span>	
+            <span class="n">en</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">f</span><span class="p">)</span> <span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">g</span><span class="p">)</span> <span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+            <span class="n">Ek</span><span class="p">[:,</span> <span class="p">:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span> <span class="n">en</span>
+            <span class="n">Ek</span><span class="p">[:,</span> <span class="p">:,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">Ek</span><span class="p">[:,</span> <span class="p">:,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">en</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">f</span> <span class="o">=</span> <span class="n">ta</span> <span class="o">+</span> <span class="n">tb</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mi">1j</span> <span class="o">*</span> <span class="n">kx</span><span class="p">)</span>
+            <span class="n">g</span> <span class="o">=</span> <span class="n">tc</span> <span class="o">+</span> <span class="n">td</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mi">1j</span> <span class="o">*</span> <span class="n">ky</span><span class="p">)</span>
+            <span class="n">t1</span> <span class="o">=</span> <span class="n">c</span> <span class="o">*</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">ta</span> <span class="o">**</span><span class="mi">2</span><span class="o">+</span><span class="n">tc</span> <span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+            <span class="n">t2</span> <span class="o">=</span> <span class="n">c</span> <span class="o">*</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">tb</span> <span class="o">**</span><span class="mi">2</span><span class="o">+</span><span class="n">tc</span> <span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+            <span class="n">t3</span> <span class="o">=</span> <span class="n">c</span> <span class="o">*</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">ta</span> <span class="o">**</span><span class="mi">2</span><span class="o">+</span><span class="n">td</span> <span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+            <span class="n">t4</span> <span class="o">=</span> <span class="n">c</span> <span class="o">*</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">tb</span> <span class="o">**</span><span class="mi">2</span><span class="o">+</span><span class="n">td</span> <span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="ow">in</span> <span class="p">[(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">)</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">)]:</span>
+                <span class="n">l</span> <span class="o">=</span> <span class="n">t1</span> <span class="o">+</span> <span class="n">t2</span> <span class="o">*</span> <span class="n">cexp</span><span class="p">(</span><span class="mi">1j</span> <span class="o">*</span> <span class="n">kx</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">+</span> <span class="n">t3</span> <span class="o">*</span> <span class="n">cexp</span><span class="p">(</span><span class="o">-</span><span class="mi">1j</span> <span class="o">*</span> <span class="n">ky</span><span class="p">[</span><span class="n">j</span><span class="p">])</span> \
+                          <span class="o">+</span> <span class="n">t4</span> <span class="o">*</span> <span class="n">cexp</span><span class="p">(</span><span class="mi">1j</span> <span class="o">*</span><span class="p">(</span> <span class="n">kx</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">ky</span><span class="p">[</span><span class="n">j</span><span class="p">]))</span>
+                <span class="n">h</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">0.</span><span class="p">,</span> <span class="n">f</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">g</span><span class="p">[</span><span class="n">j</span><span class="p">]],</span> 
+                                      <span class="p">[</span><span class="n">f</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">conj</span><span class="p">(),</span> <span class="mf">0.</span><span class="p">,</span> <span class="n">l</span><span class="p">],</span>
+                                      <span class="p">[</span><span class="n">g</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">conjugate</span><span class="p">(),</span> <span class="n">l</span><span class="o">.</span><span class="n">conjugate</span><span class="p">(),</span> <span class="mf">0.</span><span class="p">]])</span>
+                <span class="n">Ek</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">LA</span><span class="o">.</span><span class="n">eigvalsh</span><span class="p">(</span><span class="n">h</span><span class="p">)</span>
+            <span class="n">kx</span> <span class="p">,</span> <span class="n">ky</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">kx</span> <span class="p">,</span> <span class="n">ky</span><span class="p">)</span>
+        <span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.8</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">plot_surface</span><span class="p">(</span><span class="n">kx</span><span class="p">,</span> <span class="n">ky</span><span class="p">,</span> <span class="n">Ek</span><span class="p">[:,</span> <span class="p">:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">antialiased</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> 
+		          <span class="n">shade</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="n">alpha</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s">&#39;b&#39;</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">plot_surface</span><span class="p">(</span><span class="n">kx</span><span class="p">,</span> <span class="n">ky</span><span class="p">,</span> <span class="n">Ek</span><span class="p">[:,</span> <span class="p">:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">antialiased</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> 
+		          <span class="n">shade</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="n">alpha</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s">&#39;g&#39;</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">plot_surface</span><span class="p">(</span><span class="n">kx</span><span class="p">,</span> <span class="n">ky</span><span class="p">,</span> <span class="n">Ek</span><span class="p">[:,</span> <span class="p">:,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">antialiased</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> 
+			<span class="n">shade</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="n">alpha</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s">&#39;r&#39;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s">&#39;$E(\mathbf{k})$&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="n">fs</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s">&#39;$k_x$&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="n">fs</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s">&#39;$k_y$&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="n">fs</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">([])</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">([])</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_zticks</span><span class="p">([</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">fig</span>
+
+</div></div>
+<div class="viewcode-block" id="equations"><a class="viewcode-back" href="../lieb_tb.html#lieb_tb.equations">[docs]</a><span class="k">def</span> <span class="nf">equations</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">param</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Get the intersection of the points at the extremity of two segments.</span>
+<span class="sd">    Used to build up the lattice in hopping space.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="p">(</span><span class="n">ta</span><span class="p">,</span> <span class="n">tb</span><span class="p">)</span> <span class="o">=</span> <span class="n">p</span>
+    <span class="n">xa</span><span class="p">,</span> <span class="n">ya</span><span class="p">,</span> <span class="n">xb</span><span class="p">,</span> <span class="n">yb</span><span class="p">,</span> <span class="n">la</span><span class="p">,</span> <span class="n">lb</span> <span class="o">=</span> <span class="n">param</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">xa</span><span class="o">+</span><span class="n">la</span><span class="o">*</span><span class="n">cos</span><span class="p">(</span><span class="n">ta</span><span class="p">)</span><span class="o">-</span><span class="n">xb</span><span class="o">-</span><span class="n">lb</span><span class="o">*</span><span class="n">cos</span><span class="p">(</span><span class="n">tb</span><span class="p">),</span>
+            <span class="n">ya</span><span class="o">+</span><span class="n">la</span><span class="o">*</span><span class="n">sin</span><span class="p">(</span><span class="n">ta</span><span class="p">)</span><span class="o">-</span><span class="n">yb</span><span class="o">-</span><span class="n">lb</span><span class="o">*</span><span class="n">sin</span><span class="p">(</span><span class="n">tb</span><span class="p">))</span>
+</div>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">def basic_animation(frames=10, interval=30, s = 300):</span>
+<span class="sd">    &#39;&#39;&#39;Plot a basic sine wave with oscillating amplitude&#39;&#39;&#39;</span>
+<span class="sd">    fig = plt.figure()</span>
+<span class="sd">    x = np.linspace(0, 10, 10)</span>
+<span class="sd">    y = np.linspace(0, 10, 10)</span>
+<span class="sd">    c = np.linspace(-5, 5, 10)</span>
+<span class="sd">    </span>
+<span class="sd">    ticks = [-np.max(c), np.max(c)]</span>
+<span class="sd">    scat = plt.scatter(x, y, c=c, s=s, vmin=ticks[0], vmax=ticks[1],</span>
+<span class="sd">                     cmap=plt.get_cmap(&#39;seismic&#39;))</span>
+<span class="sd">    frame = plt.gca()</span>
+<span class="sd">    frame.axes.get_xaxis().set_ticks([])</span>
+<span class="sd">    frame.axes.get_yaxis().set_ticks([])</span>
+<span class="sd">    cbar = fig.colorbar(scat, ticks=ticks)</span>
+<span class="sd">    cbar.ax.set_yticklabels([&#39;&#39;, &#39;&#39;])</span>
+<span class="sd">    def init():</span>
+<span class="sd">        scat.set_array(c)</span>
+<span class="sd">        return scat,</span>
+
+<span class="sd">    def animate(i):</span>
+<span class="sd">        scat.set_array(c)</span>
+<span class="sd">        return scat,</span>
+
+<span class="sd">    return animation.FuncAnimation(fig, animate, init_func=init,</span>
+<span class="sd">                                   frames=frames, interval=interval)</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd"># Lieb lattice inputs</span>
+<span class="sd">nx, ny = 9, 9</span>
+<span class="sd">ri = [[0, 0], [1, 0], [0, 1]]</span>
+<span class="sd">pv = [[2, 2], [2, 2], [2, 2]]</span>
+<span class="sd">tags = np.array([b&#39;a&#39;, b&#39;b&#39;, b&#39;c&#39;])</span>
+<span class="sd">lat_lieb = latticeTB(tags=tags, ri=ri, pv=pv)</span>
+<span class="sd">lat_lieb.get_lattice(nx=nx, ny=ny)</span>
+<span class="sd">plt_lieb = plotTB(lat_lieb.coor, tags)</span>
+<span class="sd">fig_lat = plt_lieb.plt_lattice(ms=20, fs=25, numero=True)</span>
+<span class="sd">eig_lieb = eigLieb(lat_lieb.coor, tags)</span>
+
+<span class="sd"># UNIFORM HOPPINGS</span>
+<span class="sd">t = 1. # uniform hopping</span>
+<span class="sd">on = [0j, -.5j, -0.5j] # onsite energies</span>
+<span class="sd">eig_lieb.set_hop_uni(t=t)</span>
+<span class="sd">eig_lieb.set_onsite(on=on)</span>
+<span class="sd">eig_lieb.get_ham()</span>
+<span class="sd">eig_lieb.get_eig()</span>
+<span class="sd">fig_spec = plt_lieb.plt_spec(eig_lieb.en, eig_lieb.pola, pola_tag=b&#39;a&#39;, ms=20)</span>
+<span class="sd">zero_mode = eig_lieb.get_state_pola(b&#39;a&#39;)</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd"># Lieb lattice inputs</span>
+<span class="sd">ta, tb = 2., 1.</span>
+<span class="sd">tc, td = 2., 1.</span>
+<span class="sd">nx, ny = 9, 9</span>
+<span class="sd">ri = [[0, 0], [1, 0], [0, 1]]</span>
+<span class="sd">pv = [[2, 2], [2, 2], [2, 2]]</span>
+<span class="sd">t = 1</span>
+<span class="sd">tags = np.array([b&#39;a&#39;, b&#39;b&#39;, b&#39;c&#39;])</span>
+<span class="sd">lat_lieb = latticeTB(tags=tags, ri=ri, pv=pv)</span>
+<span class="sd">lat_lieb.get_lattice(nx=nx, ny=ny)</span>
+<span class="sd">plt_lieb = plotLieb(lat_lieb.coor, tags)</span>
+<span class="sd">plt_lieb.plt_dispersion(ta=ta, tb=tb, tc=tc, td=td, N=200, fs=20, c=0.5)</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">fig_lat = plt_lieb.plt_lattice(ms=20, fs=25, numero=True)</span>
+<span class="sd">eig_lieb = eigLieb(lat_lieb.coor, tags)</span>
+<span class="sd">eig_lieb.set_hop_uni(t=t)</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="n">nx</span><span class="p">,</span> <span class="n">ny</span> <span class="o">=</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">9</span>
+<span class="n">ri</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]</span>
+<span class="n">pv</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">]]</span>
+<span class="n">tags</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">b</span><span class="s">&#39;a&#39;</span><span class="p">,</span> <span class="n">b</span><span class="s">&#39;b&#39;</span><span class="p">,</span> <span class="n">b</span><span class="s">&#39;c&#39;</span><span class="p">])</span>
+<span class="n">lat_lieb</span> <span class="o">=</span> <span class="n">latticeTB</span><span class="p">(</span><span class="n">tags</span><span class="o">=</span><span class="n">tags</span><span class="p">,</span> <span class="n">ri</span><span class="o">=</span><span class="n">ri</span><span class="p">,</span> <span class="n">pv</span><span class="o">=</span><span class="n">pv</span><span class="p">)</span>
+<span class="n">lat_lieb</span><span class="o">.</span><span class="n">get_lattice</span><span class="p">(</span><span class="n">nx</span><span class="o">=</span><span class="n">nx</span><span class="p">,</span> <span class="n">ny</span><span class="o">=</span><span class="n">ny</span><span class="p">)</span>
+<span class="n">plt_lieb</span> <span class="o">=</span> <span class="n">plotTB</span><span class="p">(</span><span class="n">lat_lieb</span><span class="o">.</span><span class="n">coor</span><span class="p">,</span> <span class="n">tags</span><span class="p">)</span>
+<span class="n">eig_lieb</span> <span class="o">=</span> <span class="n">eigLieb</span><span class="p">(</span><span class="n">lat_lieb</span><span class="o">.</span><span class="n">coor</span><span class="p">,</span> <span class="n">tags</span><span class="p">)</span>
+
+<span class="n">ta</span><span class="p">,</span> <span class="n">tb</span> <span class="o">=</span> <span class="mf">2.</span><span class="p">,</span> <span class="mf">1.</span>
+<span class="n">tc</span><span class="p">,</span> <span class="n">td</span> <span class="o">=</span> <span class="mf">2.</span><span class="p">,</span> <span class="mf">1.</span>
+<span class="n">onsite</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0j</span><span class="p">,</span> <span class="o">-</span><span class="mi">1j</span><span class="p">,</span> <span class="o">-</span><span class="mi">1j</span><span class="p">]</span>
+<span class="n">eig_lieb</span><span class="o">.</span><span class="n">set_hop_alt</span><span class="p">(</span><span class="n">ta</span><span class="o">=</span><span class="n">ta</span><span class="p">,</span> <span class="n">tb</span><span class="o">=</span><span class="n">tb</span><span class="p">,</span> <span class="n">tc</span><span class="o">=</span><span class="n">tc</span><span class="p">,</span> <span class="n">td</span><span class="o">=</span><span class="n">td</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="mf">0.</span><span class="p">)</span>
+<span class="n">eig_lieb</span><span class="o">.</span><span class="n">set_dim_defect</span><span class="p">(</span><span class="n">dim_x</span><span class="o">=</span><span class="n">nx</span><span class="o">//</span><span class="mi">2</span><span class="p">,</span> <span class="n">dim_y</span><span class="o">=</span><span class="n">nx</span><span class="o">//</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">eig_lieb</span><span class="o">.</span><span class="n">set_hop_alt_nn</span><span class="p">(</span><span class="n">c</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="c">#eig_lieb.disorder_plaquette(nx=nx, ny=ny, alpha=0.1)</span>
+<span class="n">eig_lieb</span><span class="o">.</span><span class="n">set_onsite</span><span class="p">(</span><span class="n">onsite</span><span class="p">)</span>
+<span class="n">eig_lieb</span><span class="o">.</span><span class="n">get_ham</span><span class="p">()</span>
+<span class="n">eig_lieb</span><span class="o">.</span><span class="n">get_eig</span><span class="p">()</span>
+<span class="c">#fig_spec = plt_lieb.plt_spec(eig_lieb.en, eig_lieb.pola, ms=20, pola_tag=b&#39;a&#39;)</span>
+<span class="n">zero_mode</span> <span class="o">=</span> <span class="n">eig_lieb</span><span class="o">.</span><span class="n">get_state_pola</span><span class="p">(</span><span class="n">b</span><span class="s">&#39;a&#39;</span><span class="p">)</span>
+<span class="c">#fig_state = plt_lieb.plt_intensity(zero_mode)</span>
+<span class="n">fig_lat</span> <span class="o">=</span> <span class="n">plt_lieb</span><span class="o">.</span><span class="n">plt_lattice</span><span class="p">(</span><span class="n">ms</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">fs</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">hop</span><span class="o">=</span><span class="n">eig_lieb</span><span class="o">.</span><span class="n">hop</span><span class="p">)</span>
+<span class="c">#fig_lat_hop = plt_lieb.plt_lieb_hop(hop=eig_lieb.hop, nx=nx, ny=ny, ms=15)</span>
+<span class="c">#save = saveFigTB(sys=eig_lieb, hop_tags=[&#39;ta&#39;, &#39;tb&#39;, &#39;tc&#39;, &#39;td&#39;], hop=[ta, tb, tc, td], </span>
+<span class="c">#					name_dir=&#39;lieb&#39;, ext=&#39;png&#39;)</span>
+<span class="c">#save.save_fig(fig_lat_hop, &#39;lattice_dimXY&#39;)</span>
+<span class="c">#save.save_fig(fig_spec, &#39;spec_dimXY&#39;)</span>
+<span class="c">#save.save_fig(fig_state, &#39;mode_dimXY&#39;)</span>
+
+
+
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">xy = np.loadtxt(&#39;lattice_real_dimDefx_4_dimDefy_4_dis_gen_x0,35_y0,35.txt&#39;)</span>
+<span class="sd">x = dist_to_hop_mwa(xy[:, 0])</span>
+<span class="sd">y = dist_to_hop_mwa(xy[:, 1])</span>
+<span class="sd">lat_lieb.coor[&#39;x&#39;] = x</span>
+<span class="sd">lat_lieb.coor[&#39;y&#39;] = y</span>
+<span class="sd">print(lat_lieb.coor)</span>
+<span class="sd">fig = plt.figure()</span>
+<span class="sd">plt.plot(x, y, &#39;o&#39;)</span>
+
+<span class="sd">#plt_lieb.plt_lattice(ms=20, fs=25, numero=False)</span>
+<span class="sd">&#39;&#39;&#39;</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Charles Poli.
+    </p>
+  </div>
+
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+  
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

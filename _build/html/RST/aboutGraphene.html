@@ -1,0 +1,210 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Strained Graphene &mdash; TB  documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic|Roboto+Slab:400,700|Inconsolata:400,700&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="TB  documentation" href="../index.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+          <a href="../indexTB.html" class="fa fa-home"> TB</a>
+        
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../latticeTB.html">latticeTB</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../eigTB.html">eigTB</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../plotTB.html">plotTB</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../propagationTB.html">propagationTB</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../indexChain.html">Tight-Binding Chain</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../chainTB.html">chainTB</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examplesChain1.html">PT-symmetry / PT-symmetry breaking</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examplesChain2.html">Zero modes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../indexChain.html#motivations">Motivations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../indexChain.html#references">References</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../indexChain.html#feedback">Feedback</a></li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../indexTB.html">TB</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../indexTB.html">Docs</a> &raquo;</li>
+      
+    <li>Strained Graphene</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          <a href="../_sources/RST/aboutGraphene.txt" rel="nofollow"> View page source</a>
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="strained-graphene">
+<h1>Strained Graphene<a class="headerlink" href="#strained-graphene" title="Permalink to this headline">¶</a></h1>
+<p><strong>graphene_flake</strong> is a package providing a Python implementation of graphene flakes. It can be used to build up and solve tight-binding model, analyze the pseudo Landau levels (pLLs) creation, their wavefunction support, and vortex-induced defect states.</p>
+<div class="toctree-wrapper compound">
+</div>
+<div class="section" id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
+<p><strong>graphene_flake</strong> is available at <a class="reference external" href="https://github.com/cpoli/graphene_flake">https://github.com/cpoli/graphene_flake</a></p>
+<p>To use <strong>graphene_flake</strong>,  you need to install the programming language python and three additional packages:</p>
+<ul class="simple">
+<li>python 3.x</li>
+<li>numpy</li>
+<li>scipy</li>
+<li>matplotlib</li>
+</ul>
+</div>
+<div class="section" id="quick-example">
+<h2>Quick example<a class="headerlink" href="#quick-example" title="Permalink to this headline">¶</a></h2>
+<p>This example shows how to define a hexagonal strained graphene flake with zizzag-terminated edges, <a class="reference external" href="examples.html">examples</a>.</p>
+<a class="reference internal image-reference" href="RST/figs/lattice_N144_0,0.png"><img alt="RST/figs/lattice_N144_0,0.png" class="align-center" src="RST/figs/lattice_N144_0,0.png" style="width: 45%;" /></a>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">graphene_flake</span> <span class="kn">import</span> <span class="o">*</span> <span class="c"># import graphene_flake model class</span>
+
+<span class="n">flake</span> <span class="o">=</span> <span class="n">tri_to_hexa_zz</span><span class="p">(</span><span class="n">sites_base</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">sites_cut</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">t_1</span><span class="o">=</span><span class="mf">1.</span><span class="p">,</span> <span class="n">t_2</span><span class="o">=</span><span class="mf">1.</span><span class="p">,</span> <span class="n">t_3</span><span class="o">=</span><span class="mf">1.</span><span class="p">)</span>
+<span class="n">flake</span><span class="o">.</span><span class="n">plt_lattice</span><span class="p">(</span><span class="n">s</span><span class="o">=</span><span class="mi">150</span><span class="p">,</span> <span class="n">save</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">flake</span><span class="o">.</span><span class="n">get_eig_lin_strain</span><span class="p">(</span><span class="n">strain</span><span class="o">=</span><span class="mf">0.</span><span class="p">,</span> <span class="n">eig_vec</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">vortex</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+<span class="n">flake</span><span class="o">.</span><span class="n">plt_spec</span><span class="p">(</span><span class="n">no_bins</span><span class="o">=</span><span class="mi">41</span><span class="p">,</span> <span class="n">ener_lim</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mf">2.</span><span class="p">,</span> <span class="mf">2.</span><span class="p">],</span> <span class="n">plt_pola</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">save</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">flake</span><span class="o">.</span><span class="n">get_states_selec</span><span class="p">(</span><span class="n">e_min</span><span class="o">=-</span><span class="mf">0.005</span><span class="p">,</span> <span class="n">e_max</span><span class="o">=</span><span class="mf">0.005</span><span class="p">)</span>
+<span class="n">flake</span><span class="o">.</span><span class="n">plt_states_selec</span><span class="p">(</span><span class="n">coef</span><span class="o">=</span><span class="mi">50000</span><span class="p">,</span> <span class="n">plt_bonds</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">plt_axis</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">save</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">flake</span><span class="o">.</span><span class="n">plt_show</span><span class="p">()</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="RST/figs/spec_N144_0,0.png"><img alt="RST/figs/spec_N144_0,0.png" src="RST/figs/spec_N144_0,0.png" style="width: 55%;" /></a>
+<a class="reference internal image-reference" href="RST/figs/states_N144_0,0_-0,005_0,005.png"><img alt="RST/figs/states_N144_0,0_-0,005_0,005.png" src="RST/figs/states_N144_0,0_-0,005_0,005.png" style="width: 40%;" /></a>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last"><img class="math" src="../_images/math/75e27f04188974063be3230dca208cd495b77ce1.png" alt="N"/> sites at the base of the triangle flake lead to <img class="math" src="../_images/math/75e27f04188974063be3230dca208cd495b77ce1.png" alt="N"/> zero-modes. The zero-modes are uniquely localized on the A sublattice (represented in blue). The existence of the zero-modes are due to <img class="math" src="../_images/math/75e27f04188974063be3230dca208cd495b77ce1.png" alt="N"/> extra A sites.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Charles Poli.
+    </p>
+  </div>
+
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+  
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

@@ -1,0 +1,7 @@
+Thight-Binding graphene
+=============================
+
+.. automodule:: grapheneTB
+    :members:
+    :undoc-members:
+    :show-inheritance:
