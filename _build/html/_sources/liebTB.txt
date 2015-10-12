@@ -1,7 +1,0 @@
-Thight-Binding Lieb
-=========================
-
-.. automodule:: liebTB
-    :members:
-    :undoc-members:
-    :show-inheritance:

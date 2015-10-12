@@ -1,7 +1,0 @@
-chain_tb module
-===============
-
-.. automodule:: chain_tb
-    :members:
-    :undoc-members:
-    :show-inheritance:

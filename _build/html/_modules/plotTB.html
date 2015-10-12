@@ -63,14 +63,24 @@
           
           
               <ul>
-<li class="toctree-l1"><a class="reference internal" href="../latticeTB.html">latticeTB</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../eigTB.html">eigTB</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../plotTB.html">plotTB</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../propagationTB.html">propagationTB</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../indexChain.html">Tight-Binding Chain</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../chainTB.html">chainTB</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../examplesChain1.html">PT-symmetry</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../examplesChain2.html">Zero modes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../indexLatticeTB.html">Lattice TB</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../codeLatticeTB.html">latticeTB code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../indexLatticeTB.html#examples">Examples</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../indexEigTB.html">Eig TB</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../codeEigTB.html">eigTB code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../indexEigTB.html#examples">Examples</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../indexPlotTB.html">PlotTB</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../codePlotTB.html">plotTB code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../indexPlotTB.html#examples">Examples</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../indexPropagationTB.html">Propagation TB</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../codePropagationTB.html">Code Propagation TB</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../indexPropagationTB.html#examples">Examples</a></li>
 </ul>
 </li>
 </ul>
@@ -115,28 +125,32 @@
 <span class="kn">from</span> <span class="nn">matplotlib.legend_handler</span> <span class="kn">import</span> <span class="n">HandlerLine2D</span>
 <span class="kn">import</span> <span class="nn">os</span>
 
-<div class="viewcode-block" id="plotTB"><a class="viewcode-back" href="../plotTB.html#plotTB.plotTB">[docs]</a><span class="k">class</span> <span class="nc">plotTB</span><span class="p">:</span>
+<div class="viewcode-block" id="plotTB"><a class="viewcode-back" href="../codePlotTB.html#plotTB.plotTB">[docs]</a><span class="k">class</span> <span class="nc">plotTB</span><span class="p">:</span>
     <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    Plot the results of class **eigTB**.</span>
 
 <span class="sd">    :param sys: class instance **eigTB**.</span>
+<span class="sd">    :param colors: Default value []. Color plot.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sys</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sys</span><span class="p">,</span> <span class="n">colors</span><span class="o">=</span><span class="p">[]):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">sys</span> <span class="o">=</span> <span class="n">sys</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;b&#39;</span><span class="p">,</span> <span class="s">&#39;r&#39;</span><span class="p">,</span> <span class="s">&#39;g&#39;</span><span class="p">,</span> <span class="s">&#39;y&#39;</span><span class="p">,</span> <span class="s">&#39;m&#39;</span><span class="p">,</span> <span class="s">&#39;k&#39;</span><span class="p">]</span>  <span class="c"># color plot </span>
+        <span class="k">if</span> <span class="n">colors</span> <span class="o">==</span> <span class="p">[]:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;b&#39;</span><span class="p">,</span> <span class="s">&#39;r&#39;</span><span class="p">,</span> <span class="s">&#39;g&#39;</span><span class="p">,</span> <span class="s">&#39;y&#39;</span><span class="p">,</span> <span class="s">&#39;m&#39;</span><span class="p">,</span> <span class="s">&#39;k&#39;</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">colors</span> <span class="o">=</span> <span class="n">colors</span>
+       
 
-<div class="viewcode-block" id="plotTB.plt_lattice"><a class="viewcode-back" href="../plotTB.html#plotTB.plotTB.plt_lattice">[docs]</a>    <span class="k">def</span> <span class="nf">plt_lattice</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ms</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">fs</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="mf">3.</span><span class="p">,</span> <span class="n">plt_hop</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">plt_label</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+<div class="viewcode-block" id="plotTB.plt_lattice"><a class="viewcode-back" href="../codePlotTB.html#plotTB.plotTB.plt_lattice">[docs]</a>    <span class="k">def</span> <span class="nf">plt_lattice</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ms</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">fs</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="mf">3.</span><span class="p">,</span> <span class="n">plt_hop</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">plt_index</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Plot lattice.</span>
 
 <span class="sd">        :param hop: Default value []. Hoppings given by the class **eigTB**. </span>
 <span class="sd">            If not empty, plot the hoppings.</span>
 <span class="sd">        :param ms: Default value 30. Markersize. </span>
-<span class="sd">        :param lw: Default value 5. Linewidth of the hoppings.</span>
+<span class="sd">        :param c: Default value 3. Coefficient. Bond linewidths given by c*hop.</span>
 <span class="sd">        :param fs: Default value 20. Fontsize.</span>
-<span class="sd">        :param c: Default value 3. Coefficient, Bonds linewidth given by c*hop.</span>
-<span class="sd">        :param label: Default value False. Plot site labels.</span>
-<span class="sd">        :param figsize: Default value False. Figsize. </span>
+<span class="sd">        :param plt_index: Default value False. Plot site labels.</span>
+<span class="sd">        :param figsize: Default value None. Figsize. </span>
 
 <span class="sd">        :returns:</span>
 <span class="sd">            * **fig** -- Figure.</span>
@@ -156,24 +170,24 @@
         <span class="n">ax</span><span class="o">.</span><span class="n">set_aspect</span><span class="p">(</span><span class="s">&#39;equal&#39;</span><span class="p">)</span>
         <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">coor</span><span class="p">[</span><span class="s">&#39;x&#39;</span><span class="p">])</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">coor</span><span class="p">[</span><span class="s">&#39;x&#39;</span><span class="p">])</span><span class="o">+</span><span class="mf">0.5</span><span class="p">])</span>
         <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">coor</span><span class="p">[</span><span class="s">&#39;y&#39;</span><span class="p">])</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">coor</span><span class="p">[</span><span class="s">&#39;y&#39;</span><span class="p">])</span><span class="o">+</span><span class="mf">0.5</span><span class="p">])</span>
-        <span class="c"># labels</span>
-        <span class="k">if</span> <span class="n">plt_label</span><span class="p">:</span>
-            <span class="n">labels</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">sites</span><span class="p">)]</span>
-            <span class="k">for</span> <span class="n">l</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">coor</span><span class="p">[</span><span class="s">&#39;x&#39;</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">coor</span><span class="p">[</span><span class="s">&#39;y&#39;</span><span class="p">]):</span>
+        <span class="c"># indices</span>
+        <span class="k">if</span> <span class="n">plt_index</span><span class="p">:</span>
+            <span class="n">indices</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">sites</span><span class="p">)]</span>
+            <span class="k">for</span> <span class="n">l</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">indices</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">coor</span><span class="p">[</span><span class="s">&#39;x&#39;</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">coor</span><span class="p">[</span><span class="s">&#39;y&#39;</span><span class="p">]):</span>
                 <span class="n">plt</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
                             <span class="n">textcoords</span><span class="o">=</span><span class="s">&#39;offset points&#39;</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s">&#39;right&#39;</span><span class="p">,</span>
                             <span class="n">va</span><span class="o">=</span><span class="s">&#39;bottom&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">fs</span><span class="p">)</span>
         <span class="n">plt</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
         <span class="k">return</span> <span class="n">fig</span>
 </div>
-<div class="viewcode-block" id="plotTB.plt_spec"><a class="viewcode-back" href="../plotTB.html#plotTB.plotTB.plt_spec">[docs]</a>    <span class="k">def</span> <span class="nf">plt_spec</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">en_lims</span><span class="o">=</span><span class="p">[],</span> <span class="n">pola</span><span class="o">=</span><span class="p">[],</span> <span class="n">pola_tag</span><span class="o">=</span><span class="s">&#39;&#39;</span><span class="p">,</span> <span class="n">ms</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">fs</span><span class="o">=</span><span class="mi">20</span><span class="p">):</span>
+<div class="viewcode-block" id="plotTB.plt_spec"><a class="viewcode-back" href="../codePlotTB.html#plotTB.plotTB.plt_spec">[docs]</a>    <span class="k">def</span> <span class="nf">plt_spec</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">en_lims</span><span class="o">=</span><span class="p">[],</span> <span class="n">pola_tag</span><span class="o">=</span><span class="s">&#39;&#39;</span><span class="p">,</span> <span class="n">ms</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">fs</span><span class="o">=</span><span class="mi">20</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Plot spectrum (eigenenergies real part (blue circles), </span>
 <span class="sd">        and sublattice polarization if *pola* not empty (red circles).</span>
 
-<span class="sd">        :param en: Eigenenergies.</span>
-<span class="sd">        :param pola: Defaut value []. Output of the class **eigTB**.</span>
-<span class="sd">        :param pola_tag: Tag of the sublattice.</span>
+<span class="sd">        :param en: np.array. Eigenenergies.</span>
+<span class="sd">        :param en_lims: Default value []. Energy limits (size 2).</span>
+<span class="sd">        :param pola_tag: Default value []. Byte type. Tag of the sublattice.</span>
 <span class="sd">        :param ms: Default value 10. Markersize.</span>
 <span class="sd">        :param fs: Default value 20. Fontsize.</span>
 
@@ -184,7 +198,7 @@
         <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">sites</span><span class="o">//</span><span class="mi">2</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">sites</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">sites</span><span class="o">//</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
         <span class="k">if</span> <span class="n">en_lims</span> <span class="o">==</span> <span class="p">[]:</span>
             <span class="n">en_max</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">en</span><span class="o">.</span><span class="n">real</span><span class="p">)</span>
-            <span class="n">ax1</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">([</span><span class="o">-</span><span class="n">en_max</span><span class="o">-</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">en_max</span><span class="o">+</span><span class="mf">0.1</span><span class="p">])</span>
+            <span class="n">ax1</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">([</span><span class="o">-</span><span class="n">en_max</span><span class="o">-</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">en_max</span><span class="o">+</span><span class="mf">0.2</span><span class="p">])</span>
             <span class="n">ind</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">sites</span><span class="p">,</span> <span class="nb">bool</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">ind</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">en</span> <span class="o">&gt;</span> <span class="n">en_lims</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">&amp;</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">en</span> <span class="o">&lt;</span> <span class="n">en_lims</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
@@ -214,20 +228,20 @@
         <span class="n">plt</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
         <span class="k">return</span> <span class="n">fig</span>
 </div>
-<div class="viewcode-block" id="plotTB.plt_intensity1d"><a class="viewcode-back" href="../plotTB.html#plotTB.plotTB.plt_intensity1d">[docs]</a>    <span class="k">def</span> <span class="nf">plt_intensity1d</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">intensity</span><span class="p">,</span> <span class="n">ms</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">fs</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s">&#39;&#39;</span><span class="p">):</span>
+<div class="viewcode-block" id="plotTB.plt_intensity1d"><a class="viewcode-back" href="../codePlotTB.html#plotTB.plotTB.plt_intensity1d">[docs]</a>    <span class="k">def</span> <span class="nf">plt_intensity1d</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">intensity</span><span class="p">,</span> <span class="n">ms</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">fs</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s">&#39;Intensity&#39;</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Plot intensity.</span>
 
-<span class="sd">        :param intensity: Intensity.</span>
+<span class="sd">        :param intensity: np.array. Field intensity.</span>
 <span class="sd">        :param ms: Default value 20. Markersize.</span>
-<span class="sd">        :param lw: Default value 2. Linewith.</span>
+<span class="sd">        :param lw: Default value 2. Linewith, connect sublattice sites.</span>
 <span class="sd">        :param fs: Default value 20. Font size.</span>
-<span class="sd">        :param title: Default value &#39;&#39;. Figure title.</span>
+<span class="sd">        :param title: Default value &#39;Intensity&#39;. Figure title.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
         <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s">&#39;$j$&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="n">fs</span><span class="p">)</span>
         <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s">&#39;$|\psi^{(j)}|^2$&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="n">fs</span><span class="p">)</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s">&#39;Intensity&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="n">fs</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">title</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="n">fs</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">t</span><span class="p">,</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">tags</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">colors</span><span class="p">):</span>
             <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">coor</span><span class="p">[</span><span class="s">&#39;x&#39;</span><span class="p">][</span><span class="bp">self</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">coor</span><span class="p">[</span><span class="s">&#39;tag&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">t</span><span class="p">],</span>
                         <span class="n">intensity</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">coor</span><span class="p">[</span><span class="s">&#39;tag&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">t</span><span class="p">],</span>
@@ -237,11 +251,11 @@
         <span class="n">plt</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
         <span class="k">return</span> <span class="n">fig</span>
 </div>
-<div class="viewcode-block" id="plotTB.plt_intensity"><a class="viewcode-back" href="../plotTB.html#plotTB.plotTB.plt_intensity">[docs]</a>    <span class="k">def</span> <span class="nf">plt_intensity</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">intensity</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">fs</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s">&#39;$|\psi_n|^2$&#39;</span><span class="p">,</span> <span class="n">lims</span><span class="o">=</span><span class="p">[]):</span>
+<div class="viewcode-block" id="plotTB.plt_intensity"><a class="viewcode-back" href="../codePlotTB.html#plotTB.plotTB.plt_intensity">[docs]</a>    <span class="k">def</span> <span class="nf">plt_intensity</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">intensity</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">fs</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s">&#39;$|\psi_{ij}|^2$&#39;</span><span class="p">,</span> <span class="n">lims</span><span class="o">=</span><span class="p">[]):</span>
         <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Plot the intensity. Colormap with identical disk shape.</span>
 
-<span class="sd">        :param intensity: Intensity.</span>
+<span class="sd">        :param intensity: np.array.Field intensity.</span>
 <span class="sd">        :param s: Default value 300. Disk size.</span>
 <span class="sd">        :param fs: Default value 20. Font size.</span>
 <span class="sd">        :param title: Default value &#39;$|\psi_n|^2$&#39;. Title.</span>
@@ -270,17 +284,17 @@
         <span class="n">plt</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
         <span class="k">return</span> <span class="n">fig</span>
 </div>
-<div class="viewcode-block" id="plotTB.plt_intensity_disk"><a class="viewcode-back" href="../plotTB.html#plotTB.plotTB.plt_intensity_disk">[docs]</a>    <span class="k">def</span> <span class="nf">plt_intensity_disk</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">intensity</span><span class="p">,</span> <span class="n">hop</span><span class="o">=</span><span class="p">[],</span> <span class="n">s</span><span class="o">=</span><span class="mf">1000.</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">fs</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> 
-                                       <span class="n">title</span><span class="o">=</span><span class="s">&#39;$|\psi_n|^2$&#39;</span><span class="p">):</span>
+<div class="viewcode-block" id="plotTB.plt_intensity_disk"><a class="viewcode-back" href="../codePlotTB.html#plotTB.plotTB.plt_intensity_disk">[docs]</a>    <span class="k">def</span> <span class="nf">plt_intensity_disk</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">intensity</span><span class="p">,</span> <span class="n">hop</span><span class="o">=</span><span class="p">[],</span> <span class="n">s</span><span class="o">=</span><span class="mf">1000.</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">fs</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> 
+                                       <span class="n">title</span><span class="o">=</span><span class="s">&#39;$|\psi_{ij}|^2$&#39;</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Plot the intensity. Intensity propotional to disk shape.</span>
 
-<span class="sd">        :param intensity: Intensity.</span>
+<span class="sd">        :param intensity: np.array. Intensity.</span>
 <span class="sd">        :param hop: Default value []. Hoppings. </span>
 <span class="sd">        :param s: Default value 1000. Circle size given by *s * intensity*.</span>
-<span class="sd">        :param lw: Default value 1. Line width of the bonds.</span>
+<span class="sd">        :param lw: Default value 1. Bond Line widths.</span>
 <span class="sd">        :param fs: Default value 20. Fontsize.</span>
-<span class="sd">        :param title: Default value &#39;&#39;. Figure title.</span>
+<span class="sd">        :param title: Default value &#39;$|\psi_{ij}|^2$&#39;. Figure title.</span>
 
 <span class="sd">        :returns:</span>
 <span class="sd">            * **fig** -- Figure.</span>
@@ -288,50 +302,49 @@
         <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
         <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s">&#39;$i$&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="n">fs</span><span class="p">)</span>
         <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s">&#39;$j$&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="n">fs</span><span class="p">)</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s">&#39;$|\psi_n|^2$&#39;</span> <span class="o">+</span> <span class="s">&#39; &#39;</span> <span class="o">+</span> <span class="n">add</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="n">fs</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">title</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="n">fs</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">hop</span> <span class="o">!=</span> <span class="p">[]:</span>
             <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">hop</span><span class="p">)):</span> 
-                <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">coor</span><span class="p">[</span><span class="s">&#39;x&#39;</span><span class="p">][</span><span class="n">hop</span><span class="p">[</span><span class="s">&#39;i&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]],</span> <span class="bp">self</span><span class="o">.</span><span class="n">coor</span><span class="p">[</span><span class="s">&#39;x&#39;</span><span class="p">][</span><span class="n">hop</span><span class="p">[</span><span class="s">&#39;j&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]]],</span>
-                            <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">coor</span><span class="p">[</span><span class="s">&#39;y&#39;</span><span class="p">][</span><span class="n">hop</span><span class="p">[</span><span class="s">&#39;i&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]],</span> <span class="bp">self</span><span class="o">.</span><span class="n">coor</span><span class="p">[</span><span class="s">&#39;y&#39;</span><span class="p">][</span><span class="n">hop</span><span class="p">[</span><span class="s">&#39;j&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]]],</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">coor</span><span class="p">[</span><span class="s">&#39;x&#39;</span><span class="p">][</span><span class="bp">self</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">hop</span><span class="p">[</span><span class="s">&#39;i&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]],</span> <span class="bp">self</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">coor</span><span class="p">[</span><span class="s">&#39;x&#39;</span><span class="p">][</span><span class="bp">self</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">hop</span><span class="p">[</span><span class="s">&#39;j&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]]],</span>
+                            <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">coor</span><span class="p">[</span><span class="s">&#39;y&#39;</span><span class="p">][</span><span class="bp">self</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">hop</span><span class="p">[</span><span class="s">&#39;i&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]],</span> <span class="bp">self</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">coor</span><span class="p">[</span><span class="s">&#39;y&#39;</span><span class="p">][</span><span class="bp">self</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">hop</span><span class="p">[</span><span class="s">&#39;j&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]]],</span>
                             <span class="bp">self</span><span class="o">.</span><span class="n">colors</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">lw</span><span class="o">=</span><span class="n">lw</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s">&#39;k&#39;</span><span class="p">)</span>
 
-        <span class="k">for</span> <span class="n">t</span><span class="p">,</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tags</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">colors</span><span class="p">):</span>
-            <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">coor</span><span class="p">[</span><span class="s">&#39;x&#39;</span><span class="p">][</span><span class="bp">self</span><span class="o">.</span><span class="n">coor</span><span class="p">[</span><span class="s">&#39;tag&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">t</span><span class="p">],</span>
-                        <span class="bp">self</span><span class="o">.</span><span class="n">coor</span><span class="p">[</span><span class="s">&#39;y&#39;</span><span class="p">][</span><span class="bp">self</span><span class="o">.</span><span class="n">coor</span><span class="p">[</span><span class="s">&#39;tag&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">t</span><span class="p">],</span>
-                        <span class="n">s</span><span class="o">=</span><span class="n">s</span><span class="o">*</span><span class="n">intensity</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">coor</span><span class="p">[</span><span class="s">&#39;tag&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">t</span><span class="p">],</span>
+        <span class="k">for</span> <span class="n">t</span><span class="p">,</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">tags</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">colors</span><span class="p">):</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">coor</span><span class="p">[</span><span class="s">&#39;x&#39;</span><span class="p">][</span><span class="bp">self</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">coor</span><span class="p">[</span><span class="s">&#39;tag&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">t</span><span class="p">],</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">coor</span><span class="p">[</span><span class="s">&#39;y&#39;</span><span class="p">][</span><span class="bp">self</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">coor</span><span class="p">[</span><span class="s">&#39;tag&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">t</span><span class="p">],</span>
+                        <span class="n">s</span><span class="o">=</span><span class="n">s</span><span class="o">*</span><span class="n">intensity</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">coor</span><span class="p">[</span><span class="s">&#39;tag&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">t</span><span class="p">],</span>
                         <span class="n">c</span><span class="o">=</span><span class="n">c</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
-
         <span class="n">ax</span><span class="o">.</span><span class="n">set_aspect</span><span class="p">(</span><span class="s">&#39;equal&#39;</span><span class="p">)</span>
         <span class="n">ax</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s">&#39;off&#39;</span><span class="p">)</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">coor</span><span class="p">[</span><span class="s">&#39;y&#39;</span><span class="p">])</span><span class="o">-</span><span class="mf">1.5</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">coor</span><span class="p">[</span><span class="s">&#39;y&#39;</span><span class="p">])</span><span class="o">+</span><span class="mf">1.5</span><span class="p">])</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">coor</span><span class="p">[</span><span class="s">&#39;y&#39;</span><span class="p">])</span><span class="o">-</span><span class="mf">1.</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">coor</span><span class="p">[</span><span class="s">&#39;y&#39;</span><span class="p">])</span><span class="o">+</span><span class="mf">1.</span><span class="p">])</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">coor</span><span class="p">[</span><span class="s">&#39;x&#39;</span><span class="p">])</span><span class="o">-</span><span class="mf">1.</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">coor</span><span class="p">[</span><span class="s">&#39;x&#39;</span><span class="p">])</span><span class="o">+</span><span class="mf">1.</span><span class="p">])</span>
         <span class="n">plt</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
         <span class="k">return</span> <span class="n">fig</span>
 
-</div></div>
-<div class="viewcode-block" id="saveFigTB"><a class="viewcode-back" href="../plotTB.html#plotTB.saveFigTB">[docs]</a><span class="k">class</span> <span class="nc">saveFigTB</span><span class="p">():</span>
+ </div></div>
+<div class="viewcode-block" id="saveFigTB"><a class="viewcode-back" href="../codePlotTB.html#plotTB.saveFigTB">[docs]</a><span class="k">class</span> <span class="nc">saveFigTB</span><span class="p">():</span>
     <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">    Create folder and save figures / animations obtained via **plotTB** or **propagationTB**.</span>
+<span class="sd">    Create folder and save figures / animations obtained via </span>
+<span class="sd">    **latticeTB** , **plotTB** or **propagationTB**.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sys</span><span class="p">,</span> <span class="n">hop</span><span class="p">,</span> <span class="n">hop_tags</span><span class="p">,</span> <span class="n">dir_name</span><span class="p">,</span> <span class="n">ext</span><span class="o">=</span><span class="s">&#39;png&#39;</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sys</span><span class="p">,</span> <span class="n">dir_name</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="p">{},</span> <span class="n">ext</span><span class="o">=</span><span class="s">&#39;png&#39;</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">sys</span> <span class="o">=</span> <span class="n">sys</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">hop_tags</span> <span class="o">=</span> <span class="n">hop_tags</span>  <span class="c"># hopping tags</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">hop</span> <span class="o">=</span> <span class="n">hop</span>   <span class="c"># hoppings</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">params</span> <span class="o">=</span> <span class="n">params</span>  <span class="c"># parameters dictionary</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ext</span> <span class="o">=</span> <span class="n">ext</span>  <span class="c"># file extension</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">dir_main</span> <span class="o">=</span> <span class="s">&#39;../TBfig/&#39;</span>  <span class="c"># main directory name</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">dir_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dir_name</span><span class="p">(</span><span class="n">dir_name</span><span class="p">)</span>  <span class="c"># directory name</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">check_dir</span><span class="p">()</span>
 
-<div class="viewcode-block" id="saveFigTB.dir_name"><a class="viewcode-back" href="../plotTB.html#plotTB.saveFigTB.dir_name">[docs]</a>    <span class="k">def</span> <span class="nf">dir_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dir_name</span><span class="p">):</span>
+<div class="viewcode-block" id="saveFigTB.dir_name"><a class="viewcode-back" href="../codePlotTB.html#plotTB.saveFigTB.dir_name">[docs]</a>    <span class="k">def</span> <span class="nf">dir_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dir_name</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">        Set the name of the directory in which the figures </span>
-<span class="sd">        are stored.</span>
+<span class="sd">        Set the name of the directory in which the figures are stored.</span>
 
 <span class="sd">        :param dir_name: String. First part of the directory name. </span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="n">dir_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dir_main</span> <span class="o">+</span> <span class="n">dir_name</span> <span class="o">+</span> <span class="s">&#39;_n{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">sites</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">dir_name</span>
 </div>
-<div class="viewcode-block" id="saveFigTB.check_dir"><a class="viewcode-back" href="../plotTB.html#plotTB.saveFigTB.check_dir">[docs]</a>    <span class="k">def</span> <span class="nf">check_dir</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="saveFigTB.check_dir"><a class="viewcode-back" href="../codePlotTB.html#plotTB.saveFigTB.check_dir">[docs]</a>    <span class="k">def</span> <span class="nf">check_dir</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Create the directory to store the figures exists.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
@@ -340,7 +353,7 @@
         <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dir_name</span><span class="p">):</span>
             <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dir_name</span><span class="p">)</span>
 </div>
-<div class="viewcode-block" id="saveFigTB.file_name"><a class="viewcode-back" href="../plotTB.html#plotTB.saveFigTB.file_name">[docs]</a>    <span class="k">def</span> <span class="nf">file_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="saveFigTB.file_name"><a class="viewcode-back" href="../codePlotTB.html#plotTB.saveFigTB.file_name">[docs]</a>    <span class="k">def</span> <span class="nf">file_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Create the file name.</span>
 
@@ -348,24 +361,35 @@
 <span class="sd">            * **file_name** -- File name.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="n">file_name</span> <span class="o">=</span> <span class="s">&#39;&#39;</span>
-        <span class="k">for</span> <span class="n">t</span><span class="p">,</span> <span class="n">h</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">hop_tags</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">hop</span><span class="p">):</span> 
-            <span class="n">file_name</span> <span class="o">+=</span> <span class="s">&#39;_&#39;</span> <span class="o">+</span> <span class="n">t</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">complex</span><span class="p">(</span><span class="n">h</span><span class="o">+</span><span class="mi">0</span><span class="p">))</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">&#39;.&#39;</span><span class="p">,</span> <span class="s">&#39;,&#39;</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">t</span><span class="p">,</span> <span class="n">o</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">tags</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">on</span><span class="p">):</span> 
             <span class="n">file_name</span> <span class="o">+=</span> <span class="s">&#39;_e&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">t</span><span class="p">)[</span><span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">complex</span><span class="p">(</span><span class="n">o</span><span class="o">+</span><span class="mi">0</span><span class="p">))</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">&#39;.&#39;</span><span class="p">,</span> <span class="s">&#39;,&#39;</span><span class="p">)</span>
-        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">get_params</span><span class="p">()</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-            <span class="k">if</span> <span class="n">val</span> <span class="o">!=</span> <span class="mf">0.</span><span class="p">:</span>
-                <span class="n">file_name</span> <span class="o">+=</span> <span class="s">&#39;_&#39;</span> <span class="o">+</span> <span class="n">key</span> <span class="o">+</span> <span class="s">&#39;_&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">val</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">&#39;.&#39;</span><span class="p">,</span> <span class="s">&#39;,&#39;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">file_name</span> <span class="o">+=</span> <span class="s">&#39;_&#39;</span> <span class="o">+</span> <span class="n">key</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">complex</span><span class="p">(</span><span class="n">val</span><span class="o">+</span><span class="mi">0</span><span class="p">))</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">&#39;.&#39;</span><span class="p">,</span> <span class="s">&#39;,&#39;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">file_name</span>
 </div>
-<div class="viewcode-block" id="saveFigTB.save_fig"><a class="viewcode-back" href="../plotTB.html#plotTB.saveFigTB.save_fig">[docs]</a>    <span class="k">def</span> <span class="nf">save_fig</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fig</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">&#39;&#39;</span><span class="p">):</span>
+<div class="viewcode-block" id="saveFigTB.save_fig"><a class="viewcode-back" href="../codePlotTB.html#plotTB.saveFigTB.save_fig">[docs]</a>    <span class="k">def</span> <span class="nf">save_fig</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fig</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">&#39;&#39;</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Save the figure in the directory defined by the method *dir_name()*.</span>
 
 <span class="sd">        :param fig: Matplotlib fig.</span>
-<span class="sd">        :param name:  Fist part of the file name.</span>
+<span class="sd">        :param name:  String. Fist part of the file name.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="n">name_file</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dir_name</span> <span class="o">+</span> <span class="s">&#39;/&#39;</span> <span class="o">+</span> <span class="n">name</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">file_name</span><span class="p">()</span> <span class="o">+</span> <span class="s">&#39;.&#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">ext</span>
-        <span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">name_file</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ext</span><span class="p">)</span></div></div>
+        <span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">name_file</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ext</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="saveFigTB.save_fig_lat"><a class="viewcode-back" href="../codePlotTB.html#plotTB.saveFigTB.save_fig_lat">[docs]</a>    <span class="k">def</span> <span class="nf">save_fig_lat</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fig</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">&#39;&#39;</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Save the figure in the directory defined by the method *dir_name()*.</span>
+
+<span class="sd">        :param fig: Matplotlib fig.</span>
+<span class="sd">        :param name:  String. First part of the file name.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">name_file</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dir_name</span> <span class="o">+</span> <span class="s">&#39;/&#39;</span> <span class="o">+</span> <span class="n">name</span> <span class="o">+</span> <span class="s">&#39;.&#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">ext</span>
+        <span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">name_file</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ext</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="saveFigTB.save_ani"><a class="viewcode-back" href="../codePlotTB.html#plotTB.saveFigTB.save_ani">[docs]</a>    <span class="k">def</span> <span class="nf">save_ani</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ani</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">&#39;&#39;</span><span class="p">,</span> <span class="n">fps</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
+        <span class="n">name_file</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dir_name</span> <span class="o">+</span> <span class="s">&#39;/&#39;</span> <span class="o">+</span> <span class="n">name</span> <span class="o">+</span> <span class="s">&#39;.mp4&#39;</span>
+        <span class="n">ani</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">name_file</span><span class="p">,</span> <span class="n">fps</span><span class="o">=</span><span class="n">fps</span><span class="p">,</span> <span class="n">extra_args</span><span class="o">=</span><span class="p">[</span><span class="s">&#39;-vcodec&#39;</span><span class="p">,</span> <span class="s">&#39;libx264&#39;</span><span class="p">])</span></div></div>
 </pre></div>
 
           </div>
