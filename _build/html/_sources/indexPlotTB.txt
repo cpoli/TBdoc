@@ -30,12 +30,11 @@ Dimer chain:
     from latticeTB import *
     from eigTB import *
     from plotTB import *
-    from propagationTB import *
-    import numpy as np
+    from propTB import *
 
     nx, ny = 9, 1
     ri = [[0, 0], [1, 0]]
-    tags = np.array([b'a', b'b'])
+    tags = [b'a', b'b']
     lat_chain = latticeTB(tags=tags, ri=ri, nor=2, ang=0)
     lat_chain.get_lattice(nx=nx, ny=ny)
     lat_chain.remove_sites([17])
@@ -52,8 +51,8 @@ Dimer chain:
     fig_spec = plt_chain.plt_spec(pola_tag=b'a')
     fig_zero_mode = plt_chain.plt_intensity1d(zero_mode)
 
-    prop = propagationTB(lat=lat_chain, steps=800, dz=0.05)
-    psi_init=np.ones(eig_chain.sites, 'c16')/np.sqrt(eig_chain.sites)
+    prop = propTB(lat=lat_chain, steps=800, dz=0.05)
+    psi_init= ones(eig_chain.sites, 'c16') / sqrt(eig_chain.sites)
     prop.get_prop(ham=eig_chain.ham, psi_init=psi_init, norm=True)
     fig_prop = prop.plt_prop1d()
 
@@ -92,19 +91,15 @@ Line centrered hexagonal lattice:
     from latticeTB import *
     from eigTB import *
     from plotTB import *
-    from propagationTB import *
-    import numpy as np
     from math import pi
     from collections import OrderedDict
 
     nx, ny = 5, 5
     ri = [[0, 0], [0.5*sqrt(3), 0.5], [0.25*sqrt(3), 0.25], [0.75*sqrt(3), 0.25], [0.5*sqrt(3), 1.]]
-    tags = np.array([b'a', b'b', b'c', b'd', b'e'])
+    tags = [b'a', b'b', b'c', b'd', b'e']
     hlc = latticeTB(tags=tags, ri=ri, nor=sqrt(3), ang=pi/3)
     hlc.get_lattice(nx=nx, ny=ny)
     hlc.remove_dangling(nor_bond=0.5)
-
-
     eig_hlc = eigTB(hlc)
     t1, t2 = 1., .5
     eig_hlc.set_hop([t1, t2])

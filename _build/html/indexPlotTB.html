@@ -79,9 +79,9 @@
 <li class="toctree-l2"><a class="reference internal" href="#examples">Examples</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="indexPropagationTB.html">Propagation TB</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="codePropagationTB.html">Code Propagation TB</a></li>
-<li class="toctree-l2"><a class="reference internal" href="indexPropagationTB.html#examples">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="indexPropTB.html">Prop TB</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="codePropTB.html">Code Prop TB</a></li>
+<li class="toctree-l2"><a class="reference internal" href="indexPropTB.html#examples">Examples</a></li>
 </ul>
 </li>
 </ul>
@@ -138,12 +138,11 @@
 <div class="code highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">latticeTB</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="kn">from</span> <span class="nn">eigTB</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="kn">from</span> <span class="nn">plotTB</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="kn">from</span> <span class="nn">propagationTB</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">propTB</span> <span class="kn">import</span> <span class="o">*</span>
 
 <span class="n">nx</span><span class="p">,</span> <span class="n">ny</span> <span class="o">=</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">1</span>
 <span class="n">ri</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]]</span>
-<span class="n">tags</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">b</span><span class="s">&#39;a&#39;</span><span class="p">,</span> <span class="n">b</span><span class="s">&#39;b&#39;</span><span class="p">])</span>
+<span class="n">tags</span> <span class="o">=</span> <span class="p">[</span><span class="n">b</span><span class="s">&#39;a&#39;</span><span class="p">,</span> <span class="n">b</span><span class="s">&#39;b&#39;</span><span class="p">]</span>
 <span class="n">lat_chain</span> <span class="o">=</span> <span class="n">latticeTB</span><span class="p">(</span><span class="n">tags</span><span class="o">=</span><span class="n">tags</span><span class="p">,</span> <span class="n">ri</span><span class="o">=</span><span class="n">ri</span><span class="p">,</span> <span class="n">nor</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">ang</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 <span class="n">lat_chain</span><span class="o">.</span><span class="n">get_lattice</span><span class="p">(</span><span class="n">nx</span><span class="o">=</span><span class="n">nx</span><span class="p">,</span> <span class="n">ny</span><span class="o">=</span><span class="n">ny</span><span class="p">)</span>
 <span class="n">lat_chain</span><span class="o">.</span><span class="n">remove_sites</span><span class="p">([</span><span class="mi">17</span><span class="p">])</span>
@@ -160,8 +159,8 @@
 <span class="n">fig_spec</span> <span class="o">=</span> <span class="n">plt_chain</span><span class="o">.</span><span class="n">plt_spec</span><span class="p">(</span><span class="n">pola_tag</span><span class="o">=</span><span class="n">b</span><span class="s">&#39;a&#39;</span><span class="p">)</span>
 <span class="n">fig_zero_mode</span> <span class="o">=</span> <span class="n">plt_chain</span><span class="o">.</span><span class="n">plt_intensity1d</span><span class="p">(</span><span class="n">zero_mode</span><span class="p">)</span>
 
-<span class="n">prop</span> <span class="o">=</span> <span class="n">propagationTB</span><span class="p">(</span><span class="n">lat</span><span class="o">=</span><span class="n">lat_chain</span><span class="p">,</span> <span class="n">steps</span><span class="o">=</span><span class="mi">800</span><span class="p">,</span> <span class="n">dz</span><span class="o">=</span><span class="mf">0.05</span><span class="p">)</span>
-<span class="n">psi_init</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">eig_chain</span><span class="o">.</span><span class="n">sites</span><span class="p">,</span> <span class="s">&#39;c16&#39;</span><span class="p">)</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">eig_chain</span><span class="o">.</span><span class="n">sites</span><span class="p">)</span>
+<span class="n">prop</span> <span class="o">=</span> <span class="n">propTB</span><span class="p">(</span><span class="n">lat</span><span class="o">=</span><span class="n">lat_chain</span><span class="p">,</span> <span class="n">steps</span><span class="o">=</span><span class="mi">800</span><span class="p">,</span> <span class="n">dz</span><span class="o">=</span><span class="mf">0.05</span><span class="p">)</span>
+<span class="n">psi_init</span><span class="o">=</span> <span class="n">ones</span><span class="p">(</span><span class="n">eig_chain</span><span class="o">.</span><span class="n">sites</span><span class="p">,</span> <span class="s">&#39;c16&#39;</span><span class="p">)</span> <span class="o">/</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">eig_chain</span><span class="o">.</span><span class="n">sites</span><span class="p">)</span>
 <span class="n">prop</span><span class="o">.</span><span class="n">get_prop</span><span class="p">(</span><span class="n">ham</span><span class="o">=</span><span class="n">eig_chain</span><span class="o">.</span><span class="n">ham</span><span class="p">,</span> <span class="n">psi_init</span><span class="o">=</span><span class="n">psi_init</span><span class="p">,</span> <span class="n">norm</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 <span class="n">fig_prop</span> <span class="o">=</span> <span class="n">prop</span><span class="o">.</span><span class="n">plt_prop1d</span><span class="p">()</span>
 
@@ -182,19 +181,15 @@
 <div class="code highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">latticeTB</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="kn">from</span> <span class="nn">eigTB</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="kn">from</span> <span class="nn">plotTB</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="kn">from</span> <span class="nn">propagationTB</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">pi</span>
 <span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">OrderedDict</span>
 
 <span class="n">nx</span><span class="p">,</span> <span class="n">ny</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">5</span>
 <span class="n">ri</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.5</span><span class="o">*</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span> <span class="mf">0.5</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.25</span><span class="o">*</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span> <span class="mf">0.25</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.75</span><span class="o">*</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span> <span class="mf">0.25</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.5</span><span class="o">*</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span> <span class="mf">1.</span><span class="p">]]</span>
-<span class="n">tags</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">b</span><span class="s">&#39;a&#39;</span><span class="p">,</span> <span class="n">b</span><span class="s">&#39;b&#39;</span><span class="p">,</span> <span class="n">b</span><span class="s">&#39;c&#39;</span><span class="p">,</span> <span class="n">b</span><span class="s">&#39;d&#39;</span><span class="p">,</span> <span class="n">b</span><span class="s">&#39;e&#39;</span><span class="p">])</span>
+<span class="n">tags</span> <span class="o">=</span> <span class="p">[</span><span class="n">b</span><span class="s">&#39;a&#39;</span><span class="p">,</span> <span class="n">b</span><span class="s">&#39;b&#39;</span><span class="p">,</span> <span class="n">b</span><span class="s">&#39;c&#39;</span><span class="p">,</span> <span class="n">b</span><span class="s">&#39;d&#39;</span><span class="p">,</span> <span class="n">b</span><span class="s">&#39;e&#39;</span><span class="p">]</span>
 <span class="n">hlc</span> <span class="o">=</span> <span class="n">latticeTB</span><span class="p">(</span><span class="n">tags</span><span class="o">=</span><span class="n">tags</span><span class="p">,</span> <span class="n">ri</span><span class="o">=</span><span class="n">ri</span><span class="p">,</span> <span class="n">nor</span><span class="o">=</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span> <span class="n">ang</span><span class="o">=</span><span class="n">pi</span><span class="o">/</span><span class="mi">3</span><span class="p">)</span>
 <span class="n">hlc</span><span class="o">.</span><span class="n">get_lattice</span><span class="p">(</span><span class="n">nx</span><span class="o">=</span><span class="n">nx</span><span class="p">,</span> <span class="n">ny</span><span class="o">=</span><span class="n">ny</span><span class="p">)</span>
 <span class="n">hlc</span><span class="o">.</span><span class="n">remove_dangling</span><span class="p">(</span><span class="n">nor_bond</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
-
-
 <span class="n">eig_hlc</span> <span class="o">=</span> <span class="n">eigTB</span><span class="p">(</span><span class="n">hlc</span><span class="p">)</span>
 <span class="n">t1</span><span class="p">,</span> <span class="n">t2</span> <span class="o">=</span> <span class="mf">1.</span><span class="p">,</span> <span class="o">.</span><span class="mi">5</span>
 <span class="n">eig_hlc</span><span class="o">.</span><span class="n">set_hop</span><span class="p">([</span><span class="n">t1</span><span class="p">,</span> <span class="n">t2</span><span class="p">])</span>

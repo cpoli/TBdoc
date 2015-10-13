@@ -1,9 +1,9 @@
 
 
-Code Propagation TB
+Code Prop TB
 ====================
 
-.. automodule:: propagationTB
+.. automodule:: propTB
     :members:
     :undoc-members:
     :show-inheritance:

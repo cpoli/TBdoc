@@ -79,9 +79,9 @@
 <li class="toctree-l2"><a class="reference internal" href="indexPlotTB.html#examples">Examples</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="indexPropagationTB.html">Propagation TB</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="codePropagationTB.html">Code Propagation TB</a></li>
-<li class="toctree-l2"><a class="reference internal" href="indexPropagationTB.html#examples">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="indexPropTB.html">Prop TB</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="codePropTB.html">Code Prop TB</a></li>
+<li class="toctree-l2"><a class="reference internal" href="indexPropTB.html#examples">Examples</a></li>
 </ul>
 </li>
 </ul>
@@ -153,14 +153,13 @@
 <span class="kn">from</span> <span class="nn">latticeTB</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="kn">from</span> <span class="nn">eigTB</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="kn">from</span> <span class="nn">plotTB</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">pi</span>
 <span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">OrderedDict</span>
 
 <span class="c"># lattice</span>
 <span class="n">nx</span><span class="p">,</span> <span class="n">ny</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">5</span>
 <span class="n">ri</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]]</span>
-<span class="n">tags</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">b</span><span class="s">&#39;a&#39;</span><span class="p">])</span>
+<span class="n">tags</span> <span class="o">=</span> <span class="p">[</span><span class="n">b</span><span class="s">&#39;a&#39;</span><span class="p">]</span>
 <span class="n">lat</span> <span class="o">=</span> <span class="n">latticeTB</span><span class="p">(</span><span class="n">tags</span><span class="o">=</span><span class="n">tags</span><span class="p">,</span> <span class="n">ri</span><span class="o">=</span><span class="n">ri</span><span class="p">,</span> <span class="n">nor</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ang</span><span class="o">=</span><span class="n">pi</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
 <span class="n">lat</span><span class="o">.</span><span class="n">get_lattice</span><span class="p">(</span><span class="n">nx</span><span class="o">=</span><span class="n">nx</span><span class="p">,</span> <span class="n">ny</span><span class="o">=</span><span class="n">ny</span><span class="p">)</span>
 <span class="n">fig_lat</span> <span class="o">=</span> <span class="n">lat</span><span class="o">.</span><span class="n">plt_lattice</span><span class="p">(</span><span class="n">ms</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span> <span class="n">plt_label</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>

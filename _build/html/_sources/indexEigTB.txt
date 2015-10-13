@@ -41,14 +41,13 @@ Lattice creation:
     from latticeTB import *
     from eigTB import *
     from plotTB import *
-    import numpy as np
     from math import pi
     from collections import OrderedDict
 
     # lattice
     nx, ny = 5, 5
     ri = [[0, 0]]
-    tags = np.array([b'a'])
+    tags = [b'a']
     lat = latticeTB(tags=tags, ri=ri, nor=1, ang=pi/2)
     lat.get_lattice(nx=nx, ny=ny)
     fig_lat = lat.plt_lattice(ms=18, plt_label=True)

@@ -9,14 +9,14 @@ Tight-Binding
     indexLatticeTB
     indexEigTB
     indexPlotTB
-    indexPropagationTB
+    indexPropTB
 
-**TB** is a package providing a **Python** implementation of **Tight-Binding** models. It can be used to build up and solve tight-binding models with complex-valued onsite energies and hoppings. 
+**TB** is a module providing a **Python** implementation of **Tight-Binding** models. It can be used to build up and solve tight-binding models with complex-valued onsite energies and hoppings. 
 
 Main features of TB:
 
     * Written in fully vectorized **Numpy**.
-    * Easy lattice shape selection.
+    * Easy lattice shape modification.
     * Easy implementation of next neighbors hoppings, next next neighbors hoppings, etc..
     * Time evolution (linear and non-linear)
     * Easy implementation of magnetic field.
@@ -33,7 +33,14 @@ Main features of TB:
 Installation
 ----------------
 
-**TB** is available at https://github.com/cpoli/python/TB
+**TB** module composed of:
+
+    * latticeTB
+    * eigTB
+    * plotTB
+    * propTB
+
+is available at https://github.com/cpoli/python/TB
 
 To use **TB**,  you need to install the programming language python and three additional packages:
 
@@ -42,7 +49,7 @@ To use **TB**,  you need to install the programming language python and three ad
     * scipy
     * matplotlib
 
-See https://cpoli.github.io/python-doc.html for details.
+See https://cpoli.github.io/python-doc.html for Python installation details.
 
 Feedback
 -----------------

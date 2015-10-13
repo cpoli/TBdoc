@@ -1,17 +1,17 @@
 :tocdepth: 2
 
-Propagation TB
+Prop TB
 ========================
 
 .. toctree::
     :hidden:
 
-    codePropagationTB
+    codePropTB
 
 
-**propagationTB** gets the Time Evolution.
+**propTB** gets the field Time Evolution.
 
-**propagationTB** can:
+**propTB** can:
 
     * consider linear time dependent Schrödinger equation. 
 
@@ -28,14 +28,13 @@ Lieb Lattice - Passive amplication of a zero-mode:
     from latticeTB import *
     from eigTB import *
     from plotTB import *
-    from propagationTB import *
-    import numpy as np
+    from propTB import *
     from math import pi
     from collections import OrderedDict
     
     nx, ny = 9, 9
     ri = [[0, 0], [1, 0], [0, 1]]
-    tags = np.array([b'a', b'b', b'c'])
+    tags = [b'a', b'b', b'c']
     lat_lieb = latticeTB(tags=tags, ri=ri, nor=2, ang=pi/2)
     lat_lieb.get_lattice(nx=nx, ny=ny)
     lat_lieb.remove_dangling(nor_bond=1.)
@@ -53,8 +52,8 @@ Lieb Lattice - Passive amplication of a zero-mode:
     fig_spec = plt_lieb.plt_spec(pola_tag=b'a')
     fig_zero_mode = plt_lieb.plt_intensity(zero_mode)
 
-    prop = propagationTB(lat=lat_lieb, steps=150, dz=0.05)
-    psi_init=np.ones(eig_lieb.sites, 'c16')/np.sqrt(eig_lieb.sites)
+    prop = propTB(lat=lat_lieb, steps=150, dz=0.05)
+    psi_init = ones(eig_lieb.sites, 'c16') / sqrt(eig_lieb.sites)
     prop.get_prop(ham=eig_lieb.ham, psi_init=psi_init, norm=True)
     ani = prop.get_ani(s=200)
 

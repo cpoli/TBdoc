@@ -9,7 +9,7 @@ Lattice TB
     codeLatticeTB
 
 
-**latticeTB** creates finite two dimensional lattices.  **latticeTB** is the first step of the **TB package**.
+**latticeTB** creates finite two dimensional lattices.
 
 **latticeTB** can:
 
@@ -36,14 +36,11 @@ Dimer chain
 .. code::
 
     from latticeTB import *
-    from eigTB import *
     from plotTB import *
-    from propagationTB import *
-    import numpy as np
 
     nx, ny = 9, 1
     ri = [[0, 0], [1, 0]]
-    tags = np.array([b'a', b'b'])
+    tags = [b'a', b'b']
     lat_chain = latticeTB(tags=tags, ri=ri, nor=2, ang=0)
     lat_chain.get_lattice(nx=nx, ny=ny)
     fig_chain = lat_chain.plt_lattice(ms=10, figsize=(8, 1))
@@ -63,15 +60,12 @@ Face centered square
 .. code::
 
     from latticeTB import *
-    from eigTB import *
     from plotTB import *
-    from propagationTB import *
-    import numpy as np
     from math import pi
 
     nx, ny = 10, 10
     ri = [[0, 0], [1, 1]]
-    tags = np.array([b'a', b'b'])
+    tags = [b'a', b'b']
     lat_fcs = latticeTB(tags=tags, ri=ri, nor=2, ang=pi/2)
     lat_fcs.get_lattice(nx=nx, ny=ny)
     fig_fcs = lat_fcs.plt_lattice(ms=10)
@@ -89,15 +83,12 @@ Lieb lattice
 .. code::
 
     from latticeTB import *
-    from eigTB import *
     from plotTB import *
-    from propagationTB import *
-    import numpy as np
     from math import pi
 
     nx, ny = 6, 6
     ri = [[0, 0], [1, 0], [0, 1]]
-    tags = np.array([b'a', b'b', b'c'])
+    tags = [b'a', b'b', b'c']
     lat_lieb = latticeTB(tags=tags, ri=ri, nor=2, ang=pi/2)
     lat_lieb.get_lattice(nx=nx, ny=ny)
     fig_lieb = lat_lieb.plt_lattice(ms=10)
@@ -121,15 +112,12 @@ Graphene
 .. code::
 
     from latticeTB import *
-    from eigTB import *
     from plotTB import *
-    from propagationTB import *
-    import numpy as np
     from math import pi
 
     nx, ny = 7, 7
     ri = [[0, 0], [0.5*sqrt(3), 0.5]]
-    tags = np.array([b'a', b'b'])
+    tags = [b'a', b'b']
     lat_graphene = latticeTB(tags=tags, ri=ri, nor=sqrt(3), ang=pi/3)
     lat_graphene.get_lattice(nx=nx, ny=ny)
     lat_graphene.remove_dangling(nor_bond=1.)
@@ -154,15 +142,12 @@ Kagome
 .. code::
 
     from latticeTB import *
-    from eigTB import *
     from plotTB import *
-    from propagationTB import *
-    import numpy as np
     from math import pi
 
     nx, ny = 7, 7
     ri = [[0, 0], [1, 0], [1/2., sqrt(3)/2]]
-    tags = np.array([b'a', b'b', b'c'])
+    tags = [b'a', b'b', b'c']
     lat_kagome = latticeTB(tags=tags, ri=ri, nor=2, ang=pi/3)
     lat_kagome.get_lattice(nx=nx, ny=ny)
     fig_kagome = lat_kagome.plt_lattice(ms=10)
@@ -181,15 +166,12 @@ Hexagon line centered
 .. code::
 
     from latticeTB import *
-    from eigTB import *
     from plotTB import *
-    from propagationTB import *
-    import numpy as np
     from math import pi
 
     nx, ny = 5, 5
     ri = [[0, 0], [0.5*sqrt(3), 0.5], [0.25*sqrt(3), 0.25], [0.75*sqrt(3), 0.25], [0.5*sqrt(3), 1.]]
-    tags = np.array([b'a', b'b', b'c', b'd', b'e'])
+    tags = [b'a', b'b', b'c', b'd', b'e']
     hexa_lc = latticeTB(tags=tags, ri=ri, nor=sqrt(3), ang=pi/3)
     hexa_lc.get_lattice(nx=nx, ny=ny)
     fig_hexa_lc = hexa_lc.plt_lattice(colors=['b', 'b', 'r', 'r', 'r'], ms=10)
