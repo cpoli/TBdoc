@@ -52,7 +52,7 @@ Dimer chain:
     fig_zero_mode = plt_chain.plt_intensity1d(zero_mode)
 
     prop = propTB(lat=lat_chain, steps=800, dz=0.05)
-    psi_init= ones(eig_chain.sites, 'c16') / sqrt(eig_chain.sites)
+    psi_init = np.ones(eig_chain.sites, 'c16') / np.sqrt(eig_chain.sites)
     prop.get_prop(ham=eig_chain.ham, psi_init=psi_init, norm=True)
     fig_prop = prop.plt_prop1d()
 

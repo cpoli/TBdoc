@@ -53,7 +53,7 @@ Lieb Lattice - Passive amplication of a zero-mode:
     fig_zero_mode = plt_lieb.plt_intensity(zero_mode)
 
     prop = propTB(lat=lat_lieb, steps=150, dz=0.05)
-    psi_init = ones(eig_lieb.sites, 'c16') / sqrt(eig_lieb.sites)
+    psi_init = np.ones(eig_lieb.sites, 'c16') / np.sqrt(eig_lieb.sites)
     prop.get_prop(ham=eig_lieb.ham, psi_init=psi_init, norm=True)
     ani = prop.get_ani(s=200)
 

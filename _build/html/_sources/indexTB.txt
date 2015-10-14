@@ -11,9 +11,16 @@ Tight-Binding
     indexPlotTB
     indexPropTB
 
-**TB** is a module providing a **Python** implementation of **Tight-Binding** models. It can be used to build up and solve tight-binding models with complex-valued onsite energies and hoppings. 
+**TB** is a **Python** module of **Tight-Binding** models. **TB**  builds up and solves finite tight-binding models with complex-valued onsite energies and complex-valued hoppings. 
 
-Main features of TB:
+**TB** is composed of:
+
+    * latticeTB
+    * eigTB
+    * plotTB
+    * propTB
+
+Main features of **TB**:
 
     * Written in fully vectorized **Numpy**.
     * Easy lattice shape modification.
@@ -33,14 +40,7 @@ Main features of TB:
 Installation
 ----------------
 
-**TB** module composed of:
-
-    * latticeTB
-    * eigTB
-    * plotTB
-    * propTB
-
-is available at https://github.com/cpoli/python/TB
+**TB** is available at https://github.com/cpoli/TB
 
 To use **TB**,  you need to install the programming language python and three additional packages:
 
