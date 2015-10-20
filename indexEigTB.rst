@@ -73,6 +73,7 @@ Tight-Binding eigenvalue problem:
             plot = plotTB(eig) 
             fig_lat_bonds = plot.plt_lattice(ms=18)
             fig_spec = plot.plt_spec()
+            plt.show()
             # save 
             save = saveFigTB(sys=eig, dir_name='square', params={'t1': t1})
             save.save_fig_lat(fig_lat, 'lat')
@@ -101,6 +102,7 @@ Tight-Binding eigenvalue problem:
             fig_lat_bonds = plot.plt_lattice(ms=18)
             fig_spec = plot.plt_spec()
             fig_zero = plot.plt_intensity(zero)
+            plt.show()
             # save 
             save = saveFigTB(sys=eig, dir_name='square', params=OrderedDict([('t1', t1), ('t2', t2)]))
             save.save_fig(fig_lat_bonds, 'lattice')
@@ -134,6 +136,7 @@ Tight-Binding eigenvalue problem:
             plot = plotTB(eig) 
             fig_lat_bonds = plot.plt_lattice(ms=18)
             fig_spec = plot.plt_spec()
+            plt.show()
             # save 
             save = saveFigTB(sys=eig, dir_name='square', params=OrderedDict([('t1', t1), ('t2', t2), ('t3', t3)]))
             save.save_fig(fig_lat_bonds, 'lattice')
@@ -158,6 +161,7 @@ Tight-Binding eigenvalue problem:
             plot = plotTB(eig) 
             fig_lat_bonds = plot.plt_lattice(ms=18)
             fig_spec = plot.plt_spec()
+            plt.show()
             # save 
             save = saveFigTB(sys=eig, dir_name='square', params=OrderedDict([('t1', t1), ('t2', t2), ('t3', t3), ('t4', t4)]))
             save.save_fig(fig_lat_bonds, 'lattice')

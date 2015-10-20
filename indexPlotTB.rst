@@ -55,14 +55,13 @@ Dimer chain:
     psi_init = np.ones(eig_chain.sites, 'c16') / np.sqrt(eig_chain.sites)
     prop.get_prop(ham=eig_chain.ham, psi_init=psi_init, norm=True)
     fig_prop = prop.plt_prop1d()
+    plt.show()
 
     save_chain = saveFigTB(sys=eig_chain, dir_name='chain', params={'t1': t1})
     save_chain.save_fig_lat(fig_lat, 'lattice')
     save_chain.save_fig(fig_spec, 'spec')
     save_chain.save_fig(fig_zero_mode, 'zero_mode')
     save_chain.save_fig(fig_prop, 'prop')
-
-    plt.show()
 
 
 .. image:: ../TBfig/chain_n17/lattice.png
@@ -118,6 +117,7 @@ Line centrered hexagonal lattice:
     fig_flat_band_hlc = plt_hlc.plt_intensity(flat_band, title='')
     fig_banch_pos_hlc = plt_hlc.plt_intensity(branch_pos, title='')
     fig_branch_neg_disk_hlc = plt_hlc.plt_intensity_disk(branch_neg, s=2000, title='')
+    plt.show()
 
     save_hlc = saveFigTB(sys=hlc, dir_name='hexa_lc', params=OrderedDict([('t1', t1), ('t2', t2)]))
     save_hlc.save_fig_lat(fig_lat_hlc, 'lattice')
@@ -127,8 +127,6 @@ Line centrered hexagonal lattice:
     save_hlc.save_fig(fig_flat_band_hlc, 'flat_band')
     save_hlc.save_fig(fig_banch_pos_hlc, 'banch_pos')
     save_hlc.save_fig(fig_branch_neg_disk_hlc, 'banch_neg_disk')
-
-    plt.show()
 
 
 .. image:: ../TBfig/hexa_lc_n111/lattice.png

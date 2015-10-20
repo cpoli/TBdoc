@@ -40,9 +40,9 @@ Lieb Lattice - Passive amplication of a zero-mode:
     lat_lieb.remove_dangling(nor_bond=1.)
 
     eig_lieb = eigTB(lat_lieb)
-    t1, t2 = 1., .2
+    t1, t2 = 1., 2.
     eig_lieb.set_hop([t1, t2])
-    eig_lieb.set_onsite([0, -2j, -2j])
+    eig_lieb.set_onsite([0, -.2j, -.2j])
     eig_lieb.get_ham()
     eig_lieb.get_eig(eigenvec=True)
     zero_mode = eig_lieb.get_state_pola(pola_tag=b'a')
@@ -56,6 +56,7 @@ Lieb Lattice - Passive amplication of a zero-mode:
     psi_init = np.ones(eig_lieb.sites, 'c16') / np.sqrt(eig_lieb.sites)
     prop.get_prop(ham=eig_lieb.ham, psi_init=psi_init, norm=True)
     ani = prop.get_ani(s=200)
+    plt.show()
 
     save_lieb = saveFigTB(sys=eig_lieb, dir_name='lieb', 
                                           params=OrderedDict([('t1', t1), ('t2', t2)]))
@@ -63,8 +64,6 @@ Lieb Lattice - Passive amplication of a zero-mode:
     save_lieb.save_fig_lat(fig_spec, 'spec')
     save_lieb.save_fig(fig_zero_mode, 'zero_mode')
     save_lieb.save_ani(ani, 'ani')
-
-    plt.show()
 
 
 .. image:: ../TBfig/lieb_n225/lat.png

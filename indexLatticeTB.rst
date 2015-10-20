@@ -44,9 +44,9 @@ Dimer chain
     lat_chain = latticeTB(tags=tags, ri=ri, nor=2, ang=0)
     lat_chain.get_lattice(nx=nx, ny=ny)
     fig_chain = lat_chain.plt_lattice(ms=10, figsize=(8, 1))
+    plt.show()
     save_chain = saveFigTB(sys=lat_chain, dir_name='chain')
     save_chain.save_fig_lat(fig_chain, 'lattice')
-    plt.show()
 
 
 .. image:: ../TBfig/chain_n18/lattice.png
@@ -69,9 +69,9 @@ Face centered square
     lat_fcs = latticeTB(tags=tags, ri=ri, nor=2, ang=pi/2)
     lat_fcs.get_lattice(nx=nx, ny=ny)
     fig_fcs = lat_fcs.plt_lattice(ms=10)
+    plt.show()
     save_fcs = saveFigTB(sys=lat_fcs, dir_name='fc_square')
     save_fcs.save_fig_lat(fig_fcs, 'lattice')
-    plt.show()
 
 .. image:: ../TBfig/square_fc_n200/lattice.png
     :height: 100px
@@ -94,10 +94,10 @@ Lieb lattice
     fig_lieb = lat_lieb.plt_lattice(ms=10)
     lat_lieb.remove_dangling(nor_bond=1.)
     fig_lieb_dang = lat_lieb.plt_lattice(ms=10)
+    plt.show()
     save_lieb = saveFigTB(sys=fig_lieb_dang, dir_name='lieb')
     save_lieb.save_fig_lat(fig_lieb, 'lattice')
     save_lieb.save_fig_lat(fig_lieb_dang, 'lattice_dang')
-    plt.show()
 
 .. image:: ../TBfig/lieb_n96/lattice.png
     :height: 100px
@@ -124,10 +124,11 @@ Graphene
     fig_graphene = lat_graphene.plt_lattice(ms=10, plt_label=True)
     lat_graphene.remove_sites(44)
     fig_graphene_rem = lat_graphene.plt_lattice(ms=10)
+    plt.show()
     save_graphene = saveFigTB(sys=lat_graphene, dir_name='graphene')
     save_graphene.save_fig_lat(fig_graphene, 'lattice')
     save_graphene.save_fig_lat(fig_graphene_rem, 'lattice_rem')
-    plt.show()
+
 
 .. image:: ../TBfig/graphene_n95/lattice.png
     :height: 100px
@@ -151,9 +152,9 @@ Kagome
     lat_kagome = latticeTB(tags=tags, ri=ri, nor=2, ang=pi/3)
     lat_kagome.get_lattice(nx=nx, ny=ny)
     fig_kagome = lat_kagome.plt_lattice(ms=10)
+    plt.show()
     save_kagome = saveFigTB(sys=lat_kagome, dir_name='kagome')
     save_kagome.save_fig_lat(fig_kagome, 'lattice')
-    plt.show()
 
 .. image:: ../TBfig/kagome_n147/lattice.png
     :height: 100px
@@ -177,10 +178,10 @@ Hexagon line centered
     fig_hexa_lc = hexa_lc.plt_lattice(colors=['b', 'b', 'r', 'r', 'r'], ms=10)
     hexa_lc.remove_dangling(nor_bond=0.5)
     fig_hexa_lc_dang = hexa_lc.plt_lattice(colors=['b', 'b', 'r', 'r', 'r'], ms=10)
+    plt.show()
     save_hlc = saveFigTB(sys=hexa_lc, dir_name='hexa_lc')
     save_hlc.save_fig_lat(fig_hexa_lc, 'lat')
     save_hlc.save_fig_lat(fig_hexa_lc_dang, 'lat_dang')
-    plt.show()
 
 
 .. image:: ../TBfig/hexa_lc_n111/lat.png
